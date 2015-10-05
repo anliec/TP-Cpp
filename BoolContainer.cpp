@@ -29,7 +29,8 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 int BoolContainer::Afficher()
 // Algorithme :
-//
+// Affiche les tailles utilisées et disponibles
+// Affiche une à une les valeurs du tableau
 {
     cout << "la taille utilisée est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl << endl;
     for(int i=0 ; i<tailleUtilisee ; i++)
@@ -41,7 +42,8 @@ int BoolContainer::Afficher()
 
 int BoolContainer::Ajouter(bool b)
 // Algorithme :
-//
+// Ajustement de la taille du tableau si elle n'est pas suffisante
+// Mise à jour des variables
 {
     if(tailleDispo == tailleUtilisee)
     {
@@ -57,7 +59,9 @@ int BoolContainer::Ajouter(bool b)
 
 int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 // Algorithme :
-//
+// utilisation d'un pointeur pointant vers le nouveau tableau
+// copie un à un des élements de l'ancien vers le nouveau tableau sauf celles à éliminer
+// destruction de l'ancien tableau
 {
     if(debut+longueur >= tailleUtilisee){
         return 102; //code erreur: l'utilisateur demande de supprimer des éléments en dehors de la collection
@@ -79,7 +83,9 @@ int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 
 int BoolContainer::Ajuster(unsigned int nouvelletaille)
 // Algorithme :
-//
+// utilisation d'un pointeur tampon qui permet de conserver le tableau d'origine
+// copie une à une des valeurs du tableau vers un nouveau tableau de taille ajustée
+// destruction du tableau d'origine via le pointeur tampon
 {
     if(nouvelletaille <= tailleUtilisee)
     {
@@ -98,7 +104,8 @@ int BoolContainer::Ajuster(unsigned int nouvelletaille)
 
 int BoolContainer::Reunir(BoolContainer boolContainerBis)
 // Algorithme :
-//
+// Appel à la fonction d'ajustement de taille
+// copie valeur par aleur des variables du tableau du BoolContainer passé en paramètre vers tab
 {
     if(Ajuster(tailleDispo+1) != 0)
     {
@@ -144,7 +151,7 @@ BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvell
 
 BoolContainer::BoolContainer (bool newTab[],unsigned int newTaille) : tailleDispo(newTaille), tailleUtilisee(newTaille)
 // Algorithme :
-//
+// copie valeur par valeur du tableau passé en paramètre vers tab
 {
 #ifdef MAP
     cout << "Appel au constructeur de <BoolContainer>" << endl;
@@ -164,7 +171,7 @@ BoolContainer::~BoolContainer ( )
     #ifdef MAP
     cout << "Appel au destructeur de <BoolContainer>" << endl;
     #endif
-    delete tab;
+    delete [] tab;
 } //----- Fin de ~BoolContainer
 
 
