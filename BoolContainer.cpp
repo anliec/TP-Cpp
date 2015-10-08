@@ -1,15 +1,15 @@
 /*************************************************************************
                            BoolContainer  -  description
                              -------------------
-    début                : 05/10/2015
+    dï¿½but                : 05/10/2015
     copyright            : (C) 2015 par Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//---------- Réalisation de la classe <BoolContainer> (fichier BoolContainer.cpp) --
+//---------- Rï¿½alisation de la classe <BoolContainer> (fichier BoolContainer.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systï¿½me
 using namespace std;
 #include <iostream>
 
@@ -20,57 +20,57 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privï¿½s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-int BoolContainer::Afficher()
+//----------------------------------------------------- Mï¿½thodes publiques
+int BoolContainer::Afficher() const
 // Algorithme :
-// Affiche les tailles utilisées et disponibles
-// Affiche une à une les valeurs du tableau
+// Affiche les tailles utilisï¿½es et disponibles
+// Affiche une ï¿½ une les valeurs du tableau
 {
-    cout << "la taille utilisée est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl << endl;
+    cout << "la taille utilisï¿½e est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl << endl;
     for(int i=0 ; i<tailleUtilisee ; i++)
     {
-        cout << " -valeur n°" << i << ": " << tab[i] << endl;
+        cout << " -valeur nï¿½" << i << ": " << tab[i] << endl;
     }
     return 0;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 int BoolContainer::Ajouter(bool b)
 // Algorithme :
 // Ajustement de la taille du tableau si elle n'est pas suffisante
-// Mise à jour des variables
+// Mise ï¿½ jour des variables
 {
     if(tailleDispo == tailleUtilisee)
     {
         if(Ajuster(tailleDispo+1) != 0)
         {
-            return 101; //code erreur: échec du redimentionnement du tableau
+            return 101; //code erreur: ï¿½chec du redimentionnement du tableau
         }
     }
     tab[tailleUtilisee]=b;
     tailleUtilisee++;
     return 0;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 // Algorithme :
 // utilisation d'un pointeur pointant vers le nouveau tableau
-// copie un à un des élements de l'ancien vers le nouveau tableau sauf celles à éliminer
+// copie un ï¿½ un des ï¿½lements de l'ancien vers le nouveau tableau sauf celles ï¿½ ï¿½liminer
 // destruction de l'ancien tableau
 {
     if(debut+longueur >= tailleUtilisee){
-        return 102; //code erreur: l'utilisateur demande de supprimer des éléments en dehors de la collection
+        return 102; //code erreur: l'utilisateur demande de supprimer des ï¿½lï¿½ments en dehors de la collection
     }
     bool * nouveauTableau = new bool[tailleUtilisee-longueur];
     int positionCourante = 0;
     for(int i=0 ; i<tailleUtilisee ; i++)
     {
-        if(i<debut || i>debut+longueur)
+        if(i<debut || i>=debut+longueur)
         {
             nouveauTableau[positionCourante] = tab[i];
             positionCourante++;
@@ -78,18 +78,20 @@ int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
     }
     delete [] tab;
     tab = nouveauTableau;
+    tailleUtilisee -= longueur;
+    tailleDispo = tailleUtilisee;
     return 0;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 int BoolContainer::Ajuster(unsigned int nouvelletaille)
 // Algorithme :
 // utilisation d'un pointeur tampon qui permet de conserver le tableau d'origine
-// copie une à une des valeurs du tableau vers un nouveau tableau de taille ajustée
+// copie une ï¿½ une des valeurs du tableau vers un nouveau tableau de taille ajustï¿½e
 // destruction du tableau d'origine via le pointeur tampon
 {
     if(nouvelletaille <= tailleUtilisee)
     {
-        return 100; //code erreur: ajustement impossible à cette taille de manière intuitive
+        return 100; //code erreur: ajustement impossible ï¿½ cette taille de maniï¿½re intuitive
     }
     bool * ansTab = tab;
     tab = new bool[nouvelletaille];
@@ -100,26 +102,27 @@ int BoolContainer::Ajuster(unsigned int nouvelletaille)
     }
     delete [] ansTab;
     return 0;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
-int BoolContainer::Reunir(BoolContainer boolContainerBis)
+int BoolContainer::Reunir(const BoolContainer & boolContainerBis)
 // Algorithme :
-// Appel à la fonction d'ajustement de taille
-// copie valeur par aleur des variables du tableau du BoolContainer passé en paramètre vers tab
+// Appel ï¿½ la fonction d'ajustement de taille
+// copie valeur par aleur des variables du tableau du BoolContainer passï¿½ en paramï¿½tre vers tab
 {
-    if(Ajuster(tailleDispo+1) != 0)
+    if(Ajuster(tailleUtilisee+boolContainerBis.tailleUtilisee) != 0)
     {
-        return 101; //code erreur: échec du redimentionnement du tableau
+        return 101; //code erreur: ï¿½chec du redimentionnement du tableau
     }
     for(int i=0; i<boolContainerBis.tailleUtilisee; i++)
     {
-        tab[tailleUtilisee+i] = boolContainerBis.tab[i];
+        //tab[tailleUtilisee+i] = boolContainerBis.tab[i];
+        Ajouter(boolContainerBis.tab[i]);
     }
     return 0;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 /*
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opï¿½rateurs
 BoolContainer & BoolContainer::operator = ( const BoolContainer & unBoolContainer )
 // Algorithme :
 //
@@ -143,7 +146,7 @@ BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvell
 //
 {
     #ifdef MAP
-    cout << "Appel au constructeur par défaut de <BoolContainer>" << endl;
+    cout << "Appel au constructeur par dï¿½faut de <BoolContainer>" << endl;
     #endif
     tailleUtilisee = 0;
     tab = new bool[tailleDispo];
@@ -151,7 +154,7 @@ BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvell
 
 BoolContainer::BoolContainer (bool newTab[],unsigned int newTaille) : tailleDispo(newTaille), tailleUtilisee(newTaille)
 // Algorithme :
-// copie valeur par valeur du tableau passé en paramètre vers tab
+// copie valeur par valeur du tableau passï¿½ en paramï¿½tre vers tab
 {
 #ifdef MAP
     cout << "Appel au constructeur de <BoolContainer>" << endl;
@@ -177,7 +180,7 @@ BoolContainer::~BoolContainer ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- Mï¿½thodes privï¿½es
 
