@@ -15,6 +15,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "BoolContainer.h"
+#include "errorCode.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -63,8 +64,8 @@ int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 // copie un � un des �lements de l'ancien vers le nouveau tableau sauf celles � �liminer
 // destruction de l'ancien tableau
 {
-    if(debut+longueur >= tailleUtilisee){
-        return 102; //code erreur: l'utilisateur demande de supprimer des �l�ments en dehors de la collection
+    if(debut+longueur > tailleUtilisee){
+        return ERROR_OUT_OF_BOUNDARY; //code erreur: l'utilisateur demande de supprimer des �l�ments en dehors de la collection
     }
     bool * nouveauTableau = new bool[tailleUtilisee-longueur];
     int positionCourante = 0;
