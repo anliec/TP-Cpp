@@ -2,7 +2,7 @@
                            BoolContainer  -  description
                              -------------------
     debut                : 05/10/2015
-    copyright            : (C) 2015 par Edren Haumont et Nicolas Six
+    copyright            : (C) 2015 par Edern Haumont & Nicolas Six
 *************************************************************************/
 
 //---------- Interface de la classe <BoolContainer> (fichier ${file_name}) ------
