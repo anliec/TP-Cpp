@@ -1,24 +1,18 @@
 /*************************************************************************
                            BoolContainer  -  description
                              -------------------
-    dï¿½but                : ${date}
+    debut                : ${date}
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
 //---------- Interface de la classe <BoolContainer> (fichier ${file_name}) ------
-#if ! defined ( XXX_H )
-#define XXX_H
-
-//--------------------------------------------------- Interfaces utilisï¿½es
-
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
+#if ! defined ( BOOLCONTAINER_H )
+#define BOOLCONTAINER_H
 
 //------------------------------------------------------------------------ 
-// Rï¿½le de la classe <BoolContainer>
-//
-//
+// La classe BoolContainer permet de definir des objet dont le but est de contenir des booleens
+// La capacité d'un BoolContainer est dynamique
+// La classe supporte les modifications sur son contenu via des methodes dediees
 //------------------------------------------------------------------------ 
 
 class BoolContainer
@@ -27,100 +21,78 @@ class BoolContainer
 
 public:
 
-    //----------------------------------------------------- Mï¿½thodes publiques
+    //----------------------------------------------------- Methodes publiques
     int Afficher() const;
     // Mode d'emploi :
-    //
+    // Affiche la capacité utilisée et disponible ainsi que le contenu du BoolContainer
     // Contrat :
     //
 
     int Ajouter(bool b);
     // Mode d'emploi :
-    // entrer en paramï¿½tre le boolï¿½en qui sera ajoutï¿½ ï¿½ la fin de la liste
+    // entrer en parametre le booleen qui sera ajoute e la fin de la liste
     // Contrat :
     //
 
     int Retirer(unsigned int debut, unsigned int longueur = 1);
     // Mode d'emploi :
-    // entrer l'index ï¿½ partir duquel la suppression aura lieu
-    // paramï¿½tre optionnel, la longueur de l'intervalle d'index sur leque les suppressions auront lieu
+    // entrer l'index e partir duquel la suppression aura lieu
+    // parametre optionnel, la longueur de l'intervalle d'index sur leque les suppressions auront lieu
     // Contrat :
     //
 
     int Ajuster(unsigned int nouvelletaille);
     // Mode d'emploi :
-    // entrer en paramï¿½tre la taille de collection dï¿½sirï¿½e (supï¿½rieure ï¿½ la taille utilisï¿½e actuellement)
+    // entrer en parametre la taille de collection desiree (superieure e la taille utilisee actuellement)
     // Contrat :
     //
 
     int Reunir(const BoolContainer & boolContainerBis);
     // Mode d'emploi :
-    // entrer en paramï¿½tre une autre collection de boolï¿½ens qui sera ajoutï¿½e ï¿½ la fin de la collection courante
+    // entrer en parametre une autre collection de booleens qui sera ajoutee e la fin de la collection courante
     // Contrat :
     //
 
 
 
 
-    //------------------------------------------------- Surcharge d'opï¿½rateurs
+    //------------------------------------------------- Surcharge d'operateurs
     BoolContainer & operator = ( const BoolContainer & unBoolContainer );
     // Mode d'emploi :
-    // Non implï¿½mentï¿½
+    // Non implemente
     // Contrat :
-    //
+    // TODO verifier si elle n'est pas a implementer
 
 
     //-------------------------------------------- Constructeurs - destructeur
     BoolContainer ( const BoolContainer & unBoolContainer );
     // Mode d'emploi (constructeur de copie) :
-    // Non implï¿½mentï¿½
+    // Non implemente
     // Contrat :
     //
 
     BoolContainer(unsigned int nouvelleTaille = 10);
     // Mode d'emploi :
-    // entrer en paramï¿½tre optionnel la taille de la nouvelle collection
+    // entrer en parametre optionnel la taille de la nouvelle collection
     // Contrat :
     //
 
     BoolContainer(bool newTab[],unsigned int newTaille);
     // Mode d'emploi :
-    // entrer en paramï¿½tre un tableau statique de boolï¿½ens qui sera copiï¿½ et sa taille
+    // entrer en parametre un tableau statique de booleens qui sera copie et sa taille
     // Contrat :
     //
 
 virtual ~BoolContainer ( );
-// Mode d'emploi :
-//
-// Contrat :
-//
 
 //------------------------------------------------------------------ PRIVE 
-
-protected:
-//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
-
-private:
-//------------------------------------------------------- Mï¿½thodes privï¿½es
-
-protected:
-//----------------------------------------------------- Attributs protï¿½gï¿½s
 
 private:
 
     unsigned int tailleUtilisee;
     unsigned int tailleDispo;
     bool *tab;
-//------------------------------------------------------- Attributs privï¿½s
+//------------------------------------------------------- Attributs prives
+}; // class BoolContainer
 
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privï¿½es
-
-//----------------------------------------------------------- Types privï¿½s
-
-};
-
-//----------------------------------------- Types dï¿½pendants de <BoolContainer>
-
-#endif // XXX_H
+#endif // BOOLCONTAINER_H

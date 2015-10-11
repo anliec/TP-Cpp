@@ -1,10 +1,10 @@
-//
-// Created by nicolas on 09/10/15.
-//
+// fichier de correspondance erreurs/codes d'erreur
 
-#ifndef TP_CPP_ERRORCODE_H
-#define TP_CPP_ERRORCODE_H
+#ifndef ERRORCODE_H
+#define ERRORCODE_H
 
-#define ERROR_OUT_OF_BOUNDARY 102
+const int ERROR_NON_INTUITIVE_ADJUSTMENT = 100;
+const int ERROR_RESIZE_FAILED = 101;
+const int ERROR_OUT_OF_BOUNDARY = 102;
 
-#endif //TP_CPP_ERRORCODE_H
+#endif //ERRORCODE_H
