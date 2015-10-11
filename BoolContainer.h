@@ -1,8 +1,8 @@
 /*************************************************************************
                            BoolContainer  -  description
                              -------------------
-    debut                : ${date}
-    copyright            : (C) ${year} par ${user}
+    debut                : 05/10/2015
+    copyright            : (C) 2015 par Edren Haumont et Nicolas Six
 *************************************************************************/
 
 //---------- Interface de la classe <BoolContainer> (fichier ${file_name}) ------
@@ -11,7 +11,7 @@
 
 //------------------------------------------------------------------------ 
 // La classe BoolContainer permet de definir des objet dont le but est de contenir des booleens
-// La capacit� d'un BoolContainer est dynamique
+// La capacit� d'un BoolContainer est dynamique
 // La classe supporte les modifications sur son contenu via des methodes dediees
 //------------------------------------------------------------------------ 
 
@@ -24,7 +24,7 @@ public:
     //----------------------------------------------------- Methodes publiques
     int Afficher() const;
     // Mode d'emploi :
-    // Affiche la capacit� utilis�e et disponible ainsi que le contenu du BoolContainer
+    // Affiche la capacit� utilis�e et disponible ainsi que le contenu du BoolContainer
     // Contrat :
     //
 
@@ -77,11 +77,13 @@ public:
     // Contrat :
     //
 
-    BoolContainer(bool newTab[],unsigned int newTaille);
+    BoolContainer(bool nouveauTab[],unsigned int nouvelleTaille);
     // Mode d'emploi :
     // entrer en parametre un tableau statique de booleens qui sera copie et sa taille
     // Contrat :
-    //
+    // nouveauTab est de taille superieur ou égale à nouvelleTaille (si ça taille est supérieur
+    // à nouvelle taille seuls les élléments des case entre 0 et nouvelleTaille exclue seront
+    // copier dans le tableau)
 
 virtual ~BoolContainer ( );
 

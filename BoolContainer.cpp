@@ -25,11 +25,12 @@ int BoolContainer::Afficher() const
 // Affiche les tailles utilisees et disponibles
 // Affiche une a une les valeurs du tableau
 {
-    cout << "la taille utilisee est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl << endl;
+    cout << "la taille utilisee est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl;
     for(int i=0 ; i<tailleUtilisee ; i++)
     {
-        cout << " -valeur ne" << i << ": " << tab[i] << endl;
+        cout << " -valeur num " << i << ": " << tab[i] << endl;
     }
+    cout << endl;
     return 0;
 } //----- Fin de Methode
 
@@ -136,7 +137,8 @@ BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvell
     tab = new bool[tailleDispo];
 } //----- Fin de BoolContainer
 
-BoolContainer::BoolContainer (bool newTab[],unsigned int newTaille) : tailleDispo(newTaille), tailleUtilisee(newTaille)
+BoolContainer::BoolContainer (bool nouveauTab[],unsigned int nouvelleTaille) : tailleDispo(nouvelleTaille), tailleUtilisee(
+        nouvelleTaille)
 // Algorithme :
 // copie valeur par valeur du tableau passe en parametre vers tab
 {
@@ -146,7 +148,7 @@ BoolContainer::BoolContainer (bool newTab[],unsigned int newTaille) : tailleDisp
     tab = new bool[tailleDispo];
     for(int i=0; i<tailleDispo; i++)
     {
-        tab[i]=newTab[i];
+        tab[i]= nouveauTab[i];
     }
 } //----- Fin de BoolContainer
 
