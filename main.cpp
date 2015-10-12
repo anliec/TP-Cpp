@@ -26,11 +26,11 @@ int main()
 void selfTesting()
 {
     cout << "Test de taille: ";
-    containerSizeTest(100);
+    containerSizeTest(200);
     cout << "Test d'overflow: ";
-    containerSizeTest(100, true);
+    containerSizeTest(200, true);
     cout << "Test de Ajuster: ";
-    containerAjusterTest(100);
+    containerAjusterTest(200);
 }
 
 void containerSizeTest(unsigned int containerSize, bool testOverflow)
@@ -103,6 +103,7 @@ void containerReunirTest(unsigned int containerSize)
 
 void manualTesting()
 {
+    cout << "\e[1;31m/!\\ lors des entré texte veulliez ne donnée qu'un seul caractère\e[0m" << endl <<endl;
     manualConstructorTest(20);
     manualAjouterTest(20);
     manualRetirerTest(20);

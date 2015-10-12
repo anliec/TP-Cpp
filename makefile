@@ -8,12 +8,13 @@ OBJ= $(SRC:.cpp=.o)
 all: $(EXEC)
 
 main: $(OBJ)
-	@$(CC)  -o $@ $^ $(LDFLAGS)
+	@$(CC) -o $@ $^ $(LDFLAGS)
 
-%.o: %.cpp
+main.o: main.cpp
 	@$(CC) -o $@ -c $< $(CFLAGS)
-
-.PHONY: clean mrproper
+	
+BoolContainer.o: BoolContainer.cpp BoolContainer.h errorCode.h
+	@$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
 	@rm -rf *.o
