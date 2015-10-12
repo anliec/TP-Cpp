@@ -81,9 +81,9 @@ public:
     // Mode d'emploi :
     // entrer en parametre un tableau statique de booleens qui sera copie et sa taille
     // Contrat :
-    // nouveauTab est de taille superieur ou égale à nouvelleTaille (si ça taille est supérieur
+    // nouveauTab est de taille superieur ou égale à nouvelleTaille (si sa taille est supérieure
     // à nouvelle taille seuls les élléments des case entre 0 et nouvelleTaille exclue seront
-    // copier dans le tableau)
+    // copie dans le tableau)
 
 virtual ~BoolContainer ( );
 
