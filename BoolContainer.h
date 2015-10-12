@@ -9,6 +9,10 @@
 #if ! defined ( BOOLCONTAINER_H )
 #define BOOLCONTAINER_H
 
+//------------------------------------------------------------- Constantes
+
+const int DEFAULT_CONTAINER_SIZE = 10;
+
 //------------------------------------------------------------------------ 
 // La classe BoolContainer permet de definir des objet dont le but est de contenir des booleens
 // La capacit� d'un BoolContainer est dynamique
@@ -22,7 +26,7 @@ class BoolContainer
 public:
 
     //----------------------------------------------------- Methodes publiques
-    int Afficher() const;
+    int Afficher(bool afficherCarateristique = true, bool afficherContenue = true) const;
     // Mode d'emploi :
     // Affiche la capacit� utilis�e et disponible ainsi que le contenu du BoolContainer
     // Contrat :
@@ -71,7 +75,7 @@ public:
     // Contrat :
     //
 
-    BoolContainer(unsigned int nouvelleTaille = 10);
+    BoolContainer(unsigned int nouvelleTaille = DEFAULT_CONTAINER_SIZE);
     // Mode d'emploi :
     // entrer en parametre optionnel la taille de la nouvelle collection
     // Contrat :

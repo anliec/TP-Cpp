@@ -20,17 +20,24 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Methodes publiques
-int BoolContainer::Afficher() const
+int BoolContainer::Afficher(bool afficherCarateristique, bool afficherContenue) const
 // Algorithme :
 // Affiche les tailles utilisees et disponibles
 // Affiche une a une les valeurs du tableau
 {
-    cout << "la taille utilisee est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl;
-    for(int i=0 ; i<tailleUtilisee ; i++)
+    if(afficherCarateristique)
     {
-        cout << " -valeur num " << i << ": " << tab[i] << endl;
+        cout << "la taille utilisee est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl;
     }
-    cout << endl;
+    if(afficherContenue)
+    {
+        for(int i=0 ; i<tailleUtilisee ; i++)
+        {
+            cout << tab[i] << " ";
+        }
+        cout << endl;
+    }
+
     return 0;
 } //----- Fin de Methode
 
@@ -57,7 +64,8 @@ int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 // copie un a un des elements de l'ancien vers le nouveau tableau sauf celles a eliminer
 // destruction de l'ancien tableau
 {
-    if(debut+longueur > tailleUtilisee){
+    if(debut+longueur > tailleUtilisee)
+    {
         return ERROR_OUT_OF_BOUNDARY; //code erreur: l'utilisateur demande de supprimer des elements en dehors de la collection
     }
     bool * nouveauTableau = new bool[tailleUtilisee-longueur];
@@ -83,9 +91,14 @@ int BoolContainer::Ajuster(unsigned int nouvelletaille)
 // copie une a une des valeurs du tableau vers un nouveau tableau de taille ajustee
 // destruction du tableau d'origine via le pointeur tampon
 {
-    if(nouvelletaille <= tailleUtilisee)
+    if(nouvelletaille < tailleUtilisee)
     {
+        //cout << " ["<< tailleUtilisee <<"]";
         return ERROR_NON_INTUITIVE_ADJUSTMENT; //code erreur: ajustement impossible a cette taille de maniere intuitive
+    }
+    else if(nouvelletaille == tailleUtilisee)
+    {
+        return 0;
     }
     bool * ansTab = tab;
     tab = new bool[nouvelletaille];
