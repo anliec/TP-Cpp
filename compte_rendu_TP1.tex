@@ -51,14 +51,14 @@ Cela lui permet de connaitre la quantiter de donnée actuelement stocker mais au
 \subsection{Constructeur par défaut}
 \lstinputlisting[language=C++, firstline=82, lastline=82]{BoolContainer.h}
 \paragraph{}
-Prend en parametre optionnel la taille de la nouvelle collection. La taille prise par défaut est une constante défini dans le .h de la classe.
+Prends en parametre optionnel la taille de la nouvelle collection. La taille prise par défaut est une constante définie dans le .h de la classe.
 
 \subsection{Constructeur avec tableau d'initialisation}
 \lstinputlisting[language=C++, firstline=88, lastline=88]{BoolContainer.h}
 \paragraph{}
-Prend en parametre un tableau statique de booleens qui sera copie et sa taille.
+Prends en parametre un tableau statique de booleens qui sera copie et sa taille.
 \paragraph{Contrat:}
-nouveauTab est de taille superieur ou égale à nouvelleTaille (si sa taille est supérieure à nouvelle taille seuls les élléments des case entre 0 et nouvelleTaille exclue seront copie dans le tableau).
+nouveauTab est de taille supérieur ou égale à nouvelleTaille (si sa taille est supérieure à nouvelle taille seuls les éléments des cases entre 0 et nouvelleTaille exclue seront copié dans le tableau).
 
 \subsection{Destructeur}
 \lstinputlisting[language=C++, firstline=96, lastline=96]{BoolContainer.h}
@@ -68,27 +68,27 @@ Détruit le tableau.
 \subsection{Afficher}
 \lstinputlisting[language=C++, firstline=29, lastline=29]{BoolContainer.h}
 \paragraph{}
-Peut afficher la capacite utilisée et disponible suivie du contenu du BoolContainer. Si le premier argument est vrais alors il y aura affichage d'une ligne avec les caracterisitiques du tableau. Si le segond est vrais alors il y aura affichage du contenue du tableau. Par défaut: affiche les deux bloques.
+Peut afficher la capacité utilisée et disponible suivie du contenu du BoolContainer. Si le premier argument est vrai alors il y aura affichage d'une ligne avec les caractéristiques du tableau. Si le second est vrai alors il y aura affichage du contenue du tableau. Par défaut: affiche les deux blocs.
 
 \subsection{Ajouter}
 \lstinputlisting[language=C++, firstline=39, lastline=39]{BoolContainer.h}
 \paragraph{}
-Prend en parametre le booleen qui sera ajoute a la fin de la liste.
+Prends en paramètre le booleen qui sera ajoute a la fin de la liste.
 
 \subsection{Retirer}
 \lstinputlisting[language=C++, firstline=45, lastline=45]{BoolContainer.h}
 \paragraph{}
-Prend en parametre l'index e partir auquel la suppression aura lieu et en parametre optionnel, la longueur de l'intervalle d'index sur lequel les suppressions auront lieu.
+Prends en paramètre l'index e partir auquel la suppression aura lieu et en parametre optionnel, la longueur de l'intervalle d'index sur lequel les suppressions auront lieu.
 
 \subsection{Ajuster}
 \lstinputlisting[language=C++, firstline=52, lastline=52]{BoolContainer.h}
 \paragraph{}
-Prend en parametre la taille de collection desirée (superieure à la taille utilisée actuellement).
+Prends en paramètre la taille de collection désirée (supérieure à la taille utilisée actuellement).
 
 \subsection{Réunir}
 \lstinputlisting[language=C++, firstline=58, lastline=58]{BoolContainer.h}
 \paragraph{}
-Prend en parametre une autre collection de booleens qui sera ajoutee e la fin de la collection courante.
+Prends en paramètre une autre collection de booléens qui sera ajoutée à la fin de la collection courante.
 
 
 \section{Codes d'erreur}
@@ -107,7 +107,7 @@ Ce code d’erreur est renvoyé par la méthode Retirer si un ou des éléments 
 \section{Tests unitaires}
 
 \paragraph{}
-Pour des raison d'encapsulation le programme ne peut pas effecter la plupart des testes par lui même. De fait la plupart des tests se font par contrôle visuel: l'utilisateur ayent lancé le programme de test doit indiquer lui même si les testes ont réusie ou échouer.
+Pour des raisons d'encapsulation le programme ne peut pas effectuer la plupart des tests par lui-même. De fait la plupart des tests se font par contrôle visuel: l'utilisateur ayant lancé le programme de test doit indiquer lui-même si les tests ont réussie ou échouer.
 
 \subsection{Test de la méthode Ajouter}
 test visuel:
@@ -127,31 +127,14 @@ La fonction crée deux BoolContainer. Elle les affiche. Puis elle appelle la mé
 \subsection{Test d'overflow}
 test automatisé:
 \paragraph{}
-Ce test vérifie qu'il n'y a pas de problème lors de l'insertion dans un tableau plein. Pour cela il crée un tableau de taille un. Puis ajoute des éléments un à un pour essayer de suprimer le même nombre d'éllément que celui qui a été ajouté. Le test ne vérifie pas l'intégritée des données mais permet de s'assurer que les tableaux ce remplisent dans ce cas sans perte d'éléments.
+Ce test vérifie qu'il n'y a pas de problème lors de l'insertion dans un tableau plein. Pour cela il crée un tableau de taille un. Puis ajoute des éléments un à un pour essayer de supprimer le même nombre d’élément que celui qui a été ajouté. Le test ne vérifie pas l’intégrité des données mais permet de s'assurer que les tableaux se remplissent dans ce cas sans perte d'éléments.
 \paragraph{}
-Le test étant automatiser il éffectue ses tests sur un grand nombre de tableau. Même si cela ne semble pas nécésaire, nous nous asurons ainsi d'une certaine stabliliter du procéssus sans que l'utilisateur ne puisse voire la différence.
+Le test étant automatisé il effectue ses tests sur un grand nombre de tableaux. Même si cela ne semble pas nécessaire, nous nous assurons ainsi d'une certaine stabilité du processus sans que l'utilisateur ne puisse voire la différence.
 
 \subsection{Test de la méthode Ajuster}
 test automatisé:
 \paragraph{}
-Ce test génère un tableau et aplique la méthode ajuster desus. En fonction des parramètres employés le test vérifie qu'il n'y a pas de comportement imprévue: accepation d'un redimentionnement à une taille inférieur à la taille ocupé par les données ou refue d'un redimentionnement alors que le nombre de donnée le permettais.
+Ce test génère un tableau et applique la méthode ajuster dessus. En fonction des paramètres employés le test vérifie qu'il n'y a pas de comportement imprévue: acceptation d'un redimensionnement à une taille inférieure à la taille occupé par les données ou refus d'un redimensionnement alors que le nombre de donnée le permettait.
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
