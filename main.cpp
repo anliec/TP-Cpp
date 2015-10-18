@@ -25,8 +25,8 @@ int main()
 
 void selfTesting()
 {
-    cout << "Test de taille: ";
-    containerSizeTest(200);
+    /*cout << "Test de taille: ";
+    containerSizeTest(200);*/
     cout << "Test d'overflow: ";
     containerSizeTest(200, true);
     cout << "Test de Ajuster: ";
