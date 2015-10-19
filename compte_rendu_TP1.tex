@@ -40,30 +40,30 @@ La classe est dotée de méthodes d’affichage, d’ajout et de suppression d�
 En interne, les booléens sont stockés dans un tableau statique de booléens. Celui-ci présente l'avantage de prendre peu de place en mémoire et de permettre un accès rapide aux éléments. Cependant, cela impose de recréer un tableau et de copier recopier tous les éléments du tableau un à un à chaque fois que sa taille est modifiée.
 Les attributs et méthodes de la classe sont spécifiés ci-après.
 
-\section{Atributs}
+\section{Attributs}
 \paragraph{}
-La classe BoolContainer utilise trois atribus privé pour gérer ses données:
+La classe BoolContainer utilise trois attributs privés pour gérer ses données:
 \lstinputlisting[language=C++, firstline=102, lastline=104]{BoolContainer.h}
-Cela lui permet de connaitre la quantiter de donnée actuelement stocker mais aussi d'avoir une zone de stockage par l'intermédiaure du pointeur.
+Cela lui permet de connaitre la quantité de données actuelement stockée mais aussi d'avoir une zone de stockage par l'intermédiaire du pointeur.
 
 \section{Méthodes publiques à spécifier}
 
 \subsection{Constructeur avec tableau d'initialisation}
 \lstinputlisting[language=C++, firstline=88, lastline=88]{BoolContainer.h}
 \paragraph{}
-Prend en parametre un tableau statique de booleens qui sera copie et sa taille.
+Prend en parametre un tableau statique de booleens qui sera copié et sa taille.
 \paragraph{Contrat:}
-nouveauTab est de taille supérieur ou égale à nouvelleTaille (si sa taille est supérieure à nouvelle taille seuls les éléments des cases entre 0 et nouvelleTaille exclue seront copié dans le tableau).
+nouveauTab est de taille supérieure ou égale à nouvelleTaille (si sa taille est supérieure à nouvelleTaille seuls les éléments des cases entre 0 et nouvelleTaille exclue seront copiés dans le tableau).
 
 \subsection{Ajouter}
 \lstinputlisting[language=C++, firstline=39, lastline=39]{BoolContainer.h}
 \paragraph{}
-Prend en paramètre le booleen qui sera ajoute a la fin de la liste.
+Prend en paramètre le booléen qui sera ajouté a la fin de la liste.
 
 \subsection{Retirer}
 \lstinputlisting[language=C++, firstline=45, lastline=45]{BoolContainer.h}
 \paragraph{}
-Prend en paramètre l'index e partir auquel la suppression aura lieu et en parametre optionnel, la longueur de l'intervalle d'index sur lequel les suppressions auront lieu.
+Prend en paramètre l'index à partir duquel la suppression aura lieu et en paramètre optionnel, la longueur de l'intervalle d'index sur lequel les suppressions auront lieu.
 
 \subsection{Réunir}
 \lstinputlisting[language=C++, firstline=58, lastline=58]{BoolContainer.h}
@@ -87,7 +87,7 @@ Ce code d’erreur est renvoyé par la méthode Retirer si un ou des éléments 
 \section{Tests unitaires à spécifier}
 
 \paragraph{}
-Pour des raisons d'encapsulation le programme ne peut pas effectuer la plupart des tests par lui-même. De fait la plupart des tests se font par contrôle visuel: l'utilisateur ayant lancé le programme de test doit indiquer lui-même si les tests ont réussie ou échouer.
+Pour des raisons d'encapsulation le programme ne peut pas effectuer la plupart des tests par lui-même. De fait la plupart des tests se font par contrôle visuel: l'utilisateur ayant lancé le programme de test doit indiquer lui-même si les tests ont réussi ou échoué.
 
 \subsection{Test de la méthode Ajouter (1)}
 test visuel:
@@ -102,12 +102,12 @@ La fonction crée un BoolContainer et le remplit. Elle supprime ensuite un élé
 \subsection{Test de la méthode Réunir (3)}
 test visuel:
 \paragraph{}
-La fonction crée deux BoolContainer. Elle les affiche. Puis elle appelle la méthode réunir sur le premier tableau avec le second comme argument. Enfin elle affiche le résultat et l’utilisateur vérifie la correspondance.
+La fonction crée deux BoolContainer. Elle les affiche. Puis elle appelle la méthode Reunir sur le premier tableau avec le second comme argument. Enfin elle affiche le résultat et l’utilisateur vérifie la correspondance.
 
 \subsection{Test d'overflow (4)}
 test automatisé:
 \paragraph{}
-Ce test vérifie qu'il n'y a pas de problème lors de l'insertion dans un tableau plein. Pour cela il crée un tableau de taille un. Puis ajoute des éléments un à un pour essayer de supprimer le même nombre d’élément que celui qui a été ajouté. Le test ne vérifie pas l’intégrité des données mais permet de s'assurer que les tableaux se remplissent dans ce cas sans perte d'éléments.
+Ce test vérifie qu'il n'y a pas de problème lors de l'insertion dans un tableau plein. Pour cela il crée un tableau de taille un. Puis ajoute des éléments un à un pour essayer de supprimer le même nombre d’éléments que celui qui a été ajouté. Le test ne vérifie pas l’intégrité des données mais permet de s'assurer que les tableaux se remplissent dans ce cas sans perte d'éléments.
 \paragraph{}
 Le test étant automatisé il effectue ses tests sur un grand nombre de tableaux. Même si cela ne semble pas nécessaire, nous nous assurons ainsi d'une certaine stabilité du processus sans que l'utilisateur ne puisse voire la différence.
 
