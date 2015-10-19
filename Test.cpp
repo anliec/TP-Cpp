@@ -1,4 +1,4 @@
-/* 3 - */void manualRetirerTest(unsigned int containerSize)
+/* 2 - */void manualRetirerTest(unsigned int containerSize)
 {
     BoolContainer boolContainer(0);
     cout << "remplisage du conteneur avec une alternance de 1 et 0 commancant par 0" << endl;
@@ -7,23 +7,23 @@
         boolContainer.Ajouter(i%2);
     }
     boolContainer.Afficher(false,true);
-    cout << "supression de la première valeur:" << endl;
+    cout << "supression de la premi?re valeur:" << endl;
     boolContainer.Retirer(0);
     boolContainer.Afficher(false,true);
-    cout << "supression de la dernière valeur:" << endl;
+    cout << "supression de la derni?re valeur:" << endl;
     boolContainer.Retirer(containerSize-2);
     boolContainer.Afficher(false,true);
-    cout << "les résultats correspondent t'ils à ce qui était attendue ? [o/N] ";
+    cout << "les r?sultats correspondent t'ils ? ce qui ?tait attendue ? [o/N] ";
     char userAnswer = 'n';
     cin >> userAnswer;
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
         return;
     }
     else
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
     }
 
     BoolContainer boolContainer2(0);
@@ -31,26 +31,26 @@
     {
         boolContainer2.Ajouter(i<(containerSize/2));
     }
-    cout << "creation du conteneure replie de 1 de 0 à " << ((containerSize/2)-1) << " et de 0 ensuite" << endl;
+    cout << "creation du conteneure replie de 1 de 0 ? " << ((containerSize/2)-1) << " et de 0 ensuite" << endl;
     boolContainer2.Afficher(false,true);
-    cout << "suppression des valeurs de 0 à " << ((containerSize/2)-1) << ":" << endl;
+    cout << "suppression des valeurs de 0 ? " << ((containerSize/2)-1) << ":" << endl;
     boolContainer2.Retirer(0,containerSize/2);
     boolContainer2.Afficher(false,true);
-    cout << "les résultats correspondent t'ils à ce qui était attendue ? [o/N] ";
+    cout << "les r?sultats correspondent t'ils ? ce qui ?tait attendue ? [o/N] ";
     userAnswer = 'n';
     cin >> userAnswer;
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
         return;
     }
     else
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
 
-/* 5 - */void containerAjusterTest(unsigned int containerSize)
+/* 6 - */void containerAjusterTest(unsigned int containerSize)
 {
     bool tab[containerSize];
     BoolContainer booleanTab(tab,containerSize);
@@ -63,4 +63,6 @@
     }
     cout << TEST_SUCESS_MESSAGE << endl;
 }
+
+
 

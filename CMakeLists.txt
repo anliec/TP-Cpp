@@ -3,5 +3,5 @@ project(TP-Cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp BoolContainer.cpp BoolContainer.h errorCode.h Tests.cpp)
+set(SOURCE_FILES main.cpp BoolContainer.cpp BoolContainer.h errorCode.h Tests.cpp Test.cpp)
 add_executable(Tp-Cpp ${SOURCE_FILES})
