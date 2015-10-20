@@ -144,7 +144,7 @@ BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvell
 //
 {
     #ifdef MAP
-    cout << "Appel au constructeur par defaut de <BoolContainer>" << endl;
+    	cout << "Appel au constructeur par defaut de <BoolContainer>" << endl;
     #endif
     tailleUtilisee = 0;
     tab = new bool[tailleDispo];
@@ -155,9 +155,9 @@ BoolContainer::BoolContainer (bool nouveauTab[],unsigned int nouvelleTaille) : t
 // Algorithme :
 // copie valeur par valeur du tableau passe en parametre vers tab
 {
-#ifdef MAP
-    cout << "Appel au constructeur de <BoolContainer>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au constructeur de <BoolContainer>" << endl;
+	#endif
     tab = new bool[tailleDispo];
     for(int i=0; i<tailleDispo; i++)
     {
@@ -169,7 +169,7 @@ BoolContainer::BoolContainer (bool nouveauTab[],unsigned int nouvelleTaille) : t
 BoolContainer::~BoolContainer ( )
 {
     #ifdef MAP
-    cout << "Appel au destructeur de <BoolContainer>" << endl;
+    	cout << "Appel au destructeur de <BoolContainer>" << endl;
     #endif
     delete [] tab;
 } //----- Fin de ~BoolContainer

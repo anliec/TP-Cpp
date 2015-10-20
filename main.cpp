@@ -9,7 +9,6 @@ using namespace std;
 void selfTesting();
 void containerSizeTest(unsigned int containerSize, bool testOverflow =false);
 void containerAjusterTest(unsigned int containerSize);
-void containerReunirTest(unsigned int containerSize);
 
 void manualTesting();
 void manualAjouterTest(unsigned int containerSize);
@@ -33,7 +32,7 @@ void selfTesting()
     containerAjusterTest(200);
 }
 
-void containerSizeTest(unsigned int containerSize, bool testOverflow)
+/* 4 - */void containerSizeTest(unsigned int containerSize, bool testOverflow)
 {
     unsigned usedSize = 1;
     if(!testOverflow)
@@ -80,7 +79,7 @@ void containerSizeTest(unsigned int containerSize, bool testOverflow)
 }
 
 
-void containerAjusterTest(unsigned int containerSize)
+/* 6 -*/void containerAjusterTest(unsigned int containerSize)
 {
     bool tab[containerSize];
     BoolContainer booleanTab(tab,containerSize);
@@ -94,11 +93,6 @@ void containerAjusterTest(unsigned int containerSize)
     cout << TEST_SUCESS_MESSAGE << endl;
 }
 
-void containerReunirTest(unsigned int containerSize)
-{
-
-}
-
 /// Manual test fonctions:
 
 void manualTesting()
@@ -109,7 +103,7 @@ void manualTesting()
     manualRetirerTest(20);
     manualReunirTest(20);
 }
-void manualAjouterTest(unsigned int containerSize)
+/* 1 - */void manualAjouterTest(unsigned int containerSize)
 {
     BoolContainer boolContainer(0);
     cout << "Conteneur vide déclarer:" << endl;
@@ -132,7 +126,7 @@ void manualAjouterTest(unsigned int containerSize)
         cout << "test d'ajout à vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
-void manualRetirerTest(unsigned int containerSize)
+/* 2 - */void manualRetirerTest(unsigned int containerSize)
 {
     BoolContainer boolContainer(0);
     cout << "remplisage du conteneur avec une alternance de 1 et 0 commancant par 0" << endl;
@@ -183,7 +177,7 @@ void manualRetirerTest(unsigned int containerSize)
         cout << "test de retirer pour un élément avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
-void manualReunirTest(unsigned int containerSize)
+/* 3 - */void manualReunirTest(unsigned int containerSize)
 {
     BoolContainer boolContainer1(0);
     cout << "remplisage du conteneur n°1 de 1" << endl;
@@ -215,7 +209,7 @@ void manualReunirTest(unsigned int containerSize)
     }
 }
 
-void manualConstructorTest(unsigned int containerSize)
+/* 5 - */void manualConstructorTest(unsigned int containerSize)
 {
     bool baseBooleanTab[containerSize];
     cout << "construction d'un conteneur à l'aide du tableau:" << endl;

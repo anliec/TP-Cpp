@@ -7,23 +7,23 @@
         boolContainer.Ajouter(i%2);
     }
     boolContainer.Afficher(false,true);
-    cout << "supression de la premi?re valeur:" << endl;
+    cout << "supression de la premiére valeur:" << endl;
     boolContainer.Retirer(0);
     boolContainer.Afficher(false,true);
-    cout << "supression de la derni?re valeur:" << endl;
+    cout << "supression de la dernière valeur:" << endl;
     boolContainer.Retirer(containerSize-2);
     boolContainer.Afficher(false,true);
-    cout << "les r?sultats correspondent t'ils ? ce qui ?tait attendue ? [o/N] ";
+    cout << "les résultats correspondent t'ils ? ce qui était attendue ? [o/N] ";
     char userAnswer = 'n';
     cin >> userAnswer;
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << "test de retirer pour un élément avec v?rification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
         return;
     }
     else
     {
-        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << "test de retirer pour un élément avec v?rification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
     }
 
     BoolContainer boolContainer2(0);
@@ -36,17 +36,17 @@
     cout << "suppression des valeurs de 0 ? " << ((containerSize/2)-1) << ":" << endl;
     boolContainer2.Retirer(0,containerSize/2);
     boolContainer2.Afficher(false,true);
-    cout << "les r?sultats correspondent t'ils ? ce qui ?tait attendue ? [o/N] ";
+    cout << "les résultats correspondent t'ils ? ce qui était attendue ? [o/N] ";
     userAnswer = 'n';
     cin >> userAnswer;
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
         return;
     }
     else
     {
-        cout << "test de retirer pour un ?l?ment avec v?rification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
 
