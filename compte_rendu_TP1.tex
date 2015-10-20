@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[francais]{babel}
+\usepackage{textcomp}
 \usepackage{listings}
 
 %\usepackage{hyperref} %pour les liens internet
@@ -19,17 +20,17 @@
 
 \begin{document}
 
-%\begin{titlepage}
+\begin{titlepage}
 
 \maketitle
 
-%\end{titlepage}
+\end{titlepage}
 
 %----------------------------------------------Title end
 
-%\tableofcontents
+\tableofcontents
 
-%\pagebreak
+\pagebreak
 
 %----------------------------------------------table of contents end
 
@@ -43,30 +44,30 @@ Les attributs et méthodes de la classe sont spécifiés ci-après.
 \section{Attributs}
 \paragraph{}
 La classe BoolContainer utilise trois attributs privés pour gérer ses données:
-\lstinputlisting[language=C++, firstline=102, lastline=104]{BoolContainer.h}
+\lstinputlisting[language=C++, firstline=108, lastline=110]{BoolContainer.h}
 Cela lui permet de connaitre la quantité de données actuelement stockée mais aussi d'avoir une zone de stockage par l'intermédiaire du pointeur.
 
 \section{Méthodes publiques à spécifier}
 
 \subsection{Constructeur avec tableau d'initialisation}
-\lstinputlisting[language=C++, firstline=88, lastline=88]{BoolContainer.h}
+\lstinputlisting[language=C++, firstline=92, lastline=92]{BoolContainer.h}
 \paragraph{}
 Prend en parametre un tableau statique de booleens qui sera copié et sa taille.
 \paragraph{Contrat:}
 nouveauTab est de taille supérieure ou égale à nouvelleTaille (si sa taille est supérieure à nouvelleTaille seuls les éléments des cases entre 0 et nouvelleTaille exclue seront copiés dans le tableau).
 
 \subsection{Ajouter}
-\lstinputlisting[language=C++, firstline=39, lastline=39]{BoolContainer.h}
+\lstinputlisting[language=C++, firstline=40, lastline=40]{BoolContainer.h}
 \paragraph{}
 Prend en paramètre le booléen qui sera ajouté a la fin de la liste.
 
 \subsection{Retirer}
-\lstinputlisting[language=C++, firstline=45, lastline=45]{BoolContainer.h}
+\lstinputlisting[language=C++, firstline=46, lastline=46]{BoolContainer.h}
 \paragraph{}
 Prend en paramètre l'index à partir duquel la suppression aura lieu et en paramètre optionnel, la longueur de l'intervalle d'index sur lequel les suppressions auront lieu.
 
 \subsection{Réunir}
-\lstinputlisting[language=C++, firstline=58, lastline=58]{BoolContainer.h}
+\lstinputlisting[language=C++, firstline=61, lastline=61]{BoolContainer.h}
 \paragraph{}
 Prends en paramètre une autre collection de booléens qui sera ajoutée à la fin de la collection courante.
 
@@ -115,6 +116,30 @@ Le test étant automatisé il effectue ses tests sur un grand nombre de tableaux
 test visuel:
 \paragraph{}
 Ce test génère automatiquement un tableau de booléens et appelle le second constructeur en utilisant ce tableau en paramètre. L'utilisateur doit comparer le tableau passé en paramètre et le retour de la méthode Afficher() du nouvel objet.
+
+\pagebreak
+
+\section{Annexes}
+
+\subsection{makefile}
+\lstinputlisting[language=make]{makefile}
+\pagebreak
+
+\subsection{main.cpp}
+\lstinputlisting{main.cpp}
+\pagebreak
+
+\subsection{BoolContainer.cpp}
+\lstinputlisting[language=C++]{BoolContainer.cpp}
+\pagebreak
+
+\subsection{BoolContainer.h}
+\lstinputlisting[language=C++]{BoolContainer.h}
+\pagebreak
+
+\subsection{errorCode.h}
+\lstinputlisting[language=C++]{errorCode.h}
+\pagebreak
 
 \end{document}
 

@@ -24,8 +24,6 @@ int main()
 
 void selfTesting()
 {
-    /*cout << "Test de taille: ";
-    containerSizeTest(200);*/
     cout << "Test d'overflow: ";
     containerSizeTest(200, true);
     cout << "Test de Ajuster: ";
@@ -42,7 +40,7 @@ void selfTesting()
     for(unsigned n=0 ; n< usedSize; n++)
     {
         BoolContainer booleanTab(usedSize);
-        //remplie le tableau de vrais pour les n première case puis de faux
+		//remplie le tableau de vrais pour les n première case puis de faux
         for(unsigned i=0 ; i< usedSize; i++)
         {
             if(booleanTab.Ajouter(i<n) != 0)
@@ -84,7 +82,8 @@ void selfTesting()
     bool tab[containerSize];
     BoolContainer booleanTab(tab,containerSize);
     for (unsigned i = 0; i < 2*containerSize; ++i) {
-        if( (booleanTab.Ajuster(i) == 0 && i<containerSize) || (booleanTab.Ajuster(i) != 0 && i>=containerSize))
+        if((booleanTab.Ajuster(i) == 0 && i<containerSize) ||\
+          (booleanTab.Ajuster(i) != 0 && i>=containerSize))
         {
             cout << TEST_ERROR_MESSAGE << i << " " << booleanTab.Ajuster(i) << endl;
             return;
@@ -97,7 +96,9 @@ void selfTesting()
 
 void manualTesting()
 {
-    cout << "\e[1;31m/!\\ lors des entré texte veulliez ne donnée qu'un seul caractère\e[0m" << endl <<endl;
+    cout << "\e[1;31m/!\\ lors des entré texte veulliez ne donnée\
+                    qu'un seul caractère\e[0m";
+    cout << endl << endl;
     manualConstructorTest(20);
     manualAjouterTest(20);
     manualRetirerTest(20);
@@ -108,7 +109,8 @@ void manualTesting()
     BoolContainer boolContainer(0);
     cout << "Conteneur vide déclarer:" << endl;
     boolContainer.Afficher(false,true);
-    cout << "remplisage du conteneur avec une alternance de 1 et 0 commancant par 0" << endl;
+    cout << "remplisage du conteneur avec une alternance de 1 et 0 commancant par 0";
+    cout << endl;
     for(unsigned i=0 ; i<containerSize ; i++)
     {
         boolContainer.Ajouter(i%2);
@@ -117,19 +119,21 @@ void manualTesting()
     cout << "le résultat correspond t'il à ce qui était attendue ? [o/N] ";
     char userAnswer = 'n';
     cin >> userAnswer;
+    cout << "test d'ajout à vérification manuel: ";
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test d'ajout à vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << TEST_ERROR_MESSAGE << endl << endl;
     }
     else
     {
-        cout << "test d'ajout à vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
 /* 2 - */void manualRetirerTest(unsigned int containerSize)
 {
     BoolContainer boolContainer(0);
-    cout << "remplisage du conteneur avec une alternance de 1 et 0 commancant par 0" << endl;
+    cout<<"remplisage du conteneur avec une alternance de 1 et 0 commencant par 0";
+    cout<<endl;
     for(unsigned i=0 ; i<containerSize ; i++)
     {
         boolContainer.Ajouter(i%2);
@@ -144,14 +148,15 @@ void manualTesting()
     cout << "les résultats correspondent t'ils à ce qui était attendue ? [o/N] ";
     char userAnswer = 'n';
     cin >> userAnswer;
+    cout <<  "test de retirer pour un élément avec vérification manuel: ";
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << TEST_ERROR_MESSAGE << endl << endl;
         return;
     }
     else
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << TEST_SUCESS_MESSAGE << endl << endl;
     }
 
     BoolContainer boolContainer2(0);
@@ -159,22 +164,25 @@ void manualTesting()
     {
         boolContainer2.Ajouter(i<(containerSize/2));
     }
-    cout << "creation du conteneure replie de 1 de 0 à " << ((containerSize/2)-1) << " et de 0 ensuite" << endl;
+    cout<<"creation du conteneure replie de 1 de 0 à "<<((containerSize/2)-1);
+    cout<<" et de 0 ensuite" << endl;
     boolContainer2.Afficher(false,true);
-    cout << "suppression des valeurs de 0 à " << ((containerSize/2)-1) << ":" << endl;
+    cout<<"suppression des valeurs de 0 à "<<((containerSize/2)-1)<<":" ;
+    cout<<endl;
     boolContainer2.Retirer(0,containerSize/2);
     boolContainer2.Afficher(false,true);
-    cout << "les résultats correspondent t'ils à ce qui était attendue ? [o/N] ";
+    cout<<"les résultats correspondent t'ils à ce qui était attendue ? [o/N] ";
     userAnswer = 'n';
     cin >> userAnswer;
+    cout << "test de retirer pour un élément avec vérification manuel: ";
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << TEST_ERROR_MESSAGE << endl << endl;
         return;
     }
     else
     {
-        cout << "test de retirer pour un élément avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
 /* 3 - */void manualReunirTest(unsigned int containerSize)
@@ -199,13 +207,14 @@ void manualTesting()
     cout << "le résultat correspond t'il à ce qui était attendue ? [o/N] ";
     char userAnswer = 'n';
     cin >> userAnswer;
+    cout << "test de Reunir avec vérification manuel: ";
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test de Reunir avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << TEST_ERROR_MESSAGE << endl << endl;
     }
     else
     {
-        cout << "test de Reunir avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
 
@@ -224,13 +233,14 @@ void manualTesting()
     cout << "le résultat correspond t'il à ce qui était attendue ? [o/N] ";
     char userAnswer = 'n';
     cin >> userAnswer;
+    cout << "test du constructeur avec vérification manuel: ";
     if(userAnswer != 'o' && userAnswer != 'O')
     {
-        cout << "test du constructeur avec vérification manuel: " << TEST_ERROR_MESSAGE << endl << endl;
+        cout << TEST_ERROR_MESSAGE << endl << endl;
     }
     else
     {
-        cout << "test du constructeur avec vérification manuel: " << TEST_SUCESS_MESSAGE << endl << endl;
+        cout << TEST_SUCESS_MESSAGE << endl << endl;
     }
 }
 

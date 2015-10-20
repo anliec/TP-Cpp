@@ -5,7 +5,7 @@
     copyright            : (C) 2015 par Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//---------- Realisation de la classe <BoolContainer> (fichier BoolContainer.cpp) --
+//- Realisation de la classe <BoolContainer> (fichier BoolContainer.cpp) -
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -27,7 +27,8 @@ int BoolContainer::Afficher(bool afficherCarateristique, bool afficherContenue) 
 {
     if(afficherCarateristique)
     {
-        cout << "la taille utilisee est de: " << tailleUtilisee << " sur " << tailleDispo << " disponible" << endl;
+        cout << "la taille utilisee est de: " << tailleUtilisee;
+        cout << " sur " << tailleDispo << " disponible" << endl;
     }
     if(afficherContenue)
     {
@@ -50,7 +51,8 @@ int BoolContainer::Ajouter(bool b)
     {
         if(Ajuster(tailleDispo+1) != 0)
         {
-            return ERROR_RESIZE_FAILED; //code erreur: echec du redimentionnement du tableau
+            return ERROR_RESIZE_FAILED;
+            //code erreur: echec du redimentionnement du tableau
         }
     }
     tab[tailleUtilisee]=b;
@@ -61,12 +63,15 @@ int BoolContainer::Ajouter(bool b)
 int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 // Algorithme :
 // utilisation d'un pointeur pointant vers le nouveau tableau
-// copie un a un des elements de l'ancien vers le nouveau tableau sauf celles a eliminer
+// copie un a un des elements de l'ancien vers le nouveau tableau
+// sauf celles a eliminer
 // destruction de l'ancien tableau
 {
     if(debut+longueur > tailleUtilisee)
     {
-        return ERROR_OUT_OF_BOUNDARY; //code erreur: l'utilisateur demande de supprimer des elements en dehors de la collection
+        return ERROR_OUT_OF_BOUNDARY;
+        //code erreur: l'utilisateur demande de supprimer des elements
+        // en dehors de la collection
     }
     bool * nouveauTableau = new bool[tailleUtilisee-longueur];
     int positionCourante = 0;
@@ -87,14 +92,17 @@ int BoolContainer::Retirer(unsigned int debut,unsigned int longueur)
 
 int BoolContainer::Ajuster(unsigned int nouvelletaille)
 // Algorithme :
-// utilisation d'un pointeur tampon qui permet de conserver le tableau d'origine
-// copie une a une des valeurs du tableau vers un nouveau tableau de taille ajustee
-// destruction du tableau d'origine via le pointeur tampon
+// utilisation d'un pointeur tampon qui permet de conserver le
+// tableau d'origine copie une a une des valeurs du tableau vers
+// un nouveau tableau de taille ajustee destruction du tableau
+// d'origine via le pointeur tampon
 {
     if(nouvelletaille < tailleUtilisee)
     {
         //cout << " ["<< tailleUtilisee <<"]";
-        return ERROR_NON_INTUITIVE_ADJUSTMENT; //code erreur: ajustement impossible a cette taille de maniere intuitive
+        return ERROR_NON_INTUITIVE_ADJUSTMENT;
+        //code erreur: ajustement impossible a cette taille
+        //de maniere intuitive
     }
     else if(nouvelletaille == tailleUtilisee)
     {
@@ -114,15 +122,16 @@ int BoolContainer::Ajuster(unsigned int nouvelletaille)
 int BoolContainer::Reunir(const BoolContainer & boolContainerBis)
 // Algorithme :
 // Appel a la fonction d'ajustement de taille
-// copie valeur par valeur des variables du tableau du BoolContainer passe en parametre vers tab
+// copie valeur par valeur des variables du tableau du BoolContainer
+// passé en parametre vers tab.
 {
     if(Ajuster(tailleUtilisee+boolContainerBis.tailleUtilisee) != 0)
     {
-        return ERROR_RESIZE_FAILED; //code erreur: echec du redimentionnement du tableau
+        return ERROR_RESIZE_FAILED;
+        //code erreur: echec du redimentionnement du tableau
     }
     for(int i=0; i<boolContainerBis.tailleUtilisee; i++)
     {
-        //tab[tailleUtilisee+i] = boolContainerBis.tab[i];
         Ajouter(boolContainerBis.tab[i]);
     }
     return 0;
@@ -139,7 +148,8 @@ BoolContainer & BoolContainer::operator = ( const BoolContainer & unBoolContaine
 
 //-------------------------------------------- Constructeurs - destructeur
 
-BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvelleTaille)
+BoolContainer::BoolContainer (unsigned int nouvelleTaille):\
+        tailleDispo(nouvelleTaille)
 // Algorithme :
 //
 {
@@ -150,8 +160,8 @@ BoolContainer::BoolContainer (unsigned int nouvelleTaille) : tailleDispo(nouvell
     tab = new bool[tailleDispo];
 } //----- Fin de BoolContainer
 
-BoolContainer::BoolContainer (bool nouveauTab[],unsigned int nouvelleTaille) : tailleDispo(nouvelleTaille), tailleUtilisee(
-        nouvelleTaille)
+BoolContainer::BoolContainer (bool nouveauTab[],unsigned int nouvelleTaille):\
+        tailleDispo(nouvelleTaille), tailleUtilisee(nouvelleTaille)
 // Algorithme :
 // copie valeur par valeur du tableau passe en parametre vers tab
 {
