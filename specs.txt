@@ -36,9 +36,9 @@ for Data storage :
 template binaryTree :
     type of the Key
     type of Data
-    the tree is balanced.
+    the tree is balanced
 
-main binary tree ordered by destination. Contains other binary trees ordered by referrer. Contains a static array ordered by hour. Contains number of hints.
+main binary tree ordered by destination. Contains other binary trees ordered by referrer. Contains a static array ordered by hour. Contains a vector of other info.
 
 for Data computing :
 
