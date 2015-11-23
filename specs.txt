@@ -21,6 +21,9 @@ requests accepted :
             -e
             -t hour
                 hour between 0 and 23
+         if there is no option -g, the program will return the 10 most used resources which fill the options
+         if there is less than 10 entries, it only prints those which are stored.
+
 
 data structure :
     We want a data structure which stores one information for each referrer-destination-hour combination.
