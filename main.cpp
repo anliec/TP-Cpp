@@ -1,8 +1,12 @@
 #include <iostream>
 #include <string>
 
+#include "DataManager.h"
+
 int main(int argc, char * argv[])
 {
+    DataManager manager;
+
     bool optionE = false;
     bool optionT = false;
     bool optionG = false;
@@ -43,7 +47,7 @@ int main(int argc, char * argv[])
     }
     logFilePath = argv[argc-1];
 
-
+    manager.LoadLogFile(logFilePath);
 
 
 
