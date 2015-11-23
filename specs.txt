@@ -1,0 +1,42 @@
+SPECIFICATION :
+
+log lines accepted :
+    valid ipv4 address
+    nom
+    nom
+    correct date and hour:
+        date < current date
+        hour between 00:00:00 and 23:59:59
+        GMT between -12.00 and -12.00
+    "GET" request
+    return code between 100 and 300
+    size >=0
+    url
+    nav
+
+requests accepted :
+    ./analog [options] filename.log
+        options :
+            -g outputName.dot
+            -e
+            -t hour
+                hour between 0 and 23
+
+data structure :
+    We want a data structure which stores one information for each referer-destination-hour combination.
+    The information stored is the number of hit
+
+CONCEPTION :
+
+for Data storage :
+
+template binaryTree :
+    type of the Key
+    type of Data
+    the tree is balanced.
+
+for Data computing :
+
+:
+    manages additions of elements
+    computing elements in Binary trees (given destinati
