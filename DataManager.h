@@ -17,7 +17,7 @@
 #define TP_CPP_DATAMANAGER_H
 
 //------------------------------------------------------------- Constants
-
+const int FILE_ERROR = 80;
 
 //------------------------------------------------------------------------
 // What is this class useful ?
@@ -38,8 +38,8 @@ public:
 //-------------------------------------------------------- Private methods
 private:
     int add(std::string referrer, std::string destination, char hour);
-    int addNodeToGraph(int nodeNumber, std::string label);
-    int addLinkToGraph(int from, int to, std::string linkLabel);
+    int addNodeToGraph(int nodeNumber, std::string label, std::ofstream flux);
+    int addLinkToGraph(int from, int to, std::string linkLabel, std::ofstream flux);
 
     int initGraphFile(std::string filePath);
     int closeGraphFile();
