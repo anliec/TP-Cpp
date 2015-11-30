@@ -1,0 +1,87 @@
+\documentclass[a4paper, 12pts]{article}
+
+\usepackage[top=3.5cm, bottom=3.5cm, left=3cm, right=3cm]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{authblk} %author tools
+\usepackage{enumitem}
+\usepackage{amssymb}
+
+%\usepackage{hyperref} %pour les liens internet
+
+%\usepackage{graphicx} %pour les images
+\title{TP C++ n°3 : Analyse de logs Apache}
+\author{Edern HAUMONT}
+\author{Nicolas SIX}
+\affil{B3111}
+\date{\today}
+
+%-----------------------------------------------------------------------------------------
+
+
+\begin{document}
+
+%\begin{titlepage}
+
+\maketitle
+
+%\end{titlepage}
+
+%----------------------------------------------Title end
+
+\section{Specifications}
+\subsection{Log lines}
+\paragraph{}
+ A log line must fulfill the following conditions in order to be accepted by the program :
+ \begin{itemize}[label=$\square$]
+ \item valid ipv4 adress
+ \item correct date and hour
+ \begin{itemize}
+ \item date < current date
+ \item hour between 00:00:00 and 23:59:59
+ \item GMT between -12 and +12
+ \end{itemize}
+ \item return code between 100 and 400, codes above 300 included are considered as fail codes
+ \item size of transmission >= 0
+ \end{itemize}
+ 
+\subsection{Accepted requests}
+\paragraph{}
+ ./analog [options] filename.log
+ options :
+ \begin{itemize}[label=$\square$]
+ \item -g outputName.dot
+ \item -e
+ \item -t hour : hour between 0 and 23
+ \end{itemize}
+ If there is no option -g, the program will return the 10 most used resources which fill the options
+ If there is less than 10 entries, it only prints those which are stored.
+
+\subsection{Data structure}
+\paragraph{}
+ We wanted a data structure which stores one information for each referrer-destination-hour combination.
+ The information stored is the number of hit
+ 
+\newpage
+ 
+\section{Conception}
+\subsection{Data storage}
+\paragraph{}
+ template binaryTree :
+    type of the Key
+    type of Data
+    the tree is balanced
+main binary tree ordered by destination. Contains other binary trees ordered by referrer. Contains a static array ordered by hour. Contains a vector of other info.
+\subsection{Data computing}
+\paragraph{}
+ contains the main binaryTree
+
+ manages additions of elements
+ computing elements in Binary trees to print 10 most used links
+ generating a .dot file with all links between url
+
+\end{document}
