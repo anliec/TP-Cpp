@@ -6,7 +6,9 @@
 *************************************************************************/
 
 #include <ctime>
-#include <string.h>
+#include <stdlib.h>
+#include <string>
+#include <iostream>
 #include <bits/stringfwd.h>
 #include <bits/basic_string.h>
 
@@ -27,20 +29,25 @@ class LogOtherInfos
 public:
 //--------------------------------------------------------- Public methods
 //-------------------------------------------------------------- Overloads
-
+    std::istream &operator>>(std::istream  &input);
 //--------------------------------------------- Constructors - destructors
     LogOtherInfos();
-    LogOtherInfos(std::string logIp, time_t logTime, unsigned char logCode, unsigned logSize, std::string logBrowser);
+    /*LogOtherInfos(const std::string &logIp,const time_t &logTime, unsigned char logCode, const unsigned &logSize,
+                  const std::string &logBrowser);*/
 //---------------------------------------------------------------- PRIVATE
 private:
 //-------------------------------------------------------- Private methods
 
 //------------------------------------------------------- Private atributs
     std::string ip;
-    time_t time;
+    tm time;
     unsigned char httpCode;
     unsigned sizeTransfered;
     std::string Browser;
+    std::string logname;
+    std::string pseudo;
+    std::string request;
+    int GMT;
 };
 
 
