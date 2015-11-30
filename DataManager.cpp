@@ -26,18 +26,19 @@ int DataManager::add(std::string referrer, std::string destination, unsigned cha
 {
     int indexHttpCode = (httpCode/100)-1;
 
-    //try to add the destination level to the from level (if it already exist get his iterator)
-    dataDestinationLevel upperLevelTree;
-    std::pair<dataDestinationLevel,std::string> insertionPair(upperLevelTree,referrer);
-    std::pair<dataFromLevel::iterator,bool> inserted = data[indexHttpCode].insert(insertionPair);
+    //try to add the referrer level to the destination level (if he already exist does nothing)
+    dataDestinationLevel tempDestLevelTree;
+    std::pair<std::string,dataDestinationLevel> insertionPairDest(destination, tempDestLevelTree);
+    data[indexHttpCode].insert(insertionPairDest);
 
-    data[indexHttpCode].at(referrer);
+    //try to add the hour level to the referrer level (if he already exist does nothing)
+    dataDestinationLevel &dataDestLvl = data[indexHttpCode].at(destination);
+    dataHourLevel tempHourLevelVector[24];
+    std::pair<std::string,dataHourLevel[]> insertionPairHour(referrer, tempHourLevelVector);
+    dataDestLvl.insert(insertionPairHour);
 
-    /*dataFromLevel::const_iterator fromIt = data[indexHttpCode].find(referrer);
-    if(data[indexHttpCode].end() == fromIt)
-    {
+    dataDestLvl.at(referrer)[hour].push_back(other);
 
-    }*/
     return 0;
 }
 int DataManager::addNodeToGraph(int nodeNumber, string label, ofstream flux)

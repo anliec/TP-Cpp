@@ -24,7 +24,7 @@ const int FILE_ERROR = 80;
 //------------------------------------------------------------------------
 
 typedef std::vector< LogOtherInfos > dataHourLevel;
-typedef std::map< std::string, dataHourLevel[24] > dataDestinationLevel;
+typedef std::map< std::string, dataHourLevel[] > dataDestinationLevel;
 typedef std::map< std::string, dataDestinationLevel > dataFromLevel;
 
 class DataManager {
