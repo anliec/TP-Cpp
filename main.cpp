@@ -1,7 +1,11 @@
 #include <iostream>
-#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "DataManager.h"
+
+using namespace std;
 
 int main(int argc, char * argv[])
 {
@@ -11,8 +15,8 @@ int main(int argc, char * argv[])
     bool optionT = false;
     bool optionG = false;
     int tHour = 0;
-    std::string gFilePath = "";
-    std::string logFilePath = "";
+    string gFilePath = "";
+    string logFilePath = "";
     int currantArg = 1; //pass the first arg which is the programe name (+ path)
 
     //read the input arguments:
@@ -29,7 +33,7 @@ int main(int argc, char * argv[])
                case 't':
                    optionT = true;
                    currantArg++; //if the argument is "-t" then the next must be the hour
-                   tHour = std::atoi(argv[currantArg]);
+                   tHour = atoi(argv[currantArg]);
                    break;
                case 'g':
                    optionG = true;
@@ -42,7 +46,7 @@ int main(int argc, char * argv[])
     }
     if(currantArg >= argc)
     {
-        std::cout << "wrong number of arguments" << std::endl;
+        cout << "wrong number of arguments" << endl;
         return 1;
     }
     logFilePath = argv[argc-1];
