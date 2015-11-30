@@ -7,8 +7,6 @@
 
 #include <ctime>
 #include <string.h>
-#include <bits/stringfwd.h>
-#include <bits/basic_string.h>
 
 //-------- Interface of the class DataManager (file DataManager.h) -------
 #ifndef TP_CPP_LOGOTHERINFOS_H

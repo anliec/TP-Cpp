@@ -2,27 +2,61 @@
 // Created by Edern Haumont on 23/11/2015.
 //
 
+#include <algorithm>
 #include "DataManager.h"
+#include "config.h"
 
 using namespace std;
 
-int DataManager::LoadLogFile(std::string logFilePath)
+
+int DataManager::LoadLogFile(const std::string &logFilePath)
 {
     return 0;
 }
-int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, std::string outputFile)
+int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, const std::string &outputFile)
 {
-    if(optionG)
-    {
+    initGraphFile(outputFile);
 
-    }
-    else
+    int hourMin=0,hourMax=23;
+    if(optionT)
     {
-
+        hourMin = tHour;
+        hourMax = tHour+1;
     }
+
+    std::vector< pageAndHits > pageHit;
+
+    for (int c = 0; c < 2; c++)
+    {
+        for(dataFromLevel::iterator f=data[c].begin() ; f<data[c].end() ; f++)
+        {
+            addNodeToGraph(f->first);
+            int numberOfHitsByPage=0;
+
+            for(dataDestinationLevel::iterator d=f->second.begin() ; d<f->second.end() ; d++)
+            {
+                int numberOfHitsByReferrer = 0;
+                for (int h=hourMin ; h<hourMax ; h++)
+                {
+                    numberOfHitsByReferrer += d->second[h].size();
+                }
+                addLinkToGraph(f->first,d->first,to_string(numberOfHitsByReferrer));
+                numberOfHitsByPage += numberOfHitsByReferrer;
+            }
+
+            pageAndHits tuple(f->first, numberOfHitsByPage);
+            pageHit.push_back(tuple);
+        }
+    }
+
+
+
+    std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
+
     return 0;
 }
-int DataManager::add(std::string referrer, std::string destination, unsigned char hour, int httpCode, LogOtherInfos other)
+
+int DataManager::add(const std::string &referrer, const std::string &destination, unsigned char hour, int httpCode, const LogOtherInfos &other)
 {
     int indexHttpCode = (httpCode/100)-1;
 
@@ -41,43 +75,99 @@ int DataManager::add(std::string referrer, std::string destination, unsigned cha
 
     return 0;
 }
-int DataManager::addNodeToGraph(int nodeNumber, string label, ofstream flux)
+
+int DataManager::addNodeToGraph(const std::string &nodeName)
 {
-    if(!flux)
+    if(!graphFileStream)
     {
-        cout << "erreur sur le fichier en écriture" << endl;
+        std::cerr << "erreur sur le fichier en écriture" << std::endl;
         return FILE_ERROR;
     }
     else
     {
-        flux << label << ";" << endl;
+        graphFileStream << transformToNodeName(nodeName) << "[label=\"" << nodeName << "\"];" << endl;
     }
     return 0;
 }
-int DataManager::addLinkToGraph(int from, int to, string linkLabel, ofstream flux)
+int DataManager::addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel)
 {
-    if(!flux)
+    if(!graphFileStream)
     {
-        cout << "erreur sur le fichier en écriture" << endl;
+        std::cerr << "erreur sur le fichier en écriture" << std::endl;
         return FILE_ERROR;
     }
     else
     {
-        flux << from << " -> " << to << " label=[" << linkLabel << "];" << endl;
+        graphFileStream << transformToNodeName(nodeNameFrom) << " -> " << transformToNodeName(nodeNameTo) << " label=[" << linkLabel << "];" << endl;
     }
     return 0;
 }
-int DataManager::initGraphFile(std::string filePath)
+int DataManager::initGraphFile(const std::string &filePath)
 {
-    ofstream gFile("path", ios::out | ios::trunc);  // ouverture en ecriture avec effacement du fichier ouvert
-    if(!gFile)
+    // ouverture en ecriture avec effacement du fichier ouvert
+    graphFileStream.open(filePath,ios::out | ios::trunc);
+    if(!graphFileStream)
     {
-        cout << "erreur d'ouverture de fichier" << endl;
+        std::cerr << "erreur d'ouverture de fichier" << std::endl;
         return FILE_ERROR;
     }
     return 0;
 }
 int DataManager::closeGraphFile()
 {
+    graphFileStream.close();
     return 0;
+}
+
+std::string DataManager::transformToNodeName(const std::string &nonUsableName) const
+{
+    std::string invalidChar = "/\\: ";
+    std::string ret;
+    bool add = true;
+    for (unsigned i=0; i<nonUsableName.length(); i++)
+    {
+        for(unsigned n=0 ; n<invalidChar.length() ; n++)
+        {
+            if(nonUsableName.at(i)==invalidChar.at(n))
+            {
+                add = false;
+                break;
+            }
+        }
+        if(add)
+        {
+            ret.push_back(nonUsableName.at(i));
+        }
+    }
+    return ret;
+}
+
+
+bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B) const
+{
+    return (A.second > B.second) || ((A.second == B.second) && (A.first.compare(B.first)<0));
+}
+
+bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
+{
+    std::string extension = pagePath.substr( pagePath.find_last_of('.'));
+
+    for (int i = 0; i < excludedExtension.size(); ++i) {
+        if(extension.compare(excludedExtension.at(i))==0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+DataManager::DataManager() {
+    ifstream extensionFile (EXTENSION_FILE,ios::in);
+    std::string extension;
+    while(getline(extensionFile,extension))
+    {
+        excludedExtension.push_back(extension);
+    }
+    extensionFile.close();
 }
