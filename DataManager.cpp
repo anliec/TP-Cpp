@@ -34,7 +34,7 @@ int DataManager::add(std::string referrer, std::string destination, unsigned cha
     //try to add the hour level to the referrer level (if he already exist does nothing)
     dataDestinationLevel &dataDestLvl = data[indexHttpCode].at(destination);
     dataHourLevel tempHourLevelVector[24];
-    std::pair<std::string,dataHourLevel[]> insertionPairHour(referrer, tempHourLevelVector);
+    std::pair<std::string,dataHourLevel*> insertionPairHour(referrer, tempHourLevelVector);
     dataDestLvl.insert(insertionPairHour);
 
     dataDestLvl.at(referrer)[hour].push_back(other);
