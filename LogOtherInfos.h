@@ -26,7 +26,7 @@ public:
 //--------------------------------------------------------- Public methods
 
 //--------------------------------------------- Constructors - destructors
-    LogOtherInfos(unsigned ipInLog, time_t logTime, unsigned char httpReturnCode, unsigned sizeTransferred, std::string BrowserInfo);
+    LogOtherInfos(unsigned ipInLog, time_t logTime, /*unsigned char httpReturnCode,*/ unsigned sizeTransferred, std::string BrowserInfo);
 //---------------------------------------------------------------- PRIVATE
 private:
 //-------------------------------------------------------- Private methods
@@ -34,7 +34,7 @@ private:
 //------------------------------------------------------- Private atributs
     unsigned ip;
     time_t time;
-    unsigned char httpCode;
+    //unsigned char httpCode;
     unsigned sizeOfFileTransferred;
     std::string clientInfo;
 };

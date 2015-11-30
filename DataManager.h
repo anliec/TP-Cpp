@@ -22,6 +22,11 @@ const int FILE_ERROR = 80;
 //------------------------------------------------------------------------
 // What is this class useful ?
 //------------------------------------------------------------------------
+
+typedef std::vector< LogOtherInfos > dataHourLevel;
+typedef std::map< std::string, dataHourLevel[24] > dataDestinationLevel;
+typedef std::map< std::string, dataDestinationLevel > dataFromLevel;
+
 class DataManager {
 
 //----------------------------------------------------------------- PUBLIC
@@ -37,7 +42,7 @@ public:
 
 //-------------------------------------------------------- Private methods
 private:
-    int add(std::string referrer, std::string destination, char hour);
+    int add(std::string referrer, std::string destination, unsigned char hour, int httpCode, LogOtherInfos other);
     int addNodeToGraph(int nodeNumber, std::string label, std::ofstream flux);
     int addLinkToGraph(int from, int to, std::string linkLabel, std::ofstream flux);
 
@@ -47,7 +52,7 @@ private:
 //------------------------------------------------------- Private atributs
 
     std::ofstream graphFileStream;
-    std::map< std::map< std::vector< LogOtherInfos >[24], std::string >, std::string > data;
+    dataFromLevel data[4];
 
 };
 
