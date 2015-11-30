@@ -6,7 +6,9 @@
 *************************************************************************/
 
 #include <ctime>
-#include <string>
+#include <string.h>
+#include <bits/stringfwd.h>
+#include <bits/basic_string.h>
 
 //-------- Interface of the class DataManager (file DataManager.h) -------
 #ifndef TP_CPP_LOGOTHERINFOS_H
@@ -24,19 +26,21 @@ class LogOtherInfos
 //----------------------------------------------------------------- PUBLIC
 public:
 //--------------------------------------------------------- Public methods
+//-------------------------------------------------------------- Overloads
 
 //--------------------------------------------- Constructors - destructors
-    LogOtherInfos(unsigned ipInLog, time_t logTime, /*unsigned char httpReturnCode,*/ unsigned sizeTransferred, std::string BrowserInfo);
+    LogOtherInfos();
+    LogOtherInfos(std::string logIp, time_t logTime, unsigned char logCode, unsigned logSize, std::string logBrowser);
 //---------------------------------------------------------------- PRIVATE
 private:
 //-------------------------------------------------------- Private methods
 
 //------------------------------------------------------- Private atributs
-    unsigned ip;
+    std::string ip;
     time_t time;
-    //unsigned char httpCode;
-    unsigned sizeOfFileTransferred;
-    std::string clientInfo;
+    unsigned char httpCode;
+    unsigned sizeTransfered;
+    std::string Browser;
 };
 
 

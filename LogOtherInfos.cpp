@@ -3,16 +3,20 @@
 //
 
 #include "LogOtherInfos.h"
-LogOtherInfos::LogOtherInfos(unsigned ipInLog,
-                             time_t logTime,
-                             /*unsigned char httpReturnCode,*/
-                             unsigned sizeTransferred,
-                             std::string BrowserInfo):
-                    ip(ipInLog),
-                    time(logTime),/*
-                    httpCode(httpReturnCode),*/
-                    sizeOfFileTransferred(sizeTransferred),
-                    clientInfo(BrowserInfo)
-{
 
+using namespace std;
+
+LogOtherInfos::LogOtherInfos()
+{
 }
+
+LogOtherInfos::LogOtherInfos(string logIp, time_t logTime, unsigned char logCode, unsigned logSize, std::string logBrowser):
+                    ip(logIp),
+                    time(logTime),
+                    httpCode(logCode),
+                    sizeTransfered(logSize),
+                    Browser(logBrowser)
+{
+}
+
+LogOtherInfos::
