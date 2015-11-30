@@ -11,17 +11,21 @@ LogOtherInfos::LogOtherInfos()
 }
 
 //no more used
-/*LogOtherInfos::LogOtherInfos(const std::string &logIp,const time_t &logTime, unsigned char logCode,
-                                          const unsigned &logSize, const std::string &logBrowser):
+LogOtherInfos::LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned char logCode, const unsigned &logSize,
+                             const std::string &logBrowser, const std::string &logLogname, const std::string &logPseudo,
+                             const std::string &logRequest):
                     ip(logIp),
                     time(logTime),
                     httpCode(logCode),
                     sizeTransfered(logSize),
-                    Browser(logBrowser)
+                    Browser(logBrowser),
+                    logname(logLogname),
+                    pseudo(logPseudo),
+                    request(logRequest)
 {
-}*/
+}
 
-std::istream &LogOtherInfos::operator>>(std::istream &input) {
+/*std::istream &LogOtherInfos::operator>>(std::istream &input) {
     string unusedBuffer;
     string timeBuffer;
     string protocolRequest;
@@ -49,4 +53,4 @@ std::istream &LogOtherInfos::operator>>(std::istream &input) {
     getline(input, unusedBuffer, '"');
     getline(input, Browser, '"');
     return input;
-}
+}*/

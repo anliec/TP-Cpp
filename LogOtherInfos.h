@@ -29,11 +29,12 @@ class LogOtherInfos
 public:
 //--------------------------------------------------------- Public methods
 //-------------------------------------------------------------- Overloads
-    std::istream &operator>>(std::istream  &input);
+    /*std::istream &operator>>(std::istream  &input);*/
 //--------------------------------------------- Constructors - destructors
     LogOtherInfos();
-    /*LogOtherInfos(const std::string &logIp,const time_t &logTime, unsigned char logCode, const unsigned &logSize,
-                  const std::string &logBrowser);*/
+    LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned char logCode, const unsigned &logSize,
+                  const std::string &logBrowser, const std::string &logLogname, const std::string &logPseudo,
+                  const std::string &logRequest);
 //---------------------------------------------------------------- PRIVATE
 private:
 //-------------------------------------------------------- Private methods
@@ -41,7 +42,7 @@ private:
 //------------------------------------------------------- Private atributs
     std::string ip;
     tm time;
-    unsigned char httpCode;
+    unsigned int httpCode;
     unsigned sizeTransfered;
     std::string Browser;
     std::string logname;

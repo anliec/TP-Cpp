@@ -8,6 +8,59 @@ using namespace std;
 
 int DataManager::LoadLogFile(std::string logFilePath)
 {
+    ifstream logFile(logFilePath, ios::in);  // on ouvre le fichier en lecture
+    if(!logFile)
+    {
+        cerr << "erreur d'ouverture de fichier";
+        return 1;
+    }
+    else
+    {
+        while(!logFile.eof())
+        {
+            std::string ip;
+            tm time;
+            unsigned char httpCode;
+            unsigned sizeTransfered;
+            std::string browser;
+            std::string logname;
+            std::string pseudo;
+            std::string request;
+            int GMT;
+            string unusedBuffer;
+            string timeBuffer;
+            string protocolRequest;
+            string refererRequest;
+            string destination;
+
+            logFile >> ip >> logname >> pseudo >> timeBuffer >> request >> refererRequest >> protocolRequest >>
+                    httpCode >> sizeTransfered >> destination;
+            request += refererRequest + protocolRequest;
+
+            time.tm_mday = atoi(timeBuffer.substr(1,2).c_str());
+            string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+            for(int i=0;i<12;i++)
+            {
+                if (Month[i].compare(timeBuffer.substr(4,6))==0)
+                {
+                    time.tm_mon = i;
+                }
+            }
+            time.tm_year = atoi(timeBuffer.substr(8,11).c_str());
+            time.tm_hour = atoi(timeBuffer.substr(13,14).c_str());
+            time.tm_min = atoi(timeBuffer.substr(16,17).c_str());
+            time.tm_sec = atoi(timeBuffer.substr(19,20).c_str());
+            GMT = atoi(timeBuffer.substr(23,26).c_str());
+            GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
+
+            getline(logFile, unusedBuffer, '"');
+            getline(logFile, browser, '"');
+
+            LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
+
+            add(refererRequest, destination, time.tm_hour, httpCode, other);
+        }
+    }
     return 0;
 }
 int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, std::string outputFile)
