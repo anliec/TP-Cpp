@@ -54,7 +54,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             time.tm_hour = atoi(timeBuffer.substr(13,14).c_str());
             time.tm_min = atoi(timeBuffer.substr(16,17).c_str());
             time.tm_sec = atoi(timeBuffer.substr(19,20).c_str());
-            GMT = atoi(timeBuffer.substr(23,26).c_str());
+            GMT = atoi(timeBuffer.substr(23,26).c_str()); // /100 ? ( 0200 -> 2h)
             GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
 
             getline(logFile, unusedBuffer, '"');
