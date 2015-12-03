@@ -38,7 +38,8 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
             logFile >> ip >> logname >> pseudo >> timeBuffer >> request >> refererRequest >> protocolRequest >>
                     httpCode >> sizeTransfered >> destination;
-            request += refererRequest + protocolRequest;
+            request.append(refererRequest);
+            request.append(protocolRequest);
 
             time.tm_mday = atoi(timeBuffer.substr(1,2).c_str());
             string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -81,12 +82,12 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
     for (int c = 0; c < 2; c++)
     {
-        for(dataFromLevel::iterator f=data[c].begin() ; f<data[c].end() ; f++)
+        for(dataFromLevel::iterator f=data[c].begin() ; f!=data[c].end() ; f++)
         {
             addNodeToGraph(f->first);
             int numberOfHitsByPage=0;
 
-            for(dataDestinationLevel::iterator d=f->second.begin() ; d<f->second.end() ; d++)
+            for(dataDestinationLevel::iterator d=f->second.begin() ; d!=f->second.end() ; d++)
             {
                 int numberOfHitsByReferrer = 0;
                 for (int h=hourMin ; h<hourMax ; h++)
@@ -196,7 +197,7 @@ std::string DataManager::transformToNodeName(const std::string &nonUsableName) c
 }
 
 
-bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B) const
+bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B)
 {
     return (A.second > B.second) || ((A.second == B.second) && (A.first.compare(B.first)<0));
 }

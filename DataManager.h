@@ -51,7 +51,7 @@ private:
     int closeGraphFile();
     std::string transformToNodeName(const std::string &nonUsableName) const;
 
-    bool compareDateAndHits(const pageAndHits &A, const pageAndHits &B) const;
+    static bool compareDateAndHits(const pageAndHits &A, const pageAndHits &B);
     bool isNotExcludedDocument(const std::string &pagePath) const;
 
 //------------------------------------------------------- Private atributs
