@@ -48,14 +48,15 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 if (Month[i].compare(timeBuffer.substr(4,6))==0)
                 {
                     time.tm_mon = i;
+                    break;
                 }
             }
             time.tm_year = atoi(timeBuffer.substr(8,11).c_str());
             time.tm_hour = atoi(timeBuffer.substr(13,14).c_str());
             time.tm_min = atoi(timeBuffer.substr(16,17).c_str());
             time.tm_sec = atoi(timeBuffer.substr(19,20).c_str());
-            GMT = atoi(timeBuffer.substr(23,26).c_str()); // /100 ? ( 0200 -> 2h)
-            GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
+            GMT = atoi(request.substr(0,2).c_str()); // /100 ? ( 0200 -> 2h)
+            //GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
             if(refferer.length()>32 && refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
             {
                 refferer = refferer.substr(32);
