@@ -21,42 +21,42 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     {
         while(!logFile.eof())
         {
-            std::string ip;
+            string ip;
             tm time;
             unsigned char httpCode;
             unsigned sizeTransfered;
-            std::string browser;
-            std::string logname;
-            std::string pseudo;
-            std::string request;
+            string browser;
+            string logname;
+            string pseudo;
+            string request;
             int GMT;
             string unusedBuffer;
-            string timeBuffer;
+            string timeBuffer, dateBuffer, GMTBuffer;
             string protocolRequest;
             string URLRequest;
             string refferer;
 
-            logFile >> ip >> logname >> pseudo >> timeBuffer >> request >> URLRequest >> protocolRequest >>
-            httpCode >> sizeTransfered >> refferer;
+            logFile >> ip >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
+                    protocolRequest >> httpCode >> sizeTransfered >> refferer;
             request.append(URLRequest);
             request.append(protocolRequest);
 
-            time.tm_mday = atoi(timeBuffer.substr(1,2).c_str());
+            time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
             string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
             for(int i=0;i<12;i++)
             {
-                if (Month[i].compare(timeBuffer.substr(4,6))==0)
+                if (Month[i].compare(dateBuffer.substr(4,3))==0)
                 {
                     time.tm_mon = i;
                     break;
                 }
             }
-            time.tm_year = atoi(timeBuffer.substr(8,11).c_str());
-            time.tm_hour = atoi(timeBuffer.substr(13,14).c_str());
-            time.tm_min = atoi(timeBuffer.substr(16,17).c_str());
-            time.tm_sec = atoi(timeBuffer.substr(19,20).c_str());
-            GMT = atoi(request.substr(0,2).c_str()); // /100 ? ( 0200 -> 2h)
-            //GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
+            time.tm_year = atoi(dateBuffer.substr(8,4).c_str());
+            time.tm_hour = atoi(timeBuffer.substr(1,2).c_str());
+            time.tm_min = atoi(timeBuffer.substr(4,2).c_str());
+            time.tm_sec = atoi(timeBuffer.substr(7,2).c_str());
+            GMT = atoi(GMTBuffer.substr(1,4).c_str()); // /100 ? ( 0200 -> 2h)
+            GMT *= (GMTBuffer.substr(0,1) == "-") ? -1 : 1;
             if(refferer.length()>32 && refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
             {
                 refferer = refferer.substr(32);
