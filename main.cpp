@@ -51,6 +51,7 @@ int main(int argc, char * argv[])
     logFilePath = argv[argc-1];
 
     manager.LoadLogFile(logFilePath);
+    manager.Request(optionT,tHour, optionE, optionG,gFilePath);
 
     return 0;
 }
