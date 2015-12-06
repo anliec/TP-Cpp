@@ -33,12 +33,12 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             string unusedBuffer;
             string timeBuffer;
             string protocolRequest;
-            string refererRequest;
-            string destination;
+            string URLRequest;
+            string refferer;
 
-            logFile >> ip >> logname >> pseudo >> timeBuffer >> request >> refererRequest >> protocolRequest >>
-                    httpCode >> sizeTransfered >> destination;
-            request.append(refererRequest);
+            logFile >> ip >> logname >> pseudo >> timeBuffer >> request >> URLRequest >> protocolRequest >>
+            httpCode >> sizeTransfered >> refferer;
+            request.append(URLRequest);
             request.append(protocolRequest);
 
             time.tm_mday = atoi(timeBuffer.substr(1,2).c_str());
@@ -56,13 +56,17 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             time.tm_sec = atoi(timeBuffer.substr(19,20).c_str());
             GMT = atoi(timeBuffer.substr(23,26).c_str()); // /100 ? ( 0200 -> 2h)
             GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
+            if(refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
+            {
+                refferer = refferer.substr(32);
+            }
 
             getline(logFile, unusedBuffer, '"');
             getline(logFile, browser, '"');
 
             LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
 
-            add(refererRequest, destination, time.tm_hour, httpCode, other);
+            add(refferer, URLRequest, time.tm_hour, httpCode, other);
         }
     }
     return 0;
