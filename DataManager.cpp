@@ -56,7 +56,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             time.tm_sec = atoi(timeBuffer.substr(19,20).c_str());
             GMT = atoi(timeBuffer.substr(23,26).c_str()); // /100 ? ( 0200 -> 2h)
             GMT *= (timeBuffer.substr(22,22) == "-") ? -1 : 1;
-            if(refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
+            if(refferer.length()>32 && refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
             {
                 refferer = refferer.substr(32);
             }
