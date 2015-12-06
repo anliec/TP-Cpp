@@ -21,53 +21,61 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     {
         while(!logFile.eof())
         {
-            string ip;
-            tm time;
-            unsigned char httpCode;
-            unsigned sizeTransfered;
-            string browser;
-            string logname;
-            string pseudo;
-            string request;
-            int GMT;
-            string unusedBuffer;
-            string timeBuffer, dateBuffer, GMTBuffer;
-            string protocolRequest;
-            string URLRequest;
-            string refferer;
-
-            logFile >> ip >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
-                    protocolRequest >> httpCode >> sizeTransfered >> refferer;
-            request.append(URLRequest);
-            request.append(protocolRequest);
-
-            time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
-            string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-            for(int i=0;i<12;i++)
+            try
             {
-                if (Month[i].compare(dateBuffer.substr(4,3))==0)
+                string ip;
+                tm time;
+                unsigned char httpCode;
+                unsigned sizeTransfered;
+                string browser;
+                string logname;
+                string pseudo;
+                string request;
+                int GMT;
+                string unusedBuffer;
+                string timeBuffer, dateBuffer, GMTBuffer;
+                string protocolRequest;
+                string URLRequest;
+                string refferer;
+
+                logFile >> ip >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
+                protocolRequest >> httpCode >> sizeTransfered >> refferer;
+                request.append(URLRequest);
+                request.append(protocolRequest);
+
+                time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
+                string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+                for(int i=0;i<12;i++)
                 {
-                    time.tm_mon = i;
-                    break;
+                    if (Month[i].compare(dateBuffer.substr(4,3))==0)
+                    {
+                        time.tm_mon = i;
+                        break;
+                    }
                 }
+                time.tm_year = atoi(dateBuffer.substr(8,4).c_str());
+                time.tm_hour = atoi(timeBuffer.substr(1,2).c_str());
+                time.tm_min = atoi(timeBuffer.substr(4,2).c_str());
+                time.tm_sec = atoi(timeBuffer.substr(1,2).c_str());
+                GMT = atoi(GMTBuffer.substr(1,4).c_str()); // /100 ? ( 0200 -> 2h)
+                GMT *= (GMTBuffer.substr(0,1) == "-") ? -1 : 1;
+                if(refferer.length()>32 && refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
+                {
+                    refferer = refferer.substr(32);
+                }
+
+                getline(logFile, unusedBuffer, '"');
+                getline(logFile, browser, '"');
+
+                LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
+
+                add(refferer, URLRequest, time.tm_hour, httpCode, other);
             }
-            time.tm_year = atoi(dateBuffer.substr(8,4).c_str());
-            time.tm_hour = atoi(timeBuffer.substr(1,2).c_str());
-            time.tm_min = atoi(timeBuffer.substr(4,2).c_str());
-            time.tm_sec = atoi(timeBuffer.substr(7,2).c_str());
-            GMT = atoi(GMTBuffer.substr(1,4).c_str()); // /100 ? ( 0200 -> 2h)
-            GMT *= (GMTBuffer.substr(0,1) == "-") ? -1 : 1;
-            if(refferer.length()>32 && refferer.substr(1,32)=="http://intranet-if.insa-lyon.fr/")
+            catch (exception e)
             {
-                refferer = refferer.substr(32);
+                std::cerr << e.what() << " when reading the log file" << std::endl;
             }
 
-            getline(logFile, unusedBuffer, '"');
-            getline(logFile, browser, '"');
-
-            LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
-
-            add(refferer, URLRequest, time.tm_hour, httpCode, other);
         }
     }
     return 0;
