@@ -53,6 +53,8 @@ private:
 
     static bool compareDateAndHits(const pageAndHits &A, const pageAndHits &B);
     bool isNotExcludedDocument(const std::string &pagePath) const;
+    /* return: false if the extension is in the list of excluded extension
+     */
 
 //------------------------------------------------------- Private atributs
 

@@ -69,7 +69,11 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 }
 int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, const std::string &outputFile)
 {
-    initGraphFile(outputFile);
+    if(optionG)
+    {
+        initGraphFile(outputFile);
+    }
+
 
     int hourMin=0,hourMax=23;
     if(optionT)
@@ -80,32 +84,51 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
     std::vector< pageAndHits > pageHit;
 
-    for (int c = 0; c < 2; c++)
+    for (int c = 0; c < 1; c++)
     {
+        //iterate through the from node:
         for(dataFromLevel::iterator f=data[c].begin() ; f!=data[c].end() ; f++)
         {
-            addNodeToGraph(f->first);
-            int numberOfHitsByPage=0;
-
-            for(dataDestinationLevel::iterator d=f->second.begin() ; d!=f->second.end() ; d++)
+            //option -e filter: if the option is activated then only select the specified extension
+            if( !optionE || isNotExcludedDocument(f->first) )
             {
-                int numberOfHitsByReferrer = 0;
-                for (int h=hourMin ; h<hourMax ; h++)
+                if(optionG)
                 {
-                    numberOfHitsByReferrer += d->second[h].size();
+                    addNodeToGraph(f->first);
                 }
-                addLinkToGraph(f->first,d->first,to_string(numberOfHitsByReferrer));
-                numberOfHitsByPage += numberOfHitsByReferrer;
-            }
+                int numberOfHitsByPage=0;
 
-            pageAndHits tuple(f->first, numberOfHitsByPage);
-            pageHit.push_back(tuple);
+                //iterate through the referrer branches:
+                for(dataDestinationLevel::iterator d=f->second.begin() ; d!=f->second.end() ; d++)
+                {
+                    int numberOfHitsByReferrer = 0;
+                    for (int h=hourMin ; h<hourMax ; h++)
+                    {
+                        numberOfHitsByReferrer += d->second[h].size();
+                    }
+                    if(optionG)
+                    {
+                        addLinkToGraph(f->first,d->first,to_string(numberOfHitsByReferrer));
+                    }
+                    numberOfHitsByPage += numberOfHitsByReferrer;
+                }
+                pageAndHits tuple(f->first, numberOfHitsByPage);
+                pageHit.push_back(tuple);
+            }
         }
     }
 
-
+    if(optionG)
+    {
+        closeGraphFile();
+    }
 
     std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
+
+    for (std::vector< pageAndHits >::iterator iterator = pageHit.begin(); iterator != pageHit.end() && pageHit.begin()-iterator <= 10 ; iterator++)
+    {
+        std::cout << iterator->first << " (" << iterator->second << " hits)" << std::endl;
+    }
 
     return 0;
 }
