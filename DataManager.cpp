@@ -25,7 +25,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             {
                 string ip;
                 tm time;
-                unsigned char httpCode;
+                unsigned int httpCode;
                 unsigned sizeTransfered;
                 string browser;
                 string logname;
@@ -39,8 +39,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 string refferer;
 
                 logFile >> ip >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
-                protocolRequest >> httpCode >> httpCode >> httpCode >> sizeTransfered >> refferer;
-                httpCode = 200; //rustine!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                protocolRequest >> httpCode >> sizeTransfered >> refferer;
                 request.append(" "+URLRequest);
                 request.append(" "+protocolRequest);
 
@@ -68,7 +67,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 getline(logFile, unusedBuffer, '"');
                 getline(logFile, browser, '"');
 
-                cerr << refferer <<endl << URLRequest << endl << time.tm_hour << endl << httpCode << endl;
+                cerr << refferer <<endl << URLRequest << endl << time.tm_hour << endl << httpCode << endl << browser << endl;
                 LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
                 add(refferer, URLRequest, time.tm_hour, httpCode, other);
             }
