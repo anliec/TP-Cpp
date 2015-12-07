@@ -25,7 +25,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             {
                 string ip;
                 tm time;
-                unsigned char httpCode;
+                unsigned int httpCode;
                 unsigned sizeTransfered;
                 string browser;
                 string logname;
@@ -40,8 +40,8 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
                 logFile >> ip >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
                 protocolRequest >> httpCode >> sizeTransfered >> refferer;
-                request.append(URLRequest);
-                request.append(protocolRequest);
+                request.append(" "+URLRequest);
+                request.append(" "+protocolRequest);
 
                 time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
                 string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -67,8 +67,8 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 getline(logFile, unusedBuffer, '"');
                 getline(logFile, browser, '"');
 
+                cerr << refferer <<endl << URLRequest << endl << time.tm_hour << endl << httpCode << endl << browser << endl;
                 LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
-
                 add(refferer, URLRequest, time.tm_hour, httpCode, other);
             }
             catch (exception e)

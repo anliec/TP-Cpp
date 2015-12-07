@@ -4,13 +4,17 @@
 
 #include "DataManager.h"
 
+#include "test.h"
+
 using namespace std;
 
 int main(int argc, char * argv[])
 {
     DataManager manager;
 
-    bool optionE = false;
+    testAdd(manager);
+
+    /*bool optionE = false;
     bool optionT = false;
     bool optionG = false;
     int tHour = 0;
@@ -52,7 +56,7 @@ int main(int argc, char * argv[])
 
     manager.LoadLogFile(logFilePath);
     manager.Request(optionT,tHour, optionE, optionG,gFilePath);
-
+*/
     return 0;
 }
 
