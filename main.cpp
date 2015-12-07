@@ -12,9 +12,9 @@ int main(int argc, char * argv[])
 {
     DataManager manager;
 
-    testAdd(manager);
+    //testAdd(manager);
 
-    /*bool optionE = false;
+    bool optionE = false;
     bool optionT = false;
     bool optionG = false;
     int tHour = 0;
@@ -56,7 +56,7 @@ int main(int argc, char * argv[])
 
     manager.LoadLogFile(logFilePath);
     manager.Request(optionT,tHour, optionE, optionG,gFilePath);
-*/
+
     return 0;
 }
 

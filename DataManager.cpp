@@ -136,11 +136,6 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
         closeGraphFile();
     }
 
-    for (int i=0 ; i<pageHit.size() ; i++)
-    {
-        std::cout << pageHit.at(i).first << " (" << pageHit.at(i).second << " hits)" << std::endl;
-    }
-
     std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
 
     for (int i=0 ; i<10 && i<pageHit.size() ; i++)
