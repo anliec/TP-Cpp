@@ -19,26 +19,25 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     }
     else
     {
-        while(!logFile.eof())
+        string ip;
+        tm time;
+        unsigned int httpCode;
+        unsigned sizeTransfered;
+        string browser;
+        string logname;
+        string pseudo;
+        string request;
+        int GMT;
+        string unusedBuffer;
+        string timeBuffer, dateBuffer, GMTBuffer;
+        string protocolRequest;
+        string URLRequest;
+        string refferer;
+        while(logFile >> ip)
         {
             try
             {
-                string ip;
-                tm time;
-                unsigned int httpCode;
-                unsigned sizeTransfered;
-                string browser;
-                string logname;
-                string pseudo;
-                string request;
-                int GMT;
-                string unusedBuffer;
-                string timeBuffer, dateBuffer, GMTBuffer;
-                string protocolRequest;
-                string URLRequest;
-                string refferer;
-
-                logFile >> ip >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
+                logFile  >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
                 protocolRequest >> httpCode >> sizeTransfered >> refferer;
                 request.append(" "+URLRequest);
                 request.append(" "+protocolRequest);
@@ -68,7 +67,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 getline(logFile, unusedBuffer, '"');
                 getline(logFile, browser, '"');
 
-                cerr << refferer <<endl << URLRequest << endl << time.tm_hour << endl << httpCode << endl << browser << endl;
+                //cerr << refferer <<endl << URLRequest << endl << time.tm_hour << endl << httpCode << endl << browser << endl;
                 LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
                 add(refferer, URLRequest, time.tm_hour, httpCode, other);
             }
@@ -146,7 +145,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
     return 0;
 }
 
-int DataManager::add(const std::string &referrer, const std::string &destination, unsigned char hour, unsigned int httpCode, const LogOtherInfos &other)
+int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, unsigned int httpCode, const LogOtherInfos &other)
 {
     unsigned int indexHttpCode = (httpCode/100)-1;
 

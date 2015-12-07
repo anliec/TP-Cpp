@@ -31,7 +31,7 @@ public:
     /*std::istream &operator>>(std::istream  &input);*/
 //--------------------------------------------- Constructors - destructors
     LogOtherInfos();
-    LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned char logCode, const unsigned &logSize,
+    LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned int logCode, const unsigned &logSize,
                   const std::string &logBrowser, const std::string &logLogname, const std::string &logPseudo,
                   const std::string &logRequest);
 //---------------------------------------------------------------- PRIVATE

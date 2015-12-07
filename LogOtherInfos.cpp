@@ -11,7 +11,7 @@ LogOtherInfos::LogOtherInfos()
 }
 
 //no more used
-LogOtherInfos::LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned char logCode, const unsigned &logSize,
+LogOtherInfos::LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned int logCode, const unsigned &logSize,
                              const std::string &logBrowser, const std::string &logLogname, const std::string &logPseudo,
                              const std::string &logRequest):
                     ip(logIp),
