@@ -45,7 +45,7 @@ public:
 //-------------------------------------------------------- Private methods
 private:
 public:
-    int add(const std::string &referrer,const std::string &destination, unsigned char hour, unsigned int httpCode,const LogOtherInfos &other);
+    int add(const std::string &referrer,const std::string &destination, unsigned hour, unsigned int httpCode,const LogOtherInfos &other);
 
 private:
     int addNodeToGraph(const std::string &nodeName);
