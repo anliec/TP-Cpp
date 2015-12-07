@@ -63,6 +63,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 {
                     refferer = refferer.substr(32);
                 }
+                refferer = refferer.substr(0,refferer.size()-1);
 
                 getline(logFile, unusedBuffer, '"');
                 getline(logFile, browser, '"');
@@ -75,7 +76,6 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             {
                 std::cerr << e.what() << " when reading the log file" << std::endl;
             }
-
         }
     }
     return 0;
