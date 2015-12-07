@@ -101,7 +101,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
     for (int c = 0; c < 1; c++)
     {
         //iterate through the from node:
-        for(dataFromLevel::iterator f=data[c].begin() ; f!=data[c].end() ; f++)
+        for(dataFromLevel::iterator f=data[c].begin() ; f!=data[c].end() ; ++f)
         {
             //option -e filter: if the option is activated then only select the specified extension
             if( !optionE || isNotExcludedDocument(f->first) )
@@ -113,7 +113,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                 int numberOfHitsByPage=0;
 
                 //iterate through the referrer branches:
-                for(dataDestinationLevel::iterator d=f->second.begin() ; d!=f->second.end() ; d++)
+                for(dataDestinationLevel::iterator d=f->second.begin() ; d!=f->second.end() ; ++d)
                 {
                     int numberOfHitsByReferrer = 0;
                     for (int h=hourMin ; h<hourMax ; h++)
@@ -137,19 +137,24 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
         closeGraphFile();
     }
 
+    for (int i=0 ; i<pageHit.size() ; i++)
+    {
+        std::cout << pageHit.at(i).first << " (" << pageHit.at(i).second << " hits)" << std::endl;
+    }
+
     std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
 
-    for (std::vector< pageAndHits >::iterator iterator = pageHit.begin(); iterator != pageHit.end() && pageHit.begin()-iterator <= 10 ; iterator++)
+    for (int i=0 ; i<10 && i<pageHit.size() ; i++)
     {
-        std::cout << iterator->first << " (" << iterator->second << " hits)" << std::endl;
+        std::cout << pageHit.at(i).first << " (" << pageHit.at(i).second << " hits)" << std::endl;
     }
 
     return 0;
 }
 
-int DataManager::add(const std::string &referrer, const std::string &destination, unsigned char hour, int httpCode, const LogOtherInfos &other)
+int DataManager::add(const std::string &referrer, const std::string &destination, unsigned char hour, unsigned int httpCode, const LogOtherInfos &other)
 {
-    int indexHttpCode = (httpCode/100)-1;
+    unsigned int indexHttpCode = (httpCode/100)-1;
 
     //try to add the referrer level to the destination level (if he already exist does nothing)
     dataDestinationLevel tempDestLevelTree;

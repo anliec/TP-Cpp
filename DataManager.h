@@ -44,7 +44,7 @@ public:
     DataManager();
 //-------------------------------------------------------- Private methods
 private:
-    int add(const std::string &referrer,const std::string &destination, unsigned char hour, int httpCode,const LogOtherInfos &other);
+    int add(const std::string &referrer,const std::string &destination, unsigned char hour, unsigned int httpCode,const LogOtherInfos &other);
     int addNodeToGraph(const std::string &nodeName);
     int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
     int initGraphFile(const std::string &filePath);
