@@ -88,7 +88,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
     }
 
 
-    int hourMin=0,hourMax=23;
+    int hourMin=0,hourMax=24;
     if(optionT)
     {
         hourMin = tHour;
@@ -118,6 +118,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                     for (int h=hourMin ; h<hourMax ; h++)
                     {
                         numberOfHitsByReferrer += d->second[h].size();
+                        //std::cerr << "h=" << h << " hits: " << d->second[h].size() << std::endl;
                     }
                     if(optionG)
                     {
@@ -240,12 +241,15 @@ bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B)
 
 bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
 {
-    std::string extension = pagePath.substr( pagePath.find_last_of('.'));
+    if(pagePath.find('.') != string::npos)
+    {
+        std::string extension = pagePath.substr( pagePath.find_last_of('.'));
 
-    for (int i = 0; i < excludedExtension.size(); ++i) {
-        if(extension.compare(excludedExtension.at(i))==0)
-        {
-            return false;
+        for (int i = 0; i < excludedExtension.size(); ++i) {
+            if(extension.compare(excludedExtension.at(i))==0)
+            {
+                return false;
+            }
         }
     }
 
@@ -253,9 +257,8 @@ bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
 }
 
 DataManager::DataManager() {
-    ifstream extensionFile (EXTENSION_FILE,ios::in);
-    std::string extension;
-    while(getline(extensionFile,extension))
+    ifstream extensionFile (EXTENSION_FILE);
+    for(std::string extension ; std::getline(extensionFile,extension) ; )
     {
         excludedExtension.push_back(extension);
     }
