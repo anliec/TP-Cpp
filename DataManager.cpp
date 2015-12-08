@@ -67,7 +67,6 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 getline(logFile, unusedBuffer, '"');
                 getline(logFile, browser, '"');
 
-                //cerr << refferer <<endl << URLRequest << endl << time.tm_hour << endl << httpCode << endl << browser << endl;
                 LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
                 add(refferer, URLRequest, time.tm_hour, httpCode, other);
             }
@@ -117,7 +116,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                     for (int h=hourMin ; h<hourMax ; h++)
                     {
                         numberOfHitsByReferrer += d->second[h].size();
-                        //std::cerr << "h=" << h << " hits: " << d->second[h].size() << std::endl;
+                        std::cerr << "h=" << h << " hits: " << d->second[h].size() << std::endl;
                     }
                     if(optionG)
                     {
@@ -148,6 +147,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
 int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, unsigned int httpCode, const LogOtherInfos &other)
 {
+    //cerr << referrer <<endl << destination << endl << hour << endl << httpCode << endl;
     unsigned int indexHttpCode = (httpCode/100)-1;
 
     //try to add the referrer level to the destination level (if he already exist does nothing)
@@ -162,6 +162,10 @@ int DataManager::add(const std::string &referrer, const std::string &destination
     dataDestLvl.insert(insertionPairHour);
 
     dataDestLvl.at(referrer)[hour].push_back(other);
+
+    for (int i = 0; i < 24; ++i) {
+        std::cerr << "size : " << i << " " << dataDestLvl.at(referrer)[i].size() << std::endl;
+    }
 
     return 0;
 }
