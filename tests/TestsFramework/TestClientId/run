@@ -1,1 +1,2 @@
-../analog testClientId.log
+cd ../../
+./analog testClientId.log
