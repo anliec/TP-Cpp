@@ -42,6 +42,7 @@ public:
 
 //--------------------------------------------- Constructors - destructors
     DataManager();
+    virtual ~DataManager();
 //-------------------------------------------------------- Private methods
 private:
 public:

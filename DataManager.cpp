@@ -116,7 +116,8 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                     for (int h=hourMin ; h<hourMax ; h++)
                     {
                         numberOfHitsByReferrer += d->second[h].size();
-                        std::cerr << "h=" << h << " hits: " << d->second[h].size() << std::endl;
+                        std::cerr << "to " << f->first << " from " << d->first << " at h=" << h << " hits: " << d->second[h].size();
+                        std::cerr << " or " << data[c].at(f->first).at(d->first)[h].size() << std::endl;
                     }
                     if(optionG)
                     {
@@ -147,24 +148,37 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
 int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, unsigned int httpCode, const LogOtherInfos &other)
 {
-    //cerr << referrer <<endl << destination << endl << hour << endl << httpCode << endl;
     unsigned int indexHttpCode = (httpCode/100)-1;
 
+    dataFromLevel::iterator destinationIterator;
+    dataDestinationLevel::iterator referrerIterator;
+
     //try to add the referrer level to the destination level (if he already exist does nothing)
-    dataDestinationLevel tempDestLevelTree;
-    std::pair<std::string,dataDestinationLevel> insertionPairDest(destination, tempDestLevelTree);
-    data[indexHttpCode].insert(insertionPairDest);
+    destinationIterator = data[indexHttpCode].find(destination);
+    if(destinationIterator == data[indexHttpCode].end())
+    {
+        dataDestinationLevel tempDestLevelTree;
+        std::pair<std::string,dataDestinationLevel> insertionPairDest(destination, tempDestLevelTree);
+        destinationIterator = data[indexHttpCode].insert(insertionPairDest).first;
+    }
+
+    //dataDestinationLevel &dataDestLvl = data[indexHttpCode].at(destination);
 
     //try to add the hour level to the referrer level (if he already exist does nothing)
-    dataDestinationLevel &dataDestLvl = data[indexHttpCode].at(destination);
-    dataHourLevel tempHourLevelVector[24];
-    std::pair<std::string,dataHourLevel*> insertionPairHour(referrer, tempHourLevelVector);
-    dataDestLvl.insert(insertionPairHour);
+    referrerIterator = destinationIterator->second.find(referrer);
+    if(referrerIterator == destinationIterator->second.end())
+    {
+        dataHourLevel tempHourLevelVector[24];
+        std::pair<std::string,dataHourLevel*> insertionPairHour(referrer, tempHourLevelVector);
+        referrerIterator = destinationIterator->second.insert(insertionPairHour).first;
+    }
 
-    dataDestLvl.at(referrer)[hour].push_back(other);
+    referrerIterator->second[hour].push_back(other);
 
-    for (int i = 0; i < 24; ++i) {
-        std::cerr << "size : " << i << " " << dataDestLvl.at(referrer)[i].size() << std::endl;
+    for (int i = 0; i < 24; i++)
+    {
+        std::cerr << "size : " << i << " " << data[indexHttpCode].at(destination).at(referrer)[i].size();
+        std::cerr << " " << referrerIterator->second[hour].size() << " " << destinationIterator->second.at(referrer)[i].size() << std::endl;
     }
 
     return 0;
@@ -266,4 +280,23 @@ DataManager::DataManager() {
         excludedExtension.push_back(extension);
     }
     extensionFile.close();
+}
+
+DataManager::~DataManager()
+{
+    /*for (int c = 0; c < 4; c++)
+    {
+        //iterate through the from node:
+        for(dataFromLevel::iterator f=data[c].begin() ; f!=data[c].end() ; ++f)
+        {
+            //iterate through the referrer branches:
+            for(dataDestinationLevel::iterator d=f->second.begin() ; d!=f->second.end() ; ++d)
+            {
+                for (int h=0 ; h<24 ; h++)
+                {
+                    delete d->second[h];
+                }
+            }
+        }
+    }*/
 }
