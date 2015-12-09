@@ -1,2 +1,2 @@
 cd ../../
-./analog testClientId.log
+./analog tests/TestsFramework/test.log
