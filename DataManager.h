@@ -24,8 +24,9 @@ const int FILE_ERROR = 80;
 //------------------------------------------------------------------------
 
 typedef std::vector< LogOtherInfos > dataHourLevel;
+//typedef int dataHourLevel;
 typedef std::map< std::string, dataHourLevel* > dataDestinationLevel;
-typedef std::map< std::string, dataDestinationLevel > dataFromLevel;
+typedef std::map< std::string, dataDestinationLevel* > dataFromLevel;
 
 typedef std::pair< std::string, int> pageAndHits;
 
@@ -63,7 +64,7 @@ private:
 //------------------------------------------------------- Private atributs
 
     std::ofstream graphFileStream;
-    dataFromLevel data[4];
+    dataFromLevel * data[4];
     std::vector< std::string > excludedExtension;
 
 };
