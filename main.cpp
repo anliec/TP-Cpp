@@ -4,7 +4,9 @@
 
 #include "DataManager.h"
 
-#include "test.h"
+#ifdef TEST
+    #include "test.h"
+#endif
 
 using namespace std;
 
@@ -12,7 +14,9 @@ int main(int argc, char * argv[])
 {
     DataManager manager;
 
-    //testAdd(manager);
+#ifdef TEST
+    testAdd(manager);
+#else
 
     bool optionE = false;
     bool optionT = false;
@@ -56,7 +60,7 @@ int main(int argc, char * argv[])
 
     manager.LoadLogFile(logFilePath);
     manager.Request(optionT,tHour, optionE, optionG,gFilePath);
-
+#endif
     return 0;
 }
 
