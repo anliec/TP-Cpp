@@ -18,6 +18,7 @@
 
 //------------------------------------------------------------- Constants
 const int FILE_ERROR = 80;
+const int DATA_TAB_SIZE = 2;
 
 //------------------------------------------------------------------------
 // What is this class useful ?
@@ -64,7 +65,7 @@ private:
 //------------------------------------------------------- Private atributs
 
     std::ofstream graphFileStream;
-    dataFromLevel * data[4];
+    dataFromLevel * data[DATA_TAB_SIZE];
     std::vector< std::string > excludedExtension;
 
 };

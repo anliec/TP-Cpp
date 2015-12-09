@@ -142,6 +142,8 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
     std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
 
+    std::cout << "liste des fichier les plus consulter:" << std::endl;
+
     for (int i=0 ; i<10 && i<pageHit.size() ; i++)
     {
         std::cout << pageHit.at(i).first << " (" << pageHit.at(i).second << " hits)" << std::endl;
@@ -152,7 +154,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
 int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, unsigned int httpCode, const LogOtherInfos &other)
 {
-    unsigned int indexHttpCode = (httpCode/100)-1;
+    unsigned int indexHttpCode = (httpCode/200)-1;
 
     //dataFromLevel* destinationMap;
     dataDestinationLevel* referrerMap;
@@ -291,14 +293,15 @@ DataManager::DataManager() {
     }
     extensionFile.close();
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < DATA_TAB_SIZE; ++i)
+    {
         data[i] = nullptr;
     }
 }
 
 DataManager::~DataManager()
 {
-    for (int c = 0; c < 4; c++)
+    for (int c = 0; c < DATA_TAB_SIZE; c++)
     {
         if(data[c] != nullptr)
         {
