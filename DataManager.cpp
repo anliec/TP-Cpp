@@ -297,19 +297,19 @@ DataManager::~DataManager()
 {
     for (int c = 0; c < 4; c++)
     {
-        //iterate through the from node:
-        for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
+        if(data[c] != nullptr)
         {
-            //iterate through the referrer branches:
-            for(dataDestinationLevel::iterator d=f->second->begin() ; d!=f->second->end() ; ++d)
+            //iterate through the from node:
+            for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
             {
-                for (int h=0 ; h<24 ; h++)
+                //iterate through the referrer branches:
+                for(dataDestinationLevel::iterator d=f->second->begin() ; d!=f->second->end() ; ++d)
                 {
                     delete [] d->second;
                 }
+                delete f->second;
             }
-            delete f->second;
+            delete data[c];
         }
-        delete data[c];
     }
 }
