@@ -14,7 +14,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     ifstream logFile(logFilePath, ios::in);  // on ouvre le fichier en lecture
     if(!logFile)
     {
-        cerr << "erreur d'ouverture de fichier";
+        std::cerr << "erreur lors de l'ouverture du fichier de log: " << logFilePath << std::endl;
         return 1;
     }
     else
@@ -97,37 +97,40 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
     for (int c = 0; c < 1; c++)
     {
-        //iterate through the from node:
-        for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
+        if(data[c] != nullptr)
         {
-            //option -e filter: if the option is activated then only select the specified extension
-            if( !optionE || isNotExcludedDocument(f->first) )
+            //iterate through the from node:
+            for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
             {
-                if(optionG)
+                //option -e filter: if the option is activated then only select the specified extension
+                if( !optionE || isNotExcludedDocument(f->first) )
                 {
-                    addNodeToGraph(f->first);
-                }
-                int numberOfHitsByPage=0;
-
-                //iterate through the referrer branches:
-                for(dataDestinationLevel::iterator d=f->second->begin() ; d!=f->second->end() ; ++d)
-                {
-                    int numberOfHitsByReferrer = 0;
-                    for (int h=hourMin ; h<hourMax ; h++)
-                    {
-                        numberOfHitsByReferrer += d->second[h].size();
-                        /*numberOfHitsByReferrer += d->second[h].size();
-                        std::cerr << "to " << f->first << " from " << d->first << " at h=" << h << " hits: " << d->second[h].size();
-                        std::cerr << " or " << data[c].at(f->first).at(d->first)[h].size() << std::endl;*/
-                    }
                     if(optionG)
                     {
-                        addLinkToGraph(f->first,d->first,to_string(numberOfHitsByReferrer));
+                        addNodeToGraph(f->first);
                     }
-                    numberOfHitsByPage += numberOfHitsByReferrer;
+                    int numberOfHitsByPage=0;
+
+                    //iterate through the referrer branches:
+                    for(dataDestinationLevel::iterator d=f->second->begin() ; d!=f->second->end() ; ++d)
+                    {
+                        int numberOfHitsByReferrer = 0;
+                        for (int h=hourMin ; h<hourMax ; h++)
+                        {
+                            numberOfHitsByReferrer += d->second[h].size();
+                            /*numberOfHitsByReferrer += d->second[h].size();
+                            std::cerr << "to " << f->first << " from " << d->first << " at h=" << h << " hits: " << d->second[h].size();
+                            std::cerr << " or " << data[c].at(f->first).at(d->first)[h].size() << std::endl;*/
+                        }
+                        if(optionG)
+                        {
+                            addLinkToGraph(f->first,d->first,to_string(numberOfHitsByReferrer));
+                        }
+                        numberOfHitsByPage += numberOfHitsByReferrer;
+                    }
+                    pageAndHits tuple(f->first, numberOfHitsByPage);
+                    pageHit.push_back(tuple);
                 }
-                pageAndHits tuple(f->first, numberOfHitsByPage);
-                pageHit.push_back(tuple);
             }
         }
     }
@@ -223,7 +226,7 @@ int DataManager::initGraphFile(const std::string &filePath)
     graphFileStream.open(filePath,ios::out | ios::trunc);
     if(!graphFileStream)
     {
-        std::cerr << "erreur d'ouverture de fichier" << std::endl;
+        std::cerr << "erreur lors de l'ouverture du fichier: " << filePath << std::endl;
         return FILE_ERROR;
     }
     return 0;

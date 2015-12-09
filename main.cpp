@@ -8,10 +8,10 @@
     #include "test.h"
 #endif
 
-using namespace std;
-
 int main(int argc, char * argv[])
 {
+    std::cout << argv[0] << std::endl;
+
     DataManager manager;
 
 #ifdef TEST
@@ -22,8 +22,8 @@ int main(int argc, char * argv[])
     bool optionT = false;
     bool optionG = false;
     int tHour = 0;
-    string gFilePath = "";
-    string logFilePath = "";
+    std::string gFilePath = "";
+    std::string logFilePath = "";
     int currentArg = 1; //pass the first arg which is the program name (+ path)
 
     //read the input arguments:
@@ -53,7 +53,7 @@ int main(int argc, char * argv[])
     }
     if(currentArg >= argc)
     {
-        cout << "wrong number of arguments" << endl;
+        std::cout << "wrong number of arguments" << std::endl;
         return 1;
     }
     logFilePath = argv[argc-1];
