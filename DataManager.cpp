@@ -19,10 +19,13 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     }
     else
     {
+        string logLine;
+
         string ip;
         tm time;
         unsigned int httpCode;
-        unsigned sizeTransfered;
+        string sizeTransfered;
+        unsigned int sizeTransferedValue;
         string browser;
         string logname;
         string pseudo;
@@ -33,12 +36,24 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
         string protocolRequest;
         string URLRequest;
         string refferer;
-        while(logFile >> ip)
+
+        int numberOfLine = 0;
+
+        while(getline(logFile,logLine))
         {
+            numberOfLine++;
             try
             {
-                logFile  >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
-                protocolRequest >> httpCode >> sizeTransfered >> refferer;
+                //logFile >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
+                //protocolRequest >> httpCode >> sizeTransfered >> refferer
+                if(sizeTransfered.compare("-") ==0)
+                {
+                    sizeTransferedValue = 0;
+                }
+                else
+                {
+                    sizeTransferedValue = atoi(sizeTransfered.c_str());
+                }
                 request.append(" ");
                 request.append(URLRequest);
                 request.append(" ");
@@ -69,7 +84,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 getline(logFile, unusedBuffer, '"');
                 getline(logFile, browser, '"');
 
-                LogOtherInfos other(ip,time,httpCode,sizeTransfered,browser,logname,pseudo,request);
+                LogOtherInfos other(ip,time,httpCode,sizeTransferedValue,browser,logname,pseudo,request);
                 add(refferer, URLRequest, time.tm_hour, httpCode, other);
             }
             catch (exception e)
@@ -77,7 +92,11 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 std::cerr << e.what() << " when reading the log file" << std::endl;
             }
         }
+        std::cout << "nombre de ligne lue: " << numberOfLine << " end of file= " << logFile.eof() << std::endl;
     }
+
+
+
     return 0;
 }
 int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, const std::string &outputFile)
