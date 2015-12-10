@@ -41,12 +41,12 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
         while(getline(logFile,logLine))
         {
-            numberOfLine++;
+            cout << numberOfLine++<<endl;
             try
             {
-                std::string delims = "\"";
-                //logFile >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
-                //protocolRequest >> httpCode >> sizeTransfered >> refferer
+                std::stringstream ss(logLine);
+                ss >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
+                protocolRequest >> httpCode >> sizeTransfered >> refferer;
                 if(sizeTransfered.compare("-") ==0)
                 {
                     sizeTransferedValue = 0;
@@ -82,8 +82,8 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 }
                 refferer = refferer.substr(0,refferer.size()-1);
 
-                getline(logFile, unusedBuffer, '"');
-                getline(logFile, browser, '"');
+                getline(ss, unusedBuffer, '"');
+                getline(ss, browser, '"');
 
                 LogOtherInfos other(ip,time,httpCode,sizeTransferedValue,browser,logname,pseudo,request);
                 add(refferer, URLRequest, time.tm_hour, httpCode, other);

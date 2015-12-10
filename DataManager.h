@@ -9,6 +9,7 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <sstream>
 
 #include "LogOtherInfos.h"
 
