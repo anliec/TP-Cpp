@@ -44,6 +44,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             numberOfLine++;
             try
             {
+                std::string delims = "\"";
                 //logFile >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
                 //protocolRequest >> httpCode >> sizeTransfered >> refferer
                 if(sizeTransfered.compare("-") ==0)
