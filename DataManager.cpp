@@ -230,7 +230,7 @@ int DataManager::addNodeToGraph(const std::string &nodeName)
     }
     else
     {
-        graphFileStream << transformToNodeName(nodeName) << "[label=\"" << nodeName << "\"];" << endl;
+        graphFileStream << '     ' << transformToNodeName(nodeName) << " [label=\"" << nodeName << "\"];" << endl;
     }
     return 0;
 }
@@ -243,7 +243,7 @@ int DataManager::addLinkToGraph(const std::string &nodeNameFrom, const std::stri
     }
     else
     {
-        graphFileStream << transformToNodeName(nodeNameFrom) << " -> " << transformToNodeName(nodeNameTo) << " label=[" << linkLabel << "];" << endl;
+        graphFileStream << '     ' << transformToNodeName(nodeNameFrom) << " -> " << transformToNodeName(nodeNameTo) << " label=[" << linkLabel << "];" << endl;
     }
     return 0;
 }
@@ -256,21 +256,24 @@ int DataManager::initGraphFile(const std::string &filePath)
         std::cerr << "erreur lors de l'ouverture du fichier: " << filePath << std::endl;
         return FILE_ERROR;
     }
+    graphFileStream << "graph 0" << std::endl << "{" << std::endl;
     return 0;
 }
 int DataManager::closeGraphFile()
 {
+    graphFileStream << "}" << std::endl;
     graphFileStream.close();
     return 0;
 }
 
 std::string DataManager::transformToNodeName(const std::string &nonUsableName) const
 {
-    std::string invalidChar = "/\\: ";
-    std::string ret;
-    bool add = true;
+    std::string invalidChar = "/\\:\"?&%.=-+*,_ ";
+    std::string ret = "nomde";
+    bool add;
     for (unsigned i=0; i<nonUsableName.length(); i++)
     {
+        add = true;
         for(unsigned n=0 ; n<invalidChar.length() ; n++)
         {
             if(nonUsableName.at(i)==invalidChar.at(n))
@@ -283,6 +286,10 @@ std::string DataManager::transformToNodeName(const std::string &nonUsableName) c
         {
             ret.push_back(nonUsableName.at(i));
         }
+        /*else if(nonUsableName.at(i) == '-')
+        {
+            ret.append("UnPetitTiret");
+        }*/
     }
     return ret;
 }
