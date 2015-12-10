@@ -39,8 +39,10 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             {
                 logFile  >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
                 protocolRequest >> httpCode >> sizeTransfered >> refferer;
-                request.append(" "+URLRequest);
-                request.append(" "+protocolRequest);
+                request.append(" ");
+                request.append(URLRequest);
+                request.append(" ");
+                request.append(protocolRequest);
 
                 time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
                 string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
