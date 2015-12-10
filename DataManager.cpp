@@ -32,7 +32,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
         string request;
         int GMT;
         string unusedBuffer;
-        string timeBuffer, dateBuffer, GMTBuffer;
+        string dateBuffer, GMTBuffer;
         string protocolRequest;
         string URLRequest;
         string refferer;
@@ -41,12 +41,17 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
         while(getline(logFile,logLine))
         {
-            cout << numberOfLine++<<endl;
+            numberOfLine++;
             try
             {
                 std::stringstream ss(logLine);
-                ss >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
-                protocolRequest >> httpCode >> sizeTransfered >> refferer;
+                ss >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request;
+                string bufferString;
+                getline(ss, bufferString, '"');// >> URLRequest >> protocolRequest;
+                int lastSpace = bufferString.find_last_of(" ");
+                URLRequest = bufferString.substr(0,lastSpace);
+                protocolRequest = bufferString.substr(lastSpace+1, bufferString.length()-lastSpace-1);
+                ss >> httpCode >> sizeTransfered >> refferer;
                 if(sizeTransfered.compare("-") ==0)
                 {
                     sizeTransferedValue = 0;
