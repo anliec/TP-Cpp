@@ -94,7 +94,7 @@ then
     resultGlobal=0
   fi
   # clean temporary out file
-  #rm temp.txt
+  rm temp.txt
 fi
 
 # compare stderr if concerned

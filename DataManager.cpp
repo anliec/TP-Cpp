@@ -37,7 +37,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
         {
             try
             {
-                logFile  >> logname >> pseudo >> dateBuffer >> timeBuffer >> GMTBuffer >> request >> URLRequest >>
+                logFile  >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request >> URLRequest >>
                 protocolRequest >> httpCode >> sizeTransfered >> refferer;
                 request.append(" "+URLRequest);
                 request.append(" "+protocolRequest);
@@ -53,9 +53,9 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                     }
                 }
                 time.tm_year = atoi(dateBuffer.substr(8,4).c_str());
-                time.tm_hour = atoi(timeBuffer.substr(1,2).c_str());
-                time.tm_min = atoi(timeBuffer.substr(4,2).c_str());
-                time.tm_sec = atoi(timeBuffer.substr(1,2).c_str());
+                time.tm_hour = atoi(dateBuffer.substr(13,2).c_str());
+                time.tm_min = atoi(dateBuffer.substr(16,2).c_str());
+                time.tm_sec = atoi(dateBuffer.substr(19,2).c_str());
                 GMT = atoi(GMTBuffer.substr(1,4).c_str()); // /100 ? ( 0200 -> 2h)
                 GMT *= (GMTBuffer.substr(0,1) == "-") ? -1 : 1;
                 if(refferer.length()>32 && refferer.substr(1,32).compare("http://intranet-if.insa-lyon.fr/")==0)
