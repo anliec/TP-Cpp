@@ -41,7 +41,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
         while(getline(logFile,logLine))
         {
-            cout << numberOfLine++<<endl;
+            numberOfLine++;
             try
             {
                 std::stringstream ss(logLine);
