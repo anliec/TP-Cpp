@@ -268,15 +268,14 @@ int DataManager::closeGraphFile()
 
 std::string DataManager::transformToNodeName(const std::string &nonUsableName) const
 {
-    std::string invalidChar = "/\\:\"'^£$|[](){}#~?&%.=-+*,_ ";
     std::string ret = "nomde";
     bool add;
     for (unsigned i=0; i<nonUsableName.length(); i++)
     {
         add = true;
-        for(unsigned n=0 ; n<invalidChar.length() ; n++)
+        for(unsigned n=0 ; n<INVALID_CHAR.length() ; n++)
         {
-            if(nonUsableName.at(i)==invalidChar.at(n))
+            if(nonUsableName.at(i)==INVALID_CHAR.at(n))
             {
                 add = false;
                 break;

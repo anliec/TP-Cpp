@@ -20,6 +20,7 @@
 //------------------------------------------------------------- Constants
 const int FILE_ERROR = 80;
 const int DATA_TAB_SIZE = 2;
+const std::string INVALID_CHAR = "/\\:\"'^£$|[](){}#~?&%.=-+*,_ ";
 
 //------------------------------------------------------------------------
 // What is this class useful ?
