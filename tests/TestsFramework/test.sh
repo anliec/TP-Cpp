@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "-----------------------------------------------------------"
 
 execDir=`pwd`
@@ -6,7 +7,7 @@ if [ "$1" = "" ]
 then
   echo "No directory given, default to current"
   Directory="."
-else  
+else
   echo "| Test id : $1"
   if [ -d "$1" ]
   then 

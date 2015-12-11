@@ -98,7 +98,6 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 std::cerr << e.what() << " when reading the log file" << std::endl;
             }
         }
-        std::cout << "nombre de ligne lue: " << numberOfLine << " end of file= " << logFile.eof() << std::endl;
     }
 
 
