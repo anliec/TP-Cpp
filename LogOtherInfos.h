@@ -1,5 +1,5 @@
 /*************************************************************************
-                           DataManager  -  description
+                           LogOtherInfos  -  description
                              -------------------
     debut                : 23/11/2015
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
@@ -11,7 +11,7 @@
 #include <iostream>
 
 
-//-------- Interface of the class DataManager (file DataManager.h) -------
+//-------- Interface of the class LogOtherInfos (file LogOtherInfos.h) -------
 #ifndef TP_CPP_LOGOTHERINFOS_H
 #define TP_CPP_LOGOTHERINFOS_H
 
@@ -31,9 +31,9 @@ public:
     /*std::istream &operator>>(std::istream  &input);*/
 //--------------------------------------------- Constructors - destructors
     LogOtherInfos();
-    LogOtherInfos(const std::string &logIp,const tm &logTime, unsigned int logCode, const unsigned &logSize,
+    LogOtherInfos(const std::string &logIp,const tm &logTime,const unsigned int &logCode, const unsigned &logSize,
                   const std::string &logBrowser, const std::string &logLogname, const std::string &logPseudo,
-                  const std::string &logRequest);
+                  const std::string &logRequest, const int &logGMT);
 //---------------------------------------------------------------- PRIVATE
 private:
 //-------------------------------------------------------- Private methods

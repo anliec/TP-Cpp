@@ -27,7 +27,6 @@ const std::string INVALID_CHAR = "/\\:\"'^£$|[](){}#~?&%.=-+*,_ ";
 //------------------------------------------------------------------------
 
 typedef std::vector< LogOtherInfos > dataHourLevel;
-//typedef int dataHourLevel;
 typedef std::map< std::string, dataHourLevel* > dataDestinationLevel;
 typedef std::map< std::string, dataDestinationLevel* > dataFromLevel;
 

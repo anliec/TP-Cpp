@@ -1,15 +1,29 @@
-//
-// Created by Edern Haumont on 23/11/2015.
-//
+/*************************************************************************
+                           DataManager  -  description
+                             -------------------
+    begin                : 23/11/2015
+    copyright            : (C) 2015 by Edern Haumont & Nicolas Six
+*************************************************************************/
 
+//- Realisation of the class DataManager (file DataManager) -
+
+//---------------------------------------------------------------- INCLUDE
+
+//--------------------------------------------------------- System include
 #include <algorithm>
+//------------------------------------------------------- Personal include
 #include "DataManager.h"
 #include "config.h"
 
 using namespace std;
 
+//----------------------------------------------------------------- PUBLIC
 
+//--------------------------------------------------------- Public methods
 int DataManager::LoadLogFile(const std::string &logFilePath)
+// Algorithm :
+// Open a log file. Reads line by line its content until end of file is reached.
+// Each line is put in a string stream. Then it is parsed to obtain all its characteristics
 {
     ifstream logFile(logFilePath, ios::in);  // on ouvre le fichier en lecture
     if(!logFile)
@@ -37,18 +51,16 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
         string URLRequest;
         string refferer;
 
-        int numberOfLine = 0;
-
+        //loops until end of file or bad reading
         while(getline(logFile,logLine))
         {
-            numberOfLine++;
             try
             {
                 std::stringstream ss(logLine);
                 ss >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request;
                 string bufferString;
-                getline(ss, bufferString, '"');// >> URLRequest >> protocolRequest;
-                int lastSpace = bufferString.find_last_of(" ");
+                getline(ss, bufferString, '"');
+                unsigned long lastSpace = bufferString.find_last_of(" ");
                 URLRequest = bufferString.substr(0,lastSpace);
                 protocolRequest = bufferString.substr(lastSpace+1, bufferString.length()-lastSpace-1);
                 ss >> httpCode >> sizeTransfered >> refferer;
@@ -58,19 +70,19 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 }
                 else
                 {
-                    sizeTransferedValue = atoi(sizeTransfered.c_str());
+                    sizeTransferedValue = (unsigned)atoi(sizeTransfered.c_str());
                 }
                 request.append(" ");
                 request.append(URLRequest);
                 request.append(" ");
                 request.append(protocolRequest);
 
+                //date extraction
                 time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
                 string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
                 for(int i=0;i<12;i++)
                 {
-                    if (Month[i].compare(dateBuffer.substr(4,3))==0)
-                    {
+                    if (Month[i].compare(dateBuffer.substr(4, 3)) == 0) {
                         time.tm_mon = i;
                         break;
                     }
@@ -81,6 +93,8 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 time.tm_sec = atoi(dateBuffer.substr(19,2).c_str());
                 GMT = atoi(GMTBuffer.substr(1,4).c_str()); // /100 ? ( 0200 -> 2h)
                 GMT *= (GMTBuffer.substr(0,1) == "-") ? -1 : 1;
+
+                // referrer extraction and management
                 if(refferer.length()>32 && refferer.substr(1,32).compare("http://intranet-if.insa-lyon.fr/")==0)
                 {
                     refferer = refferer.substr(32);
@@ -90,8 +104,9 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 getline(ss, unusedBuffer, '"');
                 getline(ss, browser, '"');
 
-                LogOtherInfos other(ip,time,httpCode,sizeTransferedValue,browser,logname,pseudo,request);
-                add(refferer, URLRequest, time.tm_hour, httpCode, other);
+                LogOtherInfos other(ip,time,httpCode,sizeTransferedValue,browser,logname,pseudo,request,GMT);
+                //add to structure
+                add(refferer, URLRequest, (unsigned)time.tm_hour, httpCode, other);
             }
             catch (exception e)
             {
@@ -103,8 +118,12 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
 
     return 0;
-}
+} // end of method
+
 int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, const std::string &outputFile)
+// Algorithm : depends on the options.
+// Runs through the structure to find most popular URL.
+// if optionG checked, associate referrer to destination URL in a .dot
 {
     if(optionG)
     {
@@ -177,10 +196,10 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 }
 
 int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, unsigned int httpCode, const LogOtherInfos &other)
+// Algorithm : runs through the structure
 {
     unsigned int indexHttpCode = (httpCode/200)-1;
 
-    //dataFromLevel* destinationMap;
     dataDestinationLevel* referrerMap;
 
     if(data[indexHttpCode] == nullptr)
@@ -213,7 +232,6 @@ int DataManager::add(const std::string &referrer, const std::string &destination
         referrerMap->insert(insertionPairHour);
     }
 
-    //referrerIterator->second[hour].push_back(other);
     dataHourLevel * hourLevel = referrerMap->at(referrer);
     hourLevel[hour].push_back(other);
 
@@ -315,6 +333,7 @@ bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
     return true;
 }
 
+// Constructor
 DataManager::DataManager() {
     ifstream extensionFile (EXTENSION_FILE);
     for(std::string extension ; std::getline(extensionFile,extension) ; )
@@ -329,6 +348,7 @@ DataManager::DataManager() {
     }
 }
 
+// Destructor
 DataManager::~DataManager()
 {
     for (int c = 0; c < DATA_TAB_SIZE; c++)
