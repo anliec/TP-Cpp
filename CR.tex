@@ -78,11 +78,16 @@
  
 \subsection{Accepted requests}
 \paragraph{}
- ./analog [options] filename.log
- options :
+ The program's name is "analog". It can be called with the name of a log file and possibly several options. Even if the options do not change the way a log file is read, it changes the kind of output or, at least a certain selection of treated informations.
+\paragraph{} 
+Here is the template of a call :
+ 
+./analog [options] filename.log
+\paragraph{} 
+ there are three available options :
  \begin{itemize}[label=$\square$]
- \item -g outputName.dot
- \item -e
+ \item -e : e stands for exceptions. With this option, the program must exclude of the treatment all documents (in the log requests) that have a picture, css or javascript extension. As it is accepted if the program only exclude most common extensions, we chose to let the user define them in a text file (excludedExtensions.txt)
+ \item -g outputName.dot : g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are
  \item -t hour : hour between 0 and 23
  \end{itemize}
  If there is no option -g, the program will return the 10 most used resources which fill the options
