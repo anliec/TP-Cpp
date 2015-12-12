@@ -10,6 +10,7 @@
 \usepackage{authblk} %author tools
 \usepackage{enumitem}
 \usepackage{amssymb}
+\usepackage{graphicx}
 
 %\usepackage{hyperref} %pour les liens internet
 
@@ -36,7 +37,9 @@
 \section{Specifications}
 \subsection{General specifications}
 \paragraph{}
- Our program is designed to deal with apache servers log files. The input of our program (analog) is a correctly built (cf. detailed specs) log file (.log). The output is the list of the ten most visited URL on the server. This list is printed on the standard output. Some options are available to detail the request. The program is able to generate a .dot file which may be viewed with Softwares like Graphviz.
+ Our program is designed to deal with apache servers log files.
+
+The input of our program (analog) is a correctly built (cf. detailed specs) log file (.log). The output is the list of the ten most visited URL on the server. This list is printed on the standard output. Some options are available to detail the request. The program is able to generate a .dot file which may be viewed with Softwares like Graphviz.
  The program is made to deal quickly with big to be easily updated if the treatment needs of the user evolve.log files. However, it is designed to be easily updated if the treatment needs of the user evolve. That is, if someone wants to modify the application to add a classification level to the Data structure, it must be easy for him/her. The users should not be a programmer, simply a server administrator.
  The program is designed for linux systems.
 
@@ -49,10 +52,10 @@
  \end{itemize}
  Each information of a log line is the object of a small test.
  \begin{itemize}[label=$\square$]
- \item Ipv4 adress. The program does not check its validity.
- \item User logname. It must be in one world. If there is none, it is replaced by a dash ("-")
- \item Authenticated User (Pseudo). It must be in one world. If there is none, it is replaced by a dash ("-")
- \item Date, time and GMT as followed : [DD/Mon/YYYY:HH:MM:SS XGMT] (X replaced by "+" or "-").
+ \item Ipv4 adress. The program does not check its validity. test : TestIpv4
+ \item User logname. It must be in one world. If there is none, it is replaced by a dash ("-"). test : TestPseudo\&Logname
+ \item Authenticated User (Pseudo). It must be in one world. If there is none, it is replaced by a dash ("-"). test : TestPseudo\&Logname
+ \item Date, time and GMT as followed : [DD/Mon/YYYY:HH:MM:SS XGMT] (X replaced by "+" or "-"). test : TestDate\&hour\&GMT
 
  these conditions may be added
  \begin{itemize}
@@ -60,11 +63,11 @@
  \item hour between 00:00:00 and 23:59:59
  \item GMT between -12 and +12
  \end{itemize}
- \item Total request as followed (no constraint of world size) : "REQUESTTYPE requestedURL requestProtocol" . The only request that must be considered as valid by the program is GET, the other are accepted but not treated.
- \item Return code between 100 and 400, codes above 300 included are considered as fail codes
- \item Size of transmission >= 0. If it is unknown, it is replaced by a dash ("-")
- \item Referrer. It is given between double quotes
-\item Browser and browser infos given between double quotes
+ \item Total request as followed (no constraint of world size) : "REQUESTTYPE requestedURL requestProtocol" . The only request that must be considered as valid by the program is GET, the other are accepted but not treated. tests : TestRequestType, TestRequestDestination, TestRequestProtocol
+ \item Return code between 100 and 400, codes above 300 included are considered as fail codes. test : TestReturnCode
+ \item Size of transmission >= 0. If it is unknown, it is replaced by a dash ("-"). test : TestDataSize
+ \item Referrer. It is given between double quotes. test : TestReferrer
+ \item Browser and browser infos given between double quotes. test : TestBrowser
  \end{itemize}
 \paragraph{}
  Here is a log line template given as example :
@@ -86,17 +89,16 @@ Here is the template of a call :
 \paragraph{} 
  there are three available options :
  \begin{itemize}[label=$\square$]
- \item -e : e stands for exceptions. With this option, the program must exclude of the treatment all documents (in the log requests) that have a picture, css or javascript extension. As it is accepted if the program only exclude most common extensions, we chose to let the user define them in a text file (excludedExtensions.txt)
- \item -g outputName.dot : g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line.
- \item -t hour : t stands for time. hour is a number between 0 and 23. This option is used to select only one hour of data between hour and hout+1. That means, the results in the output and/or those in the dot file are those corresponding to the trafic on the server in this interval of time. It is as if the logfile lines out of this interval didn't exist.
+ \item -e : e stands for exceptions. With this option, the program must exclude of the treatment all documents (in the log requests) that have a picture, css or javascript extension. As it is accepted if the program only exclude most common extensions, we chose to let the user define them in a text file (excludedExtensions.txt). test : TestRequestE
+ \item -g outputName.dot : g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line. test : TestRequestG
+ \item -t hour : t stands for time. hour is a number between 0 and 23. This option is used to select only one hour of data between hour and hout+1. That means, the results in the output and/or those in the dot file are those corresponding to the trafic on the server in this interval of time. It is as if the logfile lines out of this interval didn't exist. test : TestRequestT
  \end{itemize}
- If there is no option -g, the program will return the 10 most used resources which fill the options
+ If there is no option -g, the program will return the 10 most used resources which fill the options. test : TestRequestSimple
  If there is less than 10 entries, it only prints those which are stored.
 
 \subsection{Data structure}
 \paragraph{}
- We wanted a data structure which stores one information for each referrer-destination-hour combination.
- The information stored is the number of hits
+ We want a data structure which stores one information for each referrer-destination-hour combination : the number of hits. It must be fast and easily upgradable, so all informations, including those which are useless must also be stored.
  
 \newpage
  
@@ -115,5 +117,11 @@ main binary tree ordered by destination. Contains other binary trees ordered by 
  manages additions of elements
  computing elements in Binary trees to print 10 most used links
  generating a .dot file with all links between url
+
+\newpage
+
+\begin{figure}[t]
+\includegraphics{schemas structures.png}
+\end{figure}
 
 \end{document}
