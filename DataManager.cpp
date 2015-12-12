@@ -15,17 +15,57 @@
 #include "DataManager.h"
 #include "config.h"
 
-using namespace std;
+// don't use: "using namespace std;" to keep clear that we use std and
+// not any other library and by the same way keeping ready to use an other
+// library than the std.
 
 //----------------------------------------------------------------- PUBLIC
 
 //--------------------------------------------------------- Public methods
+
+// Constructor
+DataManager::DataManager() {
+    std::ifstream extensionFile (EXTENSION_FILE);
+    for(std::string extension ; std::getline(extensionFile,extension) ; )
+    {
+        excludedExtension.push_back(extension);
+    }
+    extensionFile.close();
+
+    for (int i = 0; i < DATA_TAB_SIZE; ++i)
+    {
+        data[i] = nullptr;
+    }
+}
+
+// Destructor
+DataManager::~DataManager()
+{
+    for (int c = 0; c < DATA_TAB_SIZE; c++)
+    {
+        if(data[c] != nullptr)
+        {
+            //iterate through the from node:
+            for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
+            {
+                //iterate through the referrer branches:
+                for(dataDestinationLevel::iterator d=f->second->begin() ; d!=f->second->end() ; ++d)
+                {
+                    delete [] d->second;
+                }
+                delete f->second;
+            }
+            delete data[c];
+        }
+    }
+}
+
 int DataManager::LoadLogFile(const std::string &logFilePath)
 // Algorithm :
 // Open a log file. Reads line by line its content until end of file is reached.
 // Each line is put in a string stream. Then it is parsed to obtain all its characteristics
 {
-    ifstream logFile(logFilePath, ios::in);  // on ouvre le fichier en lecture
+    std::ifstream logFile(logFilePath, std::ios::in);  // on ouvre le fichier en lecture
     if(!logFile)
     {
         std::cerr << "erreur lors de l'ouverture du fichier de log: " << logFilePath << std::endl;
@@ -33,23 +73,23 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     }
     else
     {
-        string logLine;
+        std::string logLine;
 
-        string ip;
+        std::string ip;
         tm time;
         unsigned int httpCode;
-        string sizeTransfered;
+        std::string sizeTransfered;
         unsigned int sizeTransferedValue;
-        string browser;
-        string logname;
-        string pseudo;
-        string request;
+        std::string browser;
+        std::string logname;
+        std::string pseudo;
+        std::string request;
         int GMT;
-        string unusedBuffer;
-        string dateBuffer, GMTBuffer;
-        string protocolRequest;
-        string URLRequest;
-        string refferer;
+        std::string unusedBuffer;
+        std::string dateBuffer, GMTBuffer;
+        std::string protocolRequest;
+        std::string URLRequest;
+        std::string refferer;
 
         //loops until end of file or bad reading
         while(getline(logFile,logLine))
@@ -58,7 +98,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
             {
                 std::stringstream ss(logLine);
                 ss >> ip >> logname >> pseudo >> dateBuffer >> GMTBuffer >> request;
-                string bufferString;
+                std::string bufferString;
                 getline(ss, bufferString, '"');
                 unsigned long lastSpace = bufferString.find_last_of(" ");
                 URLRequest = bufferString.substr(0,lastSpace);
@@ -79,7 +119,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
 
                 //date extraction
                 time.tm_mday = atoi(dateBuffer.substr(1,2).c_str());
-                string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+                std::string Month [] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
                 for(int i=0;i<12;i++)
                 {
                     if (Month[i].compare(dateBuffer.substr(4, 3)) == 0) {
@@ -108,7 +148,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 //add to structure
                 add(refferer, URLRequest, (unsigned)time.tm_hour, httpCode, other);
             }
-            catch (exception e)
+            catch (std::exception e)
             {
                 std::cerr << e.what() << " when reading the log file" << std::endl;
             }
@@ -163,13 +203,10 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                         for (int h=hourMin ; h<hourMax ; h++)
                         {
                             numberOfHitsByReferrer += d->second[h].size();
-                            /*numberOfHitsByReferrer += d->second[h].size();
-                            std::cerr << "to " << f->first << " from " << d->first << " at h=" << h << " hits: " << d->second[h].size();
-                            std::cerr << " or " << data[c].at(f->first).at(d->first)[h].size() << std::endl;*/
                         }
                         if(optionG)
                         {
-                            addLinkToGraph(f->first,d->first,to_string(numberOfHitsByReferrer));
+                            addLinkToGraph(f->first,d->first,std::to_string(numberOfHitsByReferrer));
                         }
                         numberOfHitsByPage += numberOfHitsByReferrer;
                     }
@@ -195,10 +232,11 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
     return 0;
 }
 
-int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, unsigned int httpCode, const LogOtherInfos &other)
+int DataManager::add(const std::string &referrer, const std::string &destination, unsigned int hour, \
+                     unsigned int httpCode, const LogOtherInfos &other)
 // Algorithm : runs through the structure
 {
-    unsigned int indexHttpCode = (httpCode/200)-1;
+    unsigned int indexHttpCode = transformToTabIndex(httpCode);
 
     dataDestinationLevel* referrerMap;
 
@@ -247,7 +285,7 @@ int DataManager::addNodeToGraph(const std::string &nodeName)
     }
     else
     {
-        graphFileStream << "       " << transformToNodeName(nodeName) << " [label=\"" << nodeName << "\"];" << endl;
+        graphFileStream << "       " << transformToNodeName(nodeName) << " [label=\"" << nodeName << "\"];" << std::endl;
     }
     return 0;
 }
@@ -260,14 +298,15 @@ int DataManager::addLinkToGraph(const std::string &nodeNameFrom, const std::stri
     }
     else
     {
-        graphFileStream << "       " << transformToNodeName(nodeNameFrom) << " -> " << transformToNodeName(nodeNameTo) << " [label=" << linkLabel << "];" << endl;
+        graphFileStream << "       " << transformToNodeName(nodeNameFrom) << " -> ";
+        graphFileStream << transformToNodeName(nodeNameTo) << " [label=" << linkLabel << "];" << std::endl;
     }
     return 0;
 }
 int DataManager::initGraphFile(const std::string &filePath)
 {
-    // ouverture en ecriture avec effacement du fichier ouvert
-    graphFileStream.open(filePath,ios::out | ios::trunc);
+    // creating a new one graph file, deleting the older one if the file already exist
+    graphFileStream.open(filePath,std::ios::out | std::ios::trunc);
     if(!graphFileStream)
     {
         std::cerr << "erreur lors de l'ouverture du fichier: " << filePath << std::endl;
@@ -302,10 +341,6 @@ std::string DataManager::transformToNodeName(const std::string &nonUsableName) c
         {
             ret.push_back(nonUsableName.at(i));
         }
-        /*else if(nonUsableName.at(i) == '-')
-        {
-            ret.append("UnPetitTiret");
-        }*/
     }
     return ret;
 }
@@ -318,7 +353,7 @@ bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B)
 
 bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
 {
-    if(pagePath.find('.') != string::npos)
+    if(pagePath.find('.') != std::string::npos)
     {
         std::string extension = pagePath.substr( pagePath.find_last_of('.'));
 
@@ -333,39 +368,14 @@ bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
     return true;
 }
 
-// Constructor
-DataManager::DataManager() {
-    ifstream extensionFile (EXTENSION_FILE);
-    for(std::string extension ; std::getline(extensionFile,extension) ; )
+int DataManager::transformToTabIndex(int httpCode) const {
+    //equivalent to: (httpCode-100)/300 but handel error case:
+    if(httpCode >= 100 && httpCode < 400)
     {
-        excludedExtension.push_back(extension);
+        return 0;
     }
-    extensionFile.close();
-
-    for (int i = 0; i < DATA_TAB_SIZE; ++i)
+    else // if on [400;600[ or if any error
     {
-        data[i] = nullptr;
-    }
-}
-
-// Destructor
-DataManager::~DataManager()
-{
-    for (int c = 0; c < DATA_TAB_SIZE; c++)
-    {
-        if(data[c] != nullptr)
-        {
-            //iterate through the from node:
-            for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
-            {
-                //iterate through the referrer branches:
-                for(dataDestinationLevel::iterator d=f->second->begin() ; d!=f->second->end() ; ++d)
-                {
-                    delete [] d->second;
-                }
-                delete f->second;
-            }
-            delete data[c];
-        }
+        return 1;
     }
 }

@@ -48,15 +48,14 @@ public:
     virtual ~DataManager();
 //-------------------------------------------------------- Private methods
 private:
-public:
     int add(const std::string &referrer,const std::string &destination, unsigned hour, unsigned int httpCode,const LogOtherInfos &other);
 
-private:
     int addNodeToGraph(const std::string &nodeName);
     int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
     int initGraphFile(const std::string &filePath);
     int closeGraphFile();
     std::string transformToNodeName(const std::string &nonUsableName) const;
+    int transformToTabIndex(int httpCode) const;
 
     static bool compareDateAndHits(const pageAndHits &A, const pageAndHits &B);
     bool isNotExcludedDocument(const std::string &pagePath) const;

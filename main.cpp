@@ -4,17 +4,13 @@
 
 #include "DataManager.h"
 
-#ifdef TEST
-    #include "test.h"
-#endif
+// don't use: "using namespace std;" to keep clear that we use std and
+// not any other library and by the same way keeping ready to use an other
+// library than the std.
 
 int main(int argc, char * argv[])
 {
     DataManager manager;
-
-#ifdef TEST
-    testAdd(manager);
-#else
 
     bool optionE = false;
     bool optionT = false;
@@ -58,7 +54,6 @@ int main(int argc, char * argv[])
 
     manager.LoadLogFile(logFilePath);
     manager.Request(optionT,tHour, optionE, optionG,gFilePath);
-#endif
     return 0;
 }
 
