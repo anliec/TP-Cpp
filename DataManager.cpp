@@ -203,7 +203,14 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                         int numberOfHitsByReferrer = 0;
                         for (int h=hourMin ; h<hourMax ; h++)
                         {
-                            numberOfHitsByReferrer += d->second[h].size();
+                            //numberOfHitsByReferrer += d->second[h].size();
+                            for (int i = 0; i < d->second[h].size(); ++i)
+                            {
+                                if(d->second[h].at(i).getRequest().substr(1,3).compare("GET")==0)
+                                {
+                                    numberOfHitsByReferrer++;
+                                }
+                            }
                         }
                         if(optionG)
                         {

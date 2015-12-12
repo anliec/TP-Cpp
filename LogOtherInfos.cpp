@@ -35,3 +35,7 @@ LogOtherInfos::LogOtherInfos(const std::string &logIp,const tm &logTime,const un
                     GMT(logGMT)
 {
 }
+
+std::string & LogOtherInfos::getRequest() {
+    return request;
+}

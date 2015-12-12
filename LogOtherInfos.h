@@ -31,6 +31,8 @@ public:
     LogOtherInfos(const std::string &logIp,const tm &logTime,const unsigned int &logCode, const unsigned &logSize,
                   const std::string &logBrowser, const std::string &logLogname, const std::string &logPseudo,
                   const std::string &logRequest, const int &logGMT);
+
+    std::string & getRequest();
 //---------------------------------------------------------------- PRIVATE
 private:
 //------------------------------------------------------- Private atributs
