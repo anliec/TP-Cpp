@@ -11,24 +11,21 @@
 #include <iostream>
 
 
-//-------- Interface of the class LogOtherInfos (file LogOtherInfos.h) -------
+//------ Interface of the class LogOtherInfos (file LogOtherInfos.h) -----
 #ifndef TP_CPP_LOGOTHERINFOS_H
 #define TP_CPP_LOGOTHERINFOS_H
 
-//------------------------------------------------------------- Constants
+//-------------------------------------------------------------- Constants
 
 
 //------------------------------------------------------------------------
-// What is this class useful ?
+// This class contains all non classification informations
 //------------------------------------------------------------------------
 
 class LogOtherInfos
 {
 //----------------------------------------------------------------- PUBLIC
 public:
-//--------------------------------------------------------- Public methods
-//-------------------------------------------------------------- Overloads
-    /*std::istream &operator>>(std::istream  &input);*/
 //--------------------------------------------- Constructors - destructors
     LogOtherInfos();
     LogOtherInfos(const std::string &logIp,const tm &logTime,const unsigned int &logCode, const unsigned &logSize,
@@ -36,8 +33,6 @@ public:
                   const std::string &logRequest, const int &logGMT);
 //---------------------------------------------------------------- PRIVATE
 private:
-//-------------------------------------------------------- Private methods
-
 //------------------------------------------------------- Private atributs
     std::string ip;
     tm time;

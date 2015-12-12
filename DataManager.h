@@ -32,6 +32,10 @@ typedef std::map< std::string, dataDestinationLevel* > dataFromLevel;
 
 typedef std::pair< std::string, int> pageAndHits;
 
+//------------------------------------------------------------------------
+// The class DataManager is the main class of the program. It contains all
+// data structures, creates, manages and make calculations on them.
+//------------------------------------------------------------------------
 class DataManager {
 
 //----------------------------------------------------------------- PUBLIC
@@ -40,12 +44,22 @@ public:
 
 //--------------------------------------------------------- Public methods
     int LoadLogFile(const std::string &logFilePath);
-    int Request(bool optionT=false,int tHour=-1, bool optionE=false, bool optionG=false,const std::string &outputFile="");
+    // User guide :
+    // This method is used to load a logfile in the program.
+    // The parameter logFilePath is the path to the file.
 
+    int Request(bool optionT=false,int tHour=-1, bool optionE=false, bool optionG=false,const std::string &outputFile="");
+    // User guide :
+    // Generate the outputs of the program.
+    // The parameters correspond to user options, outputFile is the path
+    // to a generated .dot file
 
 //--------------------------------------------- Constructors - destructors
     DataManager();
+    // Use at the beginning of the program
     virtual ~DataManager();
+    // Use at the end of the program
+
 //-------------------------------------------------------- Private methods
 private:
     int add(const std::string &referrer,const std::string &destination, unsigned hour, unsigned int httpCode,const LogOtherInfos &other);

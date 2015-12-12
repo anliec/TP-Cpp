@@ -40,6 +40,7 @@ DataManager::DataManager() {
 
 // Destructor
 DataManager::~DataManager()
+// Algorithm : Run through the graph and delete all dynamic elements.
 {
     for (int c = 0; c < DATA_TAB_SIZE; c++)
     {
