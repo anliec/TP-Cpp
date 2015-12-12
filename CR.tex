@@ -42,7 +42,12 @@
 
 \subsection{Log lines}
 \paragraph{}
- A log line must fulfill the following conditions in order to be accepted by the program :
+ A log line must fulfill several conditions in order to be accepted by the program. Besides the conditions on each information, there is a general structure to check :
+ \begin{itemize}[label=$\square$]
+ \there is a specific order for the informations in a logline
+ \each information in seperated from the others with a space. However, the request, the referrer, and browser informations are given between double quotes.
+ \end{itemize}
+ Each information of a log line is the object of a small test.
  \begin{itemize}[label=$\square$]
  \item valid ipv4 adress
  \item correct date and hour
@@ -54,6 +59,9 @@
  \item return code between 100 and 400, codes above 300 included are considered as fail codes
  \item size of transmission >= 0
  \end{itemize}
+Here is a log line template given as example :
+
+192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] "GET /temps/4IF16.html HTTP/1.1" 200 12106 "http://intranet-if.insa-lyon.fr/temps/4IF15.html" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"
  
 \subsection{Accepted requests}
 \paragraph{}
@@ -70,7 +78,7 @@
 \subsection{Data structure}
 \paragraph{}
  We wanted a data structure which stores one information for each referrer-destination-hour combination.
- The information stored is the number of hit
+ The information stored is the number of hits
  
 \newpage
  
