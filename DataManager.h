@@ -24,7 +24,7 @@
 //------------------------------------------------------------- Constants
 const int DATA_TAB_SIZE = 2;
 
-
+//---------------------------------------------------------------Typedefs
 typedef std::vector< LogOtherInfos > dataHourLevel;
 typedef std::map< std::string, dataHourLevel* > dataDestinationLevel;
 typedef std::map< std::string, dataDestinationLevel* > dataFromLevel;
