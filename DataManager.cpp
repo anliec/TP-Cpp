@@ -102,7 +102,7 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 std::string bufferString;
                 getline(ss, bufferString, '"');
                 unsigned long lastSpace = bufferString.find_last_of(" ");
-                URLRequest = bufferString.substr(0,lastSpace);
+                URLRequest = bufferString.substr(1,lastSpace-1);
                 protocolRequest = bufferString.substr(lastSpace+1, bufferString.length()-lastSpace-1);
                 ss >> httpCode >> sizeTransfered >> refferer;
                 if(sizeTransfered.compare("-") ==0)
