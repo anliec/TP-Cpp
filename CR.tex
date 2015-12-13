@@ -50,25 +50,29 @@ The input of our program (analog) is a correctly built (cf. detailed specs) log 
  \item there is a specific order for the informations in a logline
  \item each information in seperated from the others with a space. However, the request, the referrer, and browser informations are given between double quotes.
  \end{itemize}
- Each information of a log line is the object of a small test.
- \begin{itemize}[label=$\square$]
- \item Ipv4 adress. The program does not check its validity. test : TestIpv4
- \item User logname. It must be in one world. If there is none, it is replaced by a dash ("-"). test : TestPseudo\&Logname
- \item Authenticated User (Pseudo). It must be in one world. If there is none, it is replaced by a dash ("-"). test : TestPseudo\&Logname
- \item Date, time and GMT as followed : [DD/Mon/YYYY:HH:MM:SS XGMT] (X replaced by "+" or "-"). test : TestDate\&hour\&GMT
-
- these conditions may be added
+ Each information of a log line is the object of a small test
+ \begin{center}
+   \begin{tabular}{| p{2.5cm} | p{4.5cm} | p{3.3cm} | p{3.5cm} |}
+     \hline
+     Element & Description & Test & Additional informations\\ \hline
+     Ipv4 adress & The program does not check its validity & TestIpv4 & none\\ \hline
+     User logname & It must be in one world. If there is none, it is replaced by a dash ("-") & TestPseudo\&Logname & none\\ \hline
+     Authenticated User (Pseudo) & It must be in one world. If there is none, it is replaced by a dash ("-") & TestPseudo\&Logname & none\\ \hline
+     Date, time and GMT &  As followed : [DD/Mon/YYYY:HH:MM:SS XGMT] (X replaced by "+" or "-") & TestDate\&hour\&GMT & These conditions may be added
  \begin{itemize}
  \item date < current date
  \item hour between 00:00:00 and 23:59:59
  \item GMT between -12 and +12
- \end{itemize}
- \item Total request as followed (no constraint of world size) : "REQUESTTYPE requestedURL requestProtocol" . The only request that must be considered as valid by the program is GET, the other are accepted but not treated. tests : TestRequestType, TestRequestDestination, TestRequestProtocol
- \item Return code between 100 and 400, codes above 300 included are considered as fail codes. test : TestReturnCode
- \item Size of transmission >= 0. If it is unknown, it is replaced by a dash ("-"). test : TestDataSize
- \item Referrer. It is given between double quotes. test : TestReferrer
- \item Browser and browser infos given between double quotes. test : TestBrowser
- \end{itemize}
+ \end{itemize}\\ \hline
+     Total request & As followed (no constraint of world size) : "REQUESTTYPE requestedURL requestProtocol" & TestRequestType, TestRequestDestination, TestRequestProtocol & The only request that must be considered as valid by the program is GET, the other are accepted but not treated\\ \hline
+     Return code & Between 100 and 400, codes above 300 included are considered as fail codes & TestReturnCode & none\\ \hline
+     Size of transmission & >= 0. If it is unknown, it is replaced by a dash ("-") & TestDataSize & none\\ \hline
+     Referrer & It is given between double quotes & TestReferrer & none\\ \hline
+     Browser and browser infos & Given between double quotes & TestBrowser & No particular syntax \\
+     \hline
+   \end{tabular}
+ \end{center}
+
 \paragraph{}
  Here is a log line template given as example :
 
@@ -93,8 +97,7 @@ Here is the template of a call :
  \item -g outputName.dot : g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line. test : TestRequestG
  \item -t hour : t stands for time. hour is a number between 0 and 23. This option is used to select only one hour of data between hour and hout+1. That means, the results in the output and/or those in the dot file are those corresponding to the trafic on the server in this interval of time. It is as if the logfile lines out of this interval didn't exist. test : TestRequestT
  \end{itemize}
- If there is no option -g, the program will return the 10 most used resources which fill the options. test : TestRequestSimple
- If there is less than 10 entries, it only prints those which are stored.
+ If there is no option -g, the program will return the 10 most used resources which fill the options. test : TestRequestSimple. If there are less than 10 entries, it only prints those that are stored.
 
 \subsection{Data structure}
 \paragraph{}
@@ -108,12 +111,7 @@ Here is the template of a call :
 \paragraph{}
  For our Data storage structure, we chose to sort informations by referrer, destination (requestedURL), and hour, in this order.
 
- As there are 24 hours in a day, the sorting by hour is easily implemented by an array of 24 cells. For the two other informations though, the number of possible values depends on the log file. Consequently, we chose to use binary trees as an effective dynamic structure.
-
- template binaryTree :
-    type of the Key
-    type of Data
-    the tree is balanced
+ As there are 24 hours in a day, the sorting by hour is easily implemented by an array of 24 cells. For the two other informations though, the number of possible values depends on the log file. Consequently, we chose to use balanced binary trees as an effective dynamic structure.
 
 You can find at the last page some patterns that resume the Data storage structure at the end of the document.
 
