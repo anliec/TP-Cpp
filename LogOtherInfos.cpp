@@ -5,7 +5,7 @@
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//- Realisation of the class LogOtherInfos (file LogOtherInfos) -
+//------ Realisation of the class LogOtherInfos (file LogOtherInfos) -----
 
 //---------------------------------------------------------------- INCLUDE
 

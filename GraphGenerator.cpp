@@ -5,7 +5,7 @@
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//- Realisation of the class GraphGenerator (file GraphGenerator.cpp) -
+//-- Realisation of the class GraphGenerator (file GraphGenerator.cpp) ---
 
 //---------------------------------------------------------------- INCLUDE
 
