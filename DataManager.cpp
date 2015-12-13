@@ -140,6 +140,10 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
                 {
                     refferer = refferer.substr(32);
                 }
+                else
+                {
+                    refferer = refferer.substr(1);
+                }
                 refferer = refferer.substr(0,refferer.size()-1);
 
                 getline(ss, unusedBuffer, '"');
@@ -191,10 +195,10 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                 //option -e filter: if the option is activated then only select the specified extension
                 if( !optionE || isNotExcludedDocument(f->first) )
                 {
-                    if(optionG)
+                    /*if(optionG)
                     {
                         addNodeToGraph(f->first);
-                    }
+                    }*/
                     int numberOfHitsByPage=0;
 
                     //iterate through the referrer branches:
@@ -298,6 +302,8 @@ int DataManager::addNodeToGraph(const std::string &nodeName)
 }
 int DataManager::addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel)
 {
+    addNodeToGraph(nodeNameFrom);
+    addNodeToGraph(nodeNameTo);
     if(!graphFileStream)
     {
         std::cerr << "erreur sur le fichier en écriture" << std::endl;
@@ -305,8 +311,8 @@ int DataManager::addLinkToGraph(const std::string &nodeNameFrom, const std::stri
     }
     else
     {
-        graphFileStream << "       " << transformToNodeName(nodeNameFrom) << " -> ";
-        graphFileStream << transformToNodeName(nodeNameTo) << " [label=" << linkLabel << "];" << std::endl;
+        graphFileStream << "       " << transformToNodeName(nodeNameTo) << " -> ";
+        graphFileStream << transformToNodeName(nodeNameFrom) << " [label=" << linkLabel << "];" << std::endl;
     }
     return 0;
 }
@@ -320,6 +326,7 @@ int DataManager::initGraphFile(const std::string &filePath)
         return FILE_ERROR;
     }
     graphFileStream << "digraph {" << std::endl;
+    //graphFileStream << "       it [label=\"-\"];" << std::endl;
     return 0;
 }
 int DataManager::closeGraphFile()
@@ -331,7 +338,7 @@ int DataManager::closeGraphFile()
 
 std::string DataManager::transformToNodeName(const std::string &nonUsableName) const
 {
-    std::string ret = "nomde";
+    std::string ret /*= "nomde"*/;
     bool add;
     for (unsigned i=0; i<nonUsableName.length(); i++)
     {
@@ -347,6 +354,10 @@ std::string DataManager::transformToNodeName(const std::string &nonUsableName) c
         if(add)
         {
             ret.push_back(nonUsableName.at(i));
+        }
+        else
+        {
+            ret.push_back(nonUsableName.at(i)%26+'a');
         }
     }
     return ret;
