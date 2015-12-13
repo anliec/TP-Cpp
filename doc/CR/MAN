@@ -1,32 +1,52 @@
 NAME
     analog, a program that treats apache log files
 
-	SYNOPSIS
-	analog [-e] [-t HH] [-g <graphvizfile.dot>] <apache-server-logfile.log>
-	The program reads the log file and returns top 10 visited documents in the fol, with associated numbers of hits
-    [-e] : excludes some image, css and javascript extensions from the results. Excluded extensions can be modified in "excludedExtensions.txt"
-	[-t HH] : limits the results to requests between the hour HH and HH+1
-	[-g <graphvizfile.dot>] : exports the apache log analysis in a graphviz file given in parameter. Nodes are requested web documents and links represent the navigation between the documents
+SYNOPSIS
+	analog [OPTION]... <apache-server-logfile.log>
 	
 DESCRIPTION
+	List  information  about the FILEs (the current directory by default).
+	Reads the log file and returns top 10 visited documents in the fol,
+	with associated numbers of hits
+
+	Sort entries by the number of hits and then by alphabetical order.
+
+	-e
+		excludes images, css and javascript extensions from the results.
+		Excluded extensions can be modified in "excludedExtensions.txt"
+
+	-t HH
+		limits the results to requests between the hour HH and HH+1.
+
+	-g <graphvizfile.dot>
+		exports the apache log analysis in a graphviz file given in 
+		parameter. Nodes are requested web documents and links repres-
+		ent the navigation between the documents.
+
 	A logfile line must be written as follow
 
-    AnIpAdress Logname Pseudo [DD/Mon/YYYY:HH:MM:SS XGMT] "REQUESTTYPE requestedURL requestProtocol" httpreturncode sizetransfered "referrer" "Browser informations given without a specific order"
+    	AnIpAdress Logname Pseudo [DD/Mon/YYYY:HH:MM:SS XGMT] "REQUESTTYPE re-
+	questedURL requestProtocol" httpreturncode sizetransfered "referrer" 
+	"Browser informations given without a specific order"
 
-EXEMPLES
-     192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] "GET /temps/4IF16.html HTTP/1.1" 200 12106 "http://intranet-if.insa-lyon.fr/temps/4IF15.html" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"
+	Exit status:
+		0   if OK,
 
-SEE ALSO
-    A list of related commands or functions :
-	test.sh <folder path> : runs a test directory on analog
-	mktest.sh : runs all test directories on analog. Results are exported to CSV format
+		1   if error when opening the log file,
 
-BUGS
-    List known bugs.
+		80  if error when writing for the graph file,
+
+REPORTING BUGS
+	github.com/anliec/TP-Cpp/issues
 
 AUTHOR
-   Edern Haumont : edern.haumont@insa-lyon.fr
-   Nicolas Six : nicolas.six@insa-lyon.fr
+	Edern Haumont : edern.haumont@insa-lyon.fr
+	Nicolas Six   : nicolas.six@insa-lyon.fr
 
 COPYRIGHT
-    © Edern Haumont & Nicolas Six
+       Copyright © 2014 Edern Haumont & Nicolas Six.  License  GPLv3+:  GNU
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+       This  is  free  software:  you are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+Analog TP-Cpp 3                 December 2015                         ANALOG(1)
