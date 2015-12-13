@@ -4,6 +4,13 @@
     debut                : 23/11/2015
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
 *************************************************************************/
+
+
+//-------- Interface of the class DataManager (file DataManager.h) -------
+#ifndef TP_CPP_DATAMANAGER_H
+#define TP_CPP_DATAMANAGER_H
+
+//--------------------------------------------------------------- Includes
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -14,16 +21,9 @@
 #include "LogOtherInfos.h"
 #include "GraphGenerator.h"
 
-//-------- Interface of the class DataManager (file DataManager.h) -------
-#ifndef TP_CPP_DATAMANAGER_H
-#define TP_CPP_DATAMANAGER_H
-
 //------------------------------------------------------------- Constants
 const int DATA_TAB_SIZE = 2;
 
-//------------------------------------------------------------------------
-// What is this class useful ?
-//------------------------------------------------------------------------
 
 typedef std::vector< LogOtherInfos > dataHourLevel;
 typedef std::map< std::string, dataHourLevel* > dataDestinationLevel;

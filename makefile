@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-std=c++11
 LDFLAGS=
 EXEC=analog
-SRC=main.cpp DataManager.cpp LogOtherInfos.cpp
+SRC=main.cpp DataManager.cpp LogOtherInfos.cpp GraphGenerator.cpp
 OBJ=$(SRC:.cpp=.o)
 
 all: $(EXEC)

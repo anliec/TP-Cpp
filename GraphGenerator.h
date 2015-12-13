@@ -1,25 +1,38 @@
-//
-// Created by nicolas on 13/12/15.
-//
+/*************************************************************************
+                     GraphGenerator  -  description
+                             -------------------
+    debut                : 23/11/2015
+    copyright            : (C) 2015 by Edern Haumont & Nicolas Six
+*************************************************************************/
 
 #ifndef TP_CPP_GRAPHGENERATOR_H
 #define TP_CPP_GRAPHGENERATOR_H
 
+//--------------------------------------------------------------- Includes
 #include <iostream>
 #include <fstream>
 
+//------------------------------------------------------------- Constants
 const int FILE_ERROR = 80;
 
+//------------------------------------------------------------------------
+// The class GraphGenerator handle all that is related to the creation of
+// the graph file
+//------------------------------------------------------------------------
 class GraphGenerator
 {
+//----------------------------------------------------------------- PUBLIC
 public:
+//--------------------------------------------------------- Public methods
+    int addNodeToGraph(const std::string &nodeName);
+    int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
+//--------------------------------------------- Constructors - destructors
     GraphGenerator(const std::string &filePath);
     virtual ~GraphGenerator();
 
-    int addNodeToGraph(const std::string &nodeName);
-    int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
-
+//---------------------------------------------------------------- PRIVATE
 private:
+//-------------------------------------------------------- Private methods
     std::string transformToNodeName(const std::string &nonUsableName) const;
 
 private:
