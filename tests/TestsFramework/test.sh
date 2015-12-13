@@ -24,7 +24,8 @@ if [ -r "description" ]
 then 
   echo "-----------------------------------------------------------"
   echo "Description :"
-  fold description -w 60 -s
+  Result= fold description -w 60 -s
+  echo $Result
   echo "-----------------------------------------------------------"
 fi
 
