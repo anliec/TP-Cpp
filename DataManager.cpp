@@ -195,10 +195,6 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                 //option -e filter: if the option is activated then only select the specified extension
                 if( !optionE || isNotExcludedDocument(f->first) )
                 {
-                    /*if(optionG)
-                    {
-                        addNodeToGraph(f->first);
-                    }*/
                     int numberOfHitsByPage=0;
 
                     //iterate through the referrer branches:
@@ -221,8 +217,11 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                         }
                         numberOfHitsByPage += numberOfHitsByReferrer;
                     }
-                    pageAndHits tuple(f->first, numberOfHitsByPage);
-                    pageHit.push_back(tuple);
+                    if(numberOfHitsByPage != 0)
+                    {
+                        pageAndHits tuple(f->first, numberOfHitsByPage);
+                        pageHit.push_back(tuple);
+                    }
                 }
             }
         }
