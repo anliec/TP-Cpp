@@ -193,14 +193,8 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
             for(dataFromLevel::iterator f=data[c]->begin() ; f!=data[c]->end() ; ++f)
             {
                 //option -e filter: if the option is activated then only select the specified extension
-                std::string nom = f->first;
-                bool notExcluded = isNotExcludedDocument(nom);
-                if( !optionE || (optionE && notExcluded) )
+                if( !optionE || isNotExcludedDocument(f->first) )
                 {
-                    /*if(optionG)
-                    {
-                        addNodeToGraph(f->first);
-                    }*/
                     int numberOfHitsByPage=0;
 
                     //iterate through the referrer branches:

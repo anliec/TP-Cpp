@@ -7,7 +7,7 @@ TestNoLogFile;1;1;1;2;1
 TestPseudo&Logname;2;1;2;2;1
 TestReferrer;1;1;2;2;1
 TestRequestDestination;1;1;2;2;1
-TestRequestE;1;0;2;2;0
+TestRequestE;1;1;2;2;1
 TestRequestG;1;1;2;2;1
 TestRequestProtocol;1;1;2;2;1
 TestRequestSimple;1;1;2;2;1
