@@ -25,7 +25,9 @@ class GraphGenerator
 public:
 //--------------------------------------------------------- Public methods
     int addNodeToGraph(const std::string &nodeName);
+    // adds a node to the graph. Label given in parameter
     int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
+    //adds a link between two nodes given in parameters. Label given in parameter
 //--------------------------------------------- Constructors - destructors
     GraphGenerator(const std::string &filePath);
     virtual ~GraphGenerator();
