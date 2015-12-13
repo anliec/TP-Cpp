@@ -91,13 +91,17 @@ Here is the template of a call :
  
 ./analog [options] filename.log
 \paragraph{} 
- there are three available options :
- \begin{itemize}[label=$\square$]
- \item -e : e stands for exceptions. With this option, the program must exclude of the treatment all documents (in the log requests) that have a picture, css or javascript extension. As it is accepted if the program only exclude most common extensions, we chose to let the user define them in a text file (excludedExtensions.txt). test : TestRequestE
- \item -g outputName.dot : g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line. test : TestRequestG
- \item -t hour : t stands for time. hour is a number between 0 and 23. This option is used to select only one hour of data between hour and hout+1. That means, the results in the output and/or those in the dot file are those corresponding to the trafic on the server in this interval of time. It is as if the logfile lines out of this interval didn't exist. test : TestRequestT
- \end{itemize}
- If there is no option -g, the program will return the 10 most used resources which fill the options. test : TestRequestSimple. If there are less than 10 entries, it only prints those that are stored.
+ Here are three available options :
+\begin{center}
+   \begin{tabular}{| p{1cm} | p{9.5cm} | p{3cm} |}
+	\hline
+	option & description & test\\ \hline
+	-e & e stands for exceptions. With this option, the program must exclude of the treatment all documents (in the log requests) that have a picture, css or javascript extension. As it is accepted if the program only exclude most common extensions, we chose to let the user define them in a text file (excludedExtensions.txt) & TestRequestE\\ \hline
+	-g outputName.dot & g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line & TestRequestG\\ \hline
+	-t hour & t stands for time. hour is a number between 0 and 23. This option is used to select only one hour of data between hour and hout+1. That means, the results in the output and/or those in the dot file are those corresponding to the trafic on the server in this interval of time. It is as if the logfile lines out of this interval didn't exist & TestRequestT\\ \hline
+	none & If there is no option -g, the program will return the 10 most used resources which fill the options. If there are less than 10 entries, it only prints those that are stored. & TestRequestSimple, TestNoLogfile, TestEmptyLogFile\\ \hline
+   \end{tabular}
+\end{center} 
 
 \subsection{Data structure}
 \paragraph{}
