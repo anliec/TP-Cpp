@@ -4,7 +4,7 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[francais]{babel}
+\usepackage[french]{babel}
 \usepackage{textcomp}
 \usepackage{listings}
 \usepackage{authblk} %author tools
@@ -99,17 +99,27 @@ Here is the template of a call :
 \subsection{Data structure}
 \paragraph{}
  We want a data structure which stores one information for each referrer-destination-hour combination : the number of hits. It must be fast and easily upgradable, so all informations, including those which are useless must also be stored.
+ The Data structure must be optimized for readings in priority. However, if a future user wants to add an additional sorting level, it must be easy for him/her.
  
 \newpage
  
 \section{Conception}
 \subsection{Data storage}
 \paragraph{}
+ For our Data storage structure, we chose to sort informations by referrer, destination (requestedURL), and hour, in this order.
+
+ As there are 24 hours in a day, the sorting by hour is easily implemented by an array of 24 cells. For the two other informations though, the number of possible values depends on the log file. Consequently, we chose to use binary trees as an effective dynamic structure.
+
  template binaryTree :
     type of the Key
     type of Data
     the tree is balanced
-main binary tree ordered by destination. Contains other binary trees ordered by referrer. Contains a static array ordered by hour. Contains a vector of other info.
+
+You can find at the last page some patterns that resume the Data storage structure at the end of the document.
+
+To resume, we have a main binary tree ordered by destination. Each cell contains other binary trees ordered by referrer. Each cell contains a static array ordered by hour. Each cell contains a vector of other info.
+
+We chose to keep other infos in a class so that, if the user wants to add a level of sorting, he/she just has to take it from this class (as the parser already gets it)
 \subsection{Data computing}
 \paragraph{}
  contains the main binaryTree
