@@ -24,6 +24,7 @@
 // Constructor
 GraphGenerator::GraphGenerator(const std::string &filePath)
 {
+    // Algorithm :
     // creating a new one graph file, deleting the older one if the file already exist
     graphFileStream.open(filePath,std::ios::out | std::ios::trunc);
     if(!graphFileStream)
