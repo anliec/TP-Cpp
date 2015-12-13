@@ -52,7 +52,10 @@ int main(int argc, char * argv[])
     }
     logFilePath = argv[argc-1];
 
-    manager.LoadLogFile(logFilePath);
+    if(manager.LoadLogFile(logFilePath)==1)
+    {
+         return 1;
+    }
     manager.Request(optionT,tHour, optionE, optionG,gFilePath);
     return 0;
 }
