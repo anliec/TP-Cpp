@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++11
+CFLAGS=-std=c++11 -Wall
 LDFLAGS=
 EXEC=analog
 SRC=main.cpp DataManager.cpp LogOtherInfos.cpp GraphGenerator.cpp
