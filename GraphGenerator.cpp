@@ -5,7 +5,7 @@
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//- Realisation of the class GraphGenerator (file GraphGenerator.cpp) -
+//-- Realisation of the class GraphGenerator (file GraphGenerator.cpp) ---
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -24,6 +24,7 @@
 // Constructor
 GraphGenerator::GraphGenerator(const std::string &filePath)
 {
+    // Algorithm :
     // creating a new one graph file, deleting the older one if the file already exist
     graphFileStream.open(filePath,std::ios::out | std::ios::trunc);
     if(!graphFileStream)

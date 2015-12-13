@@ -5,7 +5,7 @@
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//- Realisation of the class LogOtherInfos (file LogOtherInfos) -
+//------ Realisation of the class LogOtherInfos (file LogOtherInfos) -----
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -36,6 +36,7 @@ LogOtherInfos::LogOtherInfos(const std::string &logIp,const tm &logTime,const un
 {
 }
 
+//getter
 std::string & LogOtherInfos::getRequest() {
     return request;
 }

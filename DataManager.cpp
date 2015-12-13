@@ -5,7 +5,7 @@
     copyright            : (C) 2015 by Edern Haumont & Nicolas Six
 *************************************************************************/
 
-//- Realisation of the class DataManager (file DataManager) -
+//------- Realisation of the class DataManager (file DataManager) --------
 
 //---------------------------------------------------------------- INCLUDE
 
