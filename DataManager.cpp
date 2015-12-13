@@ -203,7 +203,7 @@ int DataManager::Request(const bool optionT, const int tHour, const bool optionE
                         int numberOfHitsByReferrer = 0;
                         for (int h=hourMin ; h<hourMax ; h++)
                         {
-                            for (int i = 0; i < d->second[h].size(); ++i)
+                            for (unsigned i = 0; i < d->second[h].size(); ++i)
                             {
                                 if(d->second[h].at(i).getRequest().substr(1,3).compare("GET")==0)
                                 {
@@ -234,7 +234,7 @@ int DataManager::Request(const bool optionT, const int tHour, const bool optionE
 
     std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
 
-    for (int i=0 ; i<10 && i<pageHit.size() ; i++)
+    for (unsigned i=0 ; i<10 && i<pageHit.size() ; i++)
     {
         std::cout << pageHit.at(i).first << " (" << pageHit.at(i).second << " hits)" << std::endl;
     }
@@ -301,7 +301,7 @@ bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
     {
         std::string extension = pagePath.substr( pagePath.find_last_of('.'));
 
-        for (int i = 0; i < excludedExtension.size(); ++i) {
+        for (unsigned i = 0; i < excludedExtension.size(); ++i) {
             if(extension.compare(excludedExtension.at(i))==0)
             {
                 return false;
