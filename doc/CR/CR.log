@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2015.12.1)  13 DEC 2015 17:43
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2015.12.1)  13 DEC 2015 17:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -335,124 +335,124 @@ Package frenchb.ldf Warning: Add \usepackage{fontspec} to the
 (frenchb.ldf)                preamble of your document, on input line 27.
 
 \c@lstlisting=\count107
-LaTeX Font Info:    Try loading font information for U+msa on input line 50.
+LaTeX Font Info:    Try loading font information for U+msa on input line 52.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 50.
+LaTeX Font Info:    Try loading font information for U+msb on input line 52.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 57--57
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
 []\T1/cmr/m/n/10 Additional in-for-ma-
  []
 
 
-Overfull \hbox (3.41539pt too wide) in paragraph at lines 59--59
+Overfull \hbox (3.41539pt too wide) in paragraph at lines 61--61
 []\T1/cmr/m/n/10 TestPseudo&Logname| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--60
+Underfull \hbox (badness 10000) in paragraph at lines 62--62
 []\T1/cmr/m/n/10 Authenticated
  []
 
 
-Overfull \hbox (3.41539pt too wide) in paragraph at lines 60--60
+Overfull \hbox (3.41539pt too wide) in paragraph at lines 62--62
 []\T1/cmr/m/n/10 TestPseudo&Logname| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--61
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
 []\T1/cmr/m/n/10 As fol-lo-wed : [DD/-
  []
 
 
-Overfull \hbox (5.53987pt too wide) in paragraph at lines 61--61
+Overfull \hbox (5.53987pt too wide) in paragraph at lines 63--63
 []\T1/cmr/m/n/10 TestDate&hour&GMT| 
  []
 
 
-Underfull \hbox (badness 2556) in paragraph at lines 63--64
+Underfull \hbox (badness 2556) in paragraph at lines 65--66
 []\T1/cmr/m/n/10 date < cur-rent
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--65
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
 []\T1/cmr/m/n/10 hour bet-ween
  []
 
 
-Underfull \hbox (badness 1728) in paragraph at lines 64--65
+Underfull \hbox (badness 1728) in paragraph at lines 66--67
 \T1/cmr/m/n/10 00 :00 :00 and
  []
 
 
-Underfull \hbox (badness 1838) in paragraph at lines 67--67
+Underfull \hbox (badness 1838) in paragraph at lines 69--69
 []\T1/cmr/m/n/10 As fol-lo-wed (no constraint
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
+Underfull \hbox (badness 10000) in paragraph at lines 69--69
 \T1/cmr/m/n/10 TYPE re-ques-te-dURL re-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
+Underfull \hbox (badness 10000) in paragraph at lines 69--69
 []\T1/cmr/m/n/10 TestRequestType,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
+Underfull \hbox (badness 10000) in paragraph at lines 69--69
 \T1/cmr/m/n/10 Tes-tRe-quest-Des-ti-na-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
+Underfull \hbox (badness 10000) in paragraph at lines 69--69
 \T1/cmr/m/n/10 tion, Tes-tRe-quest-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--71
+Underfull \hbox (badness 10000) in paragraph at lines 73--73
 []\T1/cmr/m/n/10 Browser and
  []
 
 
-Overfull \hbox (13.85675pt too wide) in paragraph at lines 55--74
+Overfull \hbox (13.85675pt too wide) in paragraph at lines 57--76
  [] 
  []
 
 [1
 
 ]
-Overfull \hbox (18.4878pt too wide) in paragraph at lines 84--85
+Overfull \hbox (18.4878pt too wide) in paragraph at lines 86--87
 \T1/cmr/m/n/10 "http ://intranet-if.insa-lyon.fr/temps/4IF15.html" "Mo-zilla/5.
 0 (Win-dows NT 6.1 ; WOW64 ; rv :14.0)
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 100--100
+Underfull \hbox (badness 10000) in paragraph at lines 102--102
 []\T1/cmr/m/n/10 -g
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 100--100
+Underfull \hbox (badness 10000) in paragraph at lines 102--102
 \T1/cmr/m/n/10 out-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 100--100
+Underfull \hbox (badness 10000) in paragraph at lines 102--102
 \T1/cmr/m/n/10 put-
  []
 
 
-Overfull \hbox (14.03688pt too wide) in paragraph at lines 100--100
+Overfull \hbox (14.03688pt too wide) in paragraph at lines 102--102
 \T1/cmr/m/n/10 Name.dot| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--101
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
 []\T1/cmr/m/n/10 -t
  []
 
@@ -462,10 +462,10 @@ File: ../diagrammes/dataStruct/dataStruct.png Graphic file (type QTm)
 Here is how much of TeX's memory you used:
  4573 strings out of 495610
  63653 string characters out of 6186641
- 128541 words of memory out of 5000000
+ 128539 words of memory out of 5000000
  7756 multiletter control sequences out of 15000+600000
  11402 words of font info for 30 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 28i,9n,32p,419b,290s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,9n,32p,383b,290s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on CR.pdf (5 pages).

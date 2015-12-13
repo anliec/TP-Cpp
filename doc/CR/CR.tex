@@ -15,7 +15,7 @@
 %\usepackage{hyperref} %pour les liens internet
 
 %\usepackage{graphicx} %pour les images
-\title{TP C++ n°3 : Analyse de logs Apache}
+\title{TP C++ 3 : Analyse de logs Apache}
 \author{Edern HAUMONT}
 \author{Nicolas SIX}
 \affil{B3111}
@@ -37,11 +37,13 @@
 \section{Specifications}
 \subsection{General specifications}
 \paragraph{}
- Our program is designed to deal with apache servers log files.
-
+Our program is designed to deal with apache servers log files.
+\paragraph{}
 The input of our program (analog) is a correctly built (cf. detailed specs) log file (.log). The output is the list of the ten most visited URL on the server. This list is printed on the standard output. Some options are available to detail the request. The program is able to generate a .dot file which may be viewed with Softwares like Graphviz.
- The program is made to deal quickly with big to be easily updated if the treatment needs of the user evolve.log files. However, it is designed to be easily updated if the treatment needs of the user evolve. That is, if someone wants to modify the application to add a classification level to the Data structure, it must be easy for him/her. The users should not be a programmer, simply a server administrator.
- The program is designed for linux systems.
+\paragraph{}
+ Our program is made to deal quickly with big log file to be easily updated if the treatment needs of the user evolve. That is, if someone wants to modify the application to add a classification level to the Data structure, it must be easy for him/her. The users should not be a programmer, simply a server administrator.
+\paragraph{}
+ The program is designed for linux systems. But should work on other platforms.
 
 \subsection{Log lines}
 \paragraph{}
@@ -113,9 +115,9 @@ Here is the template of a call :
 \section{Conception}
 \subsection{Data storage}
 \paragraph{}
- For our Data storage structure, we chose to sort informations by referrer, destination (requestedURL), and hour, in this order.
-
- As there are 24 hours in a day, the sorting by hour is easily implemented by an array of 24 cells. For the two other informations though, the number of possible values depends on the log file. Consequently, we chose to use balanced binary trees as an effective dynamic structure.
+For our Data storage structure, we chose to sort informations by referrer, destination (requestedURL), and hour, in this order.
+\paragraph{}
+As there are 24 hours in a day, the sorting by hour is easily implemented by an array of 24 cells. For the two other informations though, the number of possible values depends on the log file. Consequently, we chose to use balanced binary trees as an effective dynamic structure.
 
 You can find at the last page some patterns that resume the Data storage structure at the end of the document.
 

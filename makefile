@@ -13,6 +13,12 @@ analog: $(OBJ)
 %.o: %.cpp
 	$(CC) -o $@ -c $< $(CFLAGS)
 
+DataManager.cpp: DataManager.h
+
+LogOtherInfos.cpp: LogOtherInfos.h
+
+GraphGenerator.cpp: GraphGenerator.h
+
 .PHONY:clean
 
 clean:
