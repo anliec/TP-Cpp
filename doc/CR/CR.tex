@@ -112,7 +112,7 @@ Here is the template of a call :
  
 \newpage
  
-\section{Conception}
+\section{Conception and Data Structure}
 \subsection{Data storage}
 \paragraph{}
 For our Data storage structure, we chose to sort informations by referrer, destination (requestedURL), and hour, in this order.
@@ -124,13 +124,42 @@ You can find at the last page some patterns that resume the Data storage structu
 To resume, we have a main binary tree ordered by destination. Each cell contains other binary trees ordered by referrer. Each cell contains a static array ordered by hour. Each cell contains a vector of other info.
 
 We chose to keep other infos in a class so that, if the user wants to add a level of sorting, he/she just has to take it from this class (as the parser already gets it)
-\subsection{Data computing}
+\subsection{Classes}
 \paragraph{}
- contains the main binaryTree
+We have 3 classes.
 
- manages additions of elements
- computing elements in Binary trees to print 10 most used links
- generating a .dot file with all links between url
+You can find at the end of the document the general pattern of the application, with the interactions between classes.
+
+\subsubsection{DataManager}
+\paragraph{}
+His is our main class. It contains our Data structures.
+
+It has two main methods :\newline
+
+int LoadLogFile(const std::string \&logFilePath);
+
+This method is used to load a logfile in the program. The parameter logFilePath is the path to the file.
+
+int Request(const bool optionT=false,const int tHour=-1,const bool optionE=false,const bool optionG=false,const std::string \&outputFile="");
+
+This method generates the outputs of the program. The parameters correspond to user options, outputFile is the path to a generated .dot file
+\subsubsection{GraphGenerator}
+\paragraph{}
+The only usage of this class is its ability to generate a .dot file. This file is created at the construction of the object.
+
+There are two public methods in this class :\newline
+
+int addNodeToGraph(const std::string \&nodeName);
+
+This method adds a Node to the graph, the parameter is the name of the Node.
+
+int addLinkToGraph(const std::string \&nodeNameFrom, const std::string \&nodeNameTo, const std::string \&linkLabel);
+
+This method adds a link between the two nodes of the graph given in parameters. The link has a label (3rd parameter).
+\subsubsection{LogOtherInfos}
+\paragraph{}
+This class contains all infos of a log line that are not used to store informations in our data structure. As the information is already parsed by the DataManager class, if someone wants to upgrade the application, he/she will only have to take the attribute he/she wants from this class and make it a sorting element.
+
 
 \newpage
 
