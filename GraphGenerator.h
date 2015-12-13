@@ -18,6 +18,8 @@ public:
 
     int addNodeToGraph(const std::string &nodeName);
     int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
+
+private:
     std::string transformToNodeName(const std::string &nonUsableName) const;
 
 private:
