@@ -12,15 +12,14 @@
 #include <sstream>
 
 #include "LogOtherInfos.h"
+#include "GraphGenerator.h"
 
 //-------- Interface of the class DataManager (file DataManager.h) -------
 #ifndef TP_CPP_DATAMANAGER_H
 #define TP_CPP_DATAMANAGER_H
 
 //------------------------------------------------------------- Constants
-const int FILE_ERROR = 80;
 const int DATA_TAB_SIZE = 2;
-const std::string INVALID_CHAR = "/\\:\"'^£$|[](){}#~?&%.=-+*,_ ";
 
 //------------------------------------------------------------------------
 // What is this class useful ?
@@ -48,7 +47,7 @@ public:
     // This method is used to load a logfile in the program.
     // The parameter logFilePath is the path to the file.
 
-    int Request(bool optionT=false,int tHour=-1, bool optionE=false, bool optionG=false,const std::string &outputFile="");
+    int Request(const bool optionT=false,const int tHour=-1,const bool optionE=false,const bool optionG=false,const std::string &outputFile="");
     // User guide :
     // Generate the outputs of the program.
     // The parameters correspond to user options, outputFile is the path
@@ -64,12 +63,8 @@ public:
 private:
     int add(const std::string &referrer,const std::string &destination, unsigned hour, unsigned int httpCode,const LogOtherInfos &other);
 
-    int addNodeToGraph(const std::string &nodeName);
-    int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel);
-    int initGraphFile(const std::string &filePath);
-    int closeGraphFile();
-    std::string transformToNodeName(const std::string &nonUsableName) const;
-    int transformToTabIndex(int httpCode) const;
+
+    unsigned transformToTabIndex(int httpCode) const;
 
     static bool compareDateAndHits(const pageAndHits &A, const pageAndHits &B);
     bool isNotExcludedDocument(const std::string &pagePath) const;
@@ -78,7 +73,7 @@ private:
 
 //------------------------------------------------------- Private atributs
 
-    std::ofstream graphFileStream;
+    GraphGenerator * graph;
     dataFromLevel * data[DATA_TAB_SIZE];
     std::vector< std::string > excludedExtension;
 

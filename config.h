@@ -8,5 +8,6 @@
 #include <string>
 
 const std::string EXTENSION_FILE = "excludedExtension.txt";
+const std::string INVALID_CHAR = "/\\:\"'^£$|[](){}#~?&%.=-+*,_ ";
 
 #endif //TP_CPP_CONFIG_H

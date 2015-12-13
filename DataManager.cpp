@@ -165,14 +165,14 @@ int DataManager::LoadLogFile(const std::string &logFilePath)
     return 0;
 } // end of method
 
-int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, const std::string &outputFile)
+int DataManager::Request(const bool optionT, const int tHour, const bool optionE, const bool optionG, const std::string &outputFile)
 // Algorithm : depends on the options.
 // Runs through the structure to find most popular URL.
 // if optionG checked, associate referrer to destination URL in a .dot
 {
     if(optionG)
     {
-        initGraphFile(outputFile);
+        graph = new GraphGenerator(outputFile);
     }
 
 
@@ -213,7 +213,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
                         }
                         if(optionG)
                         {
-                            addLinkToGraph(f->first,d->first,std::to_string(numberOfHitsByReferrer));
+                            graph->addLinkToGraph(f->first,d->first,std::to_string(numberOfHitsByReferrer));
                         }
                         numberOfHitsByPage += numberOfHitsByReferrer;
                     }
@@ -229,7 +229,7 @@ int DataManager::Request(bool optionT, int tHour, bool optionE, bool optionG, co
 
     if(optionG)
     {
-        closeGraphFile();
+        delete graph;
     }
 
     std::sort(pageHit.begin(),pageHit.end(),&compareDateAndHits);
@@ -286,81 +286,7 @@ int DataManager::add(const std::string &referrer, const std::string &destination
     return 0;
 }
 
-int DataManager::addNodeToGraph(const std::string &nodeName)
-{
-    if(!graphFileStream)
-    {
-        std::cerr << "erreur sur le fichier en écriture" << std::endl;
-        return FILE_ERROR;
-    }
-    else
-    {
-        graphFileStream << "       " << transformToNodeName(nodeName) << " [label=\"" << nodeName << "\"];" << std::endl;
-    }
-    return 0;
-}
-int DataManager::addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo, const std::string &linkLabel)
-{
-    addNodeToGraph(nodeNameFrom);
-    addNodeToGraph(nodeNameTo);
-    if(!graphFileStream)
-    {
-        std::cerr << "erreur sur le fichier en écriture" << std::endl;
-        return FILE_ERROR;
-    }
-    else
-    {
-        graphFileStream << "       " << transformToNodeName(nodeNameTo) << " -> ";
-        graphFileStream << transformToNodeName(nodeNameFrom) << " [label=" << linkLabel << "];" << std::endl;
-    }
-    return 0;
-}
-int DataManager::initGraphFile(const std::string &filePath)
-{
-    // creating a new one graph file, deleting the older one if the file already exist
-    graphFileStream.open(filePath,std::ios::out | std::ios::trunc);
-    if(!graphFileStream)
-    {
-        std::cerr << "erreur lors de l'ouverture du fichier: " << filePath << std::endl;
-        return FILE_ERROR;
-    }
-    graphFileStream << "digraph {" << std::endl;
-    //graphFileStream << "       it [label=\"-\"];" << std::endl;
-    return 0;
-}
-int DataManager::closeGraphFile()
-{
-    graphFileStream << "}" << std::endl;
-    graphFileStream.close();
-    return 0;
-}
 
-std::string DataManager::transformToNodeName(const std::string &nonUsableName) const
-{
-    std::string ret /*= "nomde"*/;
-    bool add;
-    for (unsigned i=0; i<nonUsableName.length(); i++)
-    {
-        add = true;
-        for(unsigned n=0 ; n<INVALID_CHAR.length() ; n++)
-        {
-            if(nonUsableName.at(i)==INVALID_CHAR.at(n))
-            {
-                add = false;
-                break;
-            }
-        }
-        if(add)
-        {
-            ret.push_back(nonUsableName.at(i));
-        }
-        else
-        {
-            ret.push_back(nonUsableName.at(i)%26+'a');
-        }
-    }
-    return ret;
-}
 
 
 bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B)
@@ -385,7 +311,7 @@ bool DataManager::isNotExcludedDocument(const std::string &pagePath) const
     return true;
 }
 
-int DataManager::transformToTabIndex(int httpCode) const {
+unsigned DataManager::transformToTabIndex(int httpCode) const {
     //equivalent to: (httpCode-100)/300 but handel error case:
     if(httpCode >= 100 && httpCode < 400)
     {
