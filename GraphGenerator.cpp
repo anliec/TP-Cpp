@@ -1,11 +1,27 @@
-//
-// Created by nicolas on 13/12/15.
-//
+/*************************************************************************
+                      GraphGenerator  -  description
+                             -------------------
+    begin                : 23/11/2015
+    copyright            : (C) 2015 by Edern Haumont & Nicolas Six
+*************************************************************************/
 
+//- Realisation of the class GraphGenerator (file GraphGenerator.cpp) -
+
+//---------------------------------------------------------------- INCLUDE
+
+//------------------------------------------------------- Personal include
 #include "GraphGenerator.h"
 #include "config.h"
 
+// don't use: "using namespace std;" to keep clear that we use std and
+// not any other library and by the same way keeping ready to use an other
+// library than the std.
 
+//----------------------------------------------------------------- PUBLIC
+
+//--------------------------------------------------------- Public methods
+
+// Constructor
 GraphGenerator::GraphGenerator(const std::string &filePath)
 {
     // creating a new one graph file, deleting the older one if the file already exist
@@ -19,6 +35,7 @@ GraphGenerator::GraphGenerator(const std::string &filePath)
         graphFileStream << "digraph {" << std::endl;
     }
 }
+// Destructor
 GraphGenerator::~GraphGenerator()
 {
     if(graphFileStream)
@@ -58,10 +75,11 @@ int GraphGenerator::addLinkToGraph(const std::string &nodeNameFrom, const std::s
     return 0;
 }
 
+//--------------------------------------------------------- Private methods
 
 std::string GraphGenerator::transformToNodeName(const std::string &nonUsableName) const
 {
-    std::string ret /*= "nomde"*/;
+    std::string ret ="";
     bool add;
     for (unsigned i=0; i<nonUsableName.length(); i++)
     {

@@ -15,7 +15,7 @@
 %\usepackage{hyperref} %pour les liens internet
 
 %\usepackage{graphicx} %pour les images
-\title{TP C++ 3 : Apache logs analysis}
+\title{TP3 C++ : Apache logs analysis}
 \author{Edern HAUMONT}
 \author{Nicolas SIX}
 \affil{B3111}
@@ -67,22 +67,18 @@ The input of our program (analog) is a correctly built (cf. detailed specs) log 
  \item GMT between -12 and +12
  \end{itemize}\\ \hline
      Total request & As followed (no constraint of world size) : "REQUESTTYPE requestedURL requestProtocol" & TestRequestType, TestRequestDestination, TestRequestProtocol & The only request that must be considered as valid by the program is GET, the other are accepted but not treated\\ \hline
-     Return code & Between 100 and 400, codes above 300 included are considered as fail codes & TestReturnCode & none\\ \hline
+     Return code & Between 100 and 520, codes above 400 included are considered as fail codes & TestReturnCode & none\\ \hline
      Size of transmission & >= 0. If it is unknown, it is replaced by a dash ("-") & TestDataSize & none\\ \hline
-     Referrer & It is given between double quotes & TestReferrer & none\\ \hline
+     Referrer & Given between double quotes & TestReferrer & none\\ \hline
      Browser and browser infos & Given between double quotes & TestBrowser & No particular syntax \\
      \hline
    \end{tabular}
  \end{center}
 
-\paragraph{}
- Here is a log line template given as example :
+\paragraph{Log line template:}
+MyIpAdress Logname Pseudo [DD/Mon/YYYY:HH:MM:SS XGMT] "REQUESTTYPE requestedURL requestProtocol" COD SIZE "referrer" "Browser informations given without a specific order"
 
- MyIpAdress Logname Pseudo [DD/Mon/YYYY:HH:MM:SS XGMT] "REQUESTTYPE requestedURL requestProtocol" COD SIZE "referrer" "Browser informations given without a specific order"
-
-\paragraph{}
- And an exemple :
-
+\paragraph{Exemple:}
  192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] "GET /temps/4IF16.html HTTP/1.1" 200 12106 "http://intranet-if.insa-lyon.fr/temps/4IF15.html" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"
  
 \subsection{Accepted requests}
@@ -95,13 +91,13 @@ Here is the template of a call :
 \paragraph{} 
  Here are three available options :
 \begin{center}
-   \begin{tabular}{| p{1cm} | p{9.5cm} | p{3cm} |}
+   \begin{tabular}{| p{2cm} | p{8cm} | p{3.5cm} |}
 	\hline
 	option & description & test\\ \hline
 	-e & e stands for exceptions. With this option, the program must exclude of the treatment all documents (in the log requests) that have a picture, css or javascript extension. As it is accepted if the program only exclude most common extensions, we chose to let the user define them in a text file (excludedExtensions.txt) & TestRequestE\\ \hline
-	-g outputName.dot & g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line & TestRequestG\\ \hline
+	-g fileName & g stands for graphic. The program must generate a .dot file, compatible with the software graphviz. In this graph file, the nodes are documents and the arcs are a travelling through a document to another. These arcs correspond to the link between a referrer URL and a destination URL in a log line & TestRequestG\\ \hline
 	-t hour & t stands for time. hour is a number between 0 and 23. This option is used to select only one hour of data between hour and hout+1. That means, the results in the output and/or those in the dot file are those corresponding to the trafic on the server in this interval of time. It is as if the logfile lines out of this interval didn't exist & TestRequestT\\ \hline
-	none & If there is no option -g, the program will return the 10 most used resources which fill the options. If there are less than 10 entries, it only prints those that are stored. & TestRequestSimple, TestNoLogfile, TestEmptyLogFile\\ \hline
+	none & If there is no option -g, the program will return the 10 most used resources which fill the options. If there are less than 10 entries, it only prints those that are stored. & TestRequestSimple, TestNoLogfile,\linebreak TestEmptyLogFile\\ \hline
    \end{tabular}
 \end{center}
 
@@ -109,8 +105,7 @@ Here is the template of a call :
 \paragraph{}
  We want a data structure which stores one information for each referrer-destination-hour combination : the number of hits. It must be fast and easily upgradable, so all informations, including those which are useless must also be stored.
  The Data structure must be optimized for readings in priority. However, if a future user wants to add an additional sorting level, it must be easy for him/her.
- 
-\newpage
+
  
 \section{Conception and Data Structure}
 \subsection{Data storage}
@@ -126,48 +121,58 @@ To resume, we have a main binary tree ordered by destination. Each cell contains
 We chose to keep other infos in a class so that, if the user wants to add a level of sorting, he/she just has to take it from this class (as the parser already gets it)
 \subsection{Classes}
 \paragraph{}
-We have 3 classes.
-
-You can find at the end of the document the general pattern of the application, with the interactions between classes.
+We have 3 classes. You can find at the end of the document the general pattern of the application, with the interactions between classes.
 
 \subsubsection{DataManager}
 \paragraph{}
-His is our main class. It contains our Data structures.
-
-It has two main methods :\newline
-
+DataManager is our main class. It contains our Data structures.
+\paragraph{}
+It has two main methods :
+\begin{lstlisting}[language=C++]
 int LoadLogFile(const std::string \&logFilePath);
-
+\end{lstlisting}
+\paragraph{}
 This method is used to load a logfile in the program. The parameter logFilePath is the path to the file.
 
-int Request(const bool optionT=false,const int tHour=-1,const bool optionE=false,const bool optionG=false,const std::string \&outputFile="");
+\begin{lstlisting}[language=C++]
+int Request(const bool optionT=false,const int tHour=-1,const bool optionE=false,\
+            const bool optionG=false,const std::string \&outputFile="");
+\end{lstlisting}
 
 This method generates the outputs of the program. The parameters correspond to user options, outputFile is the path to a generated .dot file
 \subsubsection{GraphGenerator}
 \paragraph{}
 The only usage of this class is its ability to generate a .dot file. This file is created at the construction of the object.
+\paragraph{}
+There are two public methods in this class :
 
-There are two public methods in this class :\newline
-
-int addNodeToGraph(const std::string \&nodeName);
+\begin{lstlisting}[language=C++]
+int addNodeToGraph(const std::string &nodeName);
+\end{lstlisting}
 
 This method adds a Node to the graph, the parameter is the name of the Node.
-
-int addLinkToGraph(const std::string \&nodeNameFrom, const std::string \&nodeNameTo, const std::string \&linkLabel);
+\begin{lstlisting}[language=C++]
+int addLinkToGraph(const std::string &nodeNameFrom, const std::string &nodeNameTo,\
+                   const std::string &linkLabel);
+\end{lstlisting}
 
 This method adds a link between the two nodes of the graph given in parameters. The link has a label (3rd parameter).
 \subsubsection{LogOtherInfos}
 \paragraph{}
 This class contains all infos of a log line that are not used to store informations in our data structure. As the information is already parsed by the DataManager class, if someone wants to upgrade the application, he/she will only have to take the attribute he/she wants from this class and make it a sorting element.
 
-
-\newpage
-
-%\include{../diagrammes/dataStruct/dataStruct.tex}
+\section{Appendix}
 
 \begin{figure}[t]
 	\caption{data structure}
 	\includegraphics[height=22cm]{../diagrammes/dataStruct/dataStruct.png}
 \end{figure}
+
+\begin{figure}[t]
+	\caption{data structure}
+	\includegraphics[height=22cm]{../diagrammes/classes/classeDiagram.png}
+\end{figure}
+
+
 
 \end{document}

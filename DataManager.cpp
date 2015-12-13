@@ -290,6 +290,7 @@ int DataManager::add(const std::string &referrer, const std::string &destination
 
 
 bool DataManager::compareDateAndHits(const pageAndHits &A, const pageAndHits &B)
+// function made to order the values by number of hits and then by name of the page
 {
     return (A.second > B.second) || ((A.second == B.second) && (A.first.compare(B.first)<0));
 }
